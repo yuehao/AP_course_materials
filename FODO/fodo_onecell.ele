@@ -1,0 +1,34 @@
+&run_setup
+	lattice             = fodo_onecell.lte,
+	use_beamline        = FODO,
+	rootname            = temp,
+	p_central           = 19569.471598716147,
+	centroid            = %s.cen,
+	default_order       = 3,
+	concat_order        = 3,
+&end
+
+&twiss_output
+	matched             = 1,
+	output_at_each_step = 0,
+	filename            = %s.twi,
+	radiation_integrals = 1,
+	beta_x              = 1,
+	alpha_x             = 0,
+	eta_x               = 0,
+	etap_x              = 0,
+	beta_y              = 1,
+	alpha_y             = 0,
+	eta_y               = 0,
+	etap_y              = 0,
+&end
+
+&run_control
+&end
+
+&bunched_beam
+&end
+
+&track
+&end
+

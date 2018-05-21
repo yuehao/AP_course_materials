@@ -1,0 +1,34 @@
+&run_setup
+	lattice             = fodo_match.lte,
+	use_beamline        = TOTAL_LINE,
+	rootname            = temp,
+	p_central           = 19569.471598716147,
+	centroid            = %s.cen,
+	default_order       = 3,
+	concat_order        = 3,
+&end
+
+&twiss_output
+	matched             = 0,
+	output_at_each_step = 0,
+	filename            = %s.twi,
+	radiation_integrals = 1,
+	beta_x              = 8.587620953910395,
+	alpha_x             = 1.6653345369377348e-16,
+	eta_x               = 0.7301137292000008,
+	etap_x              = -3.608224830031759e-16,
+	beta_y              = 3.7055033523654215,
+	alpha_y             = -3.330669073875469e-16,
+	eta_y               = 0.0,
+	etap_y              = 0.0,
+&end
+
+&run_control
+&end
+
+&bunched_beam
+&end
+
+&track
+&end
+

@@ -1,0 +1,8 @@
+qfh: kquad,l=0.5,k1=1
+qdh: kquad,l=0.5,k1=1
+bend: csbend,l=0.8, angle=0.1
+df:edrift, l=0.2
+
+oo:line=(df, bend, df)
+fodo:line=(qfh, oo, 2*qdh, oo, qfh)
+
