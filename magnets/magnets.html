@@ -11848,33 +11848,33 @@ $( document ).ready(function(){
 <table>
 <thead><tr>
 <th style="text-align:left">Magnet Types</th>
-<th style="text-align:left">Usages</th>
+<th style="text-align:right">Usages</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left">Dipoles</td>
-<td style="text-align:left">Form the Geometry of Accelerator</td>
+<td style="text-align:right">Form the Geometry of Accelerator</td>
 </tr>
 <tr>
 <td style="text-align:left">Quadrupoles</td>
-<td style="text-align:left">Focus/Defocus the beam</td>
+<td style="text-align:right">Focus/Defocus the beam</td>
 </tr>
 <tr>
 <td style="text-align:left">Sextrupole</td>
-<td style="text-align:left">Chromatic correction, nonlinear effects</td>
+<td style="text-align:right">Chromatic correction, nonlinear effects</td>
 </tr>
 <tr>
 <td style="text-align:left">Octopole</td>
-<td style="text-align:left">Damping of the collective effects</td>
+<td style="text-align:right">Damping of the collective effects</td>
 </tr>
 <tr>
 <td style="text-align:left">Solenoid</td>
-<td style="text-align:left">Focusing for low energy beam</td>
+<td style="text-align:right">Focusing for low energy beam</td>
 </tr>
 <tr>
 <td style="text-align:left">Correctors</td>
-<td style="text-align:left">Steer the beam</td>
+<td style="text-align:right">Steer the beam</td>
 </tr>
 </tbody>
 </table>
@@ -11964,8 +11964,10 @@ B_y &amp;= -\frac{\partial A_s}{\partial x} = -\frac{\partial \phi_M}{\partial y
 <p>We use Taylor expansion of $f$ at the vicinity of the center of magnet as</p>
 <p>\begin{align}
 f\left(z=x+iy\right) &amp; = A_s\left(x,y\right)+i\phi_M\left(x,y\right) \nonumber\\
- &amp; = -B_0 \sum_0^\infty \frac {b_n + i a_n}{n+1} \left(x+iy\right)^{n+1}
-\end{align}</p>
+ &amp; = -B_0 \sum_{n=0}^\infty \frac {b_n + i a_n}{n+1} \left(x+iy\right)^{n+1}  &amp;&amp;\quad\text{(U.S. convention)}\\
+ &amp; = -B_0 \sum_{m=1}^\infty \frac {b_m + i a_m}{m} \left(x+iy\right)^{m} &amp;&amp;\quad\text{(European convention)}
+\end{align}
+There are two widely used conventions on the index of the Taylor expansion.  The US convention starts with subscript $n=0$ and the European convention start with $m=1$.</p>
 <p>Then we take the derivative of the complex potential $f$ with respective to $z$
 \begin{align}
 \frac{df}{dz}
@@ -11974,10 +11976,11 @@ f\left(z=x+iy\right) &amp; = A_s\left(x,y\right)+i\phi_M\left(x,y\right) \nonumb
 &amp;=-\left(B_y+iB_x\right)
 \end{align}</p>
 <p>The magnetic field can be expressed as:
-\begin{equation}
-B_y+iB_x= B_0 \sum_0^\infty \left(b_n + i a_n\right) \left(x+iy\right)^{n}
-\end{equation}
-Here, $B_0$ is the main dipole field strength.  The $b_n$ and $a_n$ called the $2(n+1)^{th}$ multipole coefficients. The $b_n$ are the normal components while $a_n$ are the skew components.</p>
+\begin{align}
+B_y+iB_x &amp;= B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right) \left(x+iy\right)^{n}  &amp;&amp;\quad\text{(U.S. convention)}\\
+    &amp;= B_0 \sum_{m=1}^\infty \left(b_m + i a_m\right) \left(x+iy\right)^{m-1} &amp;&amp;\quad\text{(European convention)}
+\end{align}
+Here, $B_0$ is the main dipole field strength.  The $b_n$ and $a_n$ are called the $2(n+1)^{th}$ multipole coefficients in 'U.S. convention'; while the $b_m$ and $a_m$ are called $2m^{th}$ multipole coefficients in 'European convention'. The set of $b$ coefficients are the normal components while the set of $a$ coefficients are the skew components.</p>
 <p>This complex field representation in 2-D plane is named Beth representation.</p>
 
 </div>
@@ -11987,7 +11990,16 @@ Here, $B_0$ is the main dipole field strength.  The $b_n$ and $a_n$ called the $
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Dipoles">Dipoles<a class="anchor-link" href="#Dipoles">&#182;</a></h2>
+<h2 id="Example-Magnets">Example Magnets<a class="anchor-link" href="#Example-Magnets">&#182;</a></h2><p>Here we give the low order transverse magnets as the examples, using the U.S. convention:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dipoles">Dipoles<a class="anchor-link" href="#Dipoles">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12007,7 +12019,7 @@ $$\phi_M=-B_0\left(b_0 y+ a_0 x\right) $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Quadrupoles">Quadrupoles<a class="anchor-link" href="#Quadrupoles">&#182;</a></h2>
+<h3 id="Quadrupoles">Quadrupoles<a class="anchor-link" href="#Quadrupoles">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12066,10 +12078,10 @@ $$\phi_M=-B_0\left(b_0 y+ a_0 x\right) $$</p>
 
 
 
-<div id="92f1a4d1-21ff-4dfa-bf4e-8069517ec9a2"></div>
+<div id="13d18879-b86d-4e9c-b56c-0226668918b2"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#92f1a4d1-21ff-4dfa-bf4e-8069517ec9a2');
+var element = $('#13d18879-b86d-4e9c-b56c-0226668918b2');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12895,7 +12907,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Sextrupole">Sextrupole<a class="anchor-link" href="#Sextrupole">&#182;</a></h2>
+<h3 id="Sextrupole">Sextrupole<a class="anchor-link" href="#Sextrupole">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -12954,10 +12966,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="d21679f7-2b00-405d-8df0-c76f53c3e3f5"></div>
+<div id="59987408-2da4-4aa4-87cc-1e6d98717b62"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#d21679f7-2b00-405d-8df0-c76f53c3e3f5');
+var element = $('#59987408-2da4-4aa4-87cc-1e6d98717b62');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13768,11 +13780,11 @@ if (IPython.notebook.kernel != null) {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The normal sextrupole has the magnetic field as:
 \begin{equation}
-\mathbf{B}=3B_0 b_2\left[2xy \hat{x}+\left(x^2-y^2\right) \hat{y}\right]
+\mathbf{B}=B_0 b_2\left[2xy \hat{x}+\left(x^2-y^2\right) \hat{y}\right]
 \end{equation}
 while the skew Sextrupole has the magnetic field as:
 \begin{equation}
-\mathbf{B}=3B_0 a_2\left[\left(x^2-y^2\right) \hat{x}- 2xy\hat{y}\right]
+\mathbf{B}=B_0 a_2\left[\left(x^2-y^2\right) \hat{x}- 2xy\hat{y}\right]
 \end{equation}</p>
 <p>A skew sextrupole can be achieved by rotating $\pi/6$ from a normal sextrupole</p>
 
@@ -14089,10 +14101,10 @@ L_{eqv}=\frac{\int_{-\infty}^{\infty}b_n(z)dz}{b_n(z=0)}
 
 
 
-<div id="52efd4f1-d5d8-41b1-9aac-1bcb3fed9bf1"></div>
+<div id="c8afd69d-1f71-48ad-b38c-48a5a3d27114"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#52efd4f1-d5d8-41b1-9aac-1bcb3fed9bf1');
+var element = $('#c8afd69d-1f71-48ad-b38c-48a5a3d27114');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14955,10 +14967,10 @@ I_2=\frac{\int_{-\infty}^{\infty}B(z)(B_0-B(z))dz}{B_0^2}
 
 
 
-<div id="f6019fec-e51b-45b2-9414-d2dc116ab506"></div>
+<div id="754be5db-2d10-495a-92d7-6989cf6a4f0d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f6019fec-e51b-45b2-9414-d2dc116ab506');
+var element = $('#754be5db-2d10-495a-92d7-6989cf6a4f0d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
