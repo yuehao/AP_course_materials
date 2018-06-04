@@ -12078,10 +12078,10 @@ $$\phi_M=-B_0\left(b_0 y+ a_0 x\right) $$</p>
 
 
 
-<div id="13d18879-b86d-4e9c-b56c-0226668918b2"></div>
+<div id="086cb663-85ac-44e4-92b5-e2f2141db018"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#13d18879-b86d-4e9c-b56c-0226668918b2');
+var element = $('#086cb663-85ac-44e4-92b5-e2f2141db018');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12966,10 +12966,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="59987408-2da4-4aa4-87cc-1e6d98717b62"></div>
+<div id="b4200089-601c-484d-82d4-8662f0e2f02a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#59987408-2da4-4aa4-87cc-1e6d98717b62');
+var element = $('#b4200089-601c-484d-82d4-8662f0e2f02a');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13960,13 +13960,21 @@ $$NI=\frac{B_2R^3}{3\mu_0}$$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>When we have the 2-D field map from simulation or field measurement, the multi-pole coefficients can be determined from the definition of the complex representation:
+<p>When we have the 2-D field map from simulation or field measurement, the multi-pole coefficients can be determined from the definition of the complex representation.  In U.S. convention:
 \begin{equation}
-B_y+iB_x= B_0 \sum_0^\infty \left(b_n + i a_n\right) \left(x+iy\right)^{n}
+B_y+iB_x= B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right) \left(x+iy\right)^{n}
 \end{equation}</p>
 <p>\begin{equation}
 b_n=\frac{1}{B_0 n!}\frac{\partial^n B_y}{\partial x^n},
 a_n=\frac{1}{B_0 n!}\frac{\partial^n B_x}{\partial x^n}\label{eq:get_bn_an}
+\end{equation}</p>
+<p>In European convention:
+\begin{equation}
+B_y+iB_x= B_0 \sum_{m=1}^\infty \left(b_m + i a_m\right) \left(x+iy\right)^{m-1}
+\end{equation}</p>
+<p>\begin{equation}
+b_m=\frac{1}{B_0 (m-1)!}\frac{\partial^{m-1} B_y}{\partial x^{m-1}},
+a_m=\frac{1}{B_0 (m-1)!}\frac{\partial^{m-1} B_x}{\partial x^{m-1}}\label{eq:get_bm_am}
 \end{equation}</p>
 <p>The derivative is taken at the origin of the Taylor expansion.  Certainly, the result of such derivative depends on the area of analysis.  We only interested in the area that the charge particle can locate, usually limited by the size of the vacuum chamber.  We define a circle with radius $R_0$, named"<strong>good field region</strong>", in which the magnet is designed to deliver satisfied field quality.</p>
 
@@ -13978,21 +13986,19 @@ a_n=\frac{1}{B_0 n!}\frac{\partial^n B_x}{\partial x^n}\label{eq:get_bn_an}
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=magnet_error.png width="200" height="200"></p>
-<p>We can get the field on the circle and inside the circle (not necessary). From Eq.$\ref{eq:get_bn_an}$, we can take numerical derivative and get all $b_n$ and $a_n$.  However, determining the Taylor coefficient, especially high order ones, are noisy.  Alternatively, we may rewrite the Beth representation in terms of $B_r$ and $B_\phi$ (as shown in above figure),</p>
-<p>\begin{equation}
-B_\phi+iB_r= B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right)e^{i(n+1)\phi} r^{n}
-\end{equation}</p>
+<p>We can get the field on the circle and inside the circle (not necessary). From Eq.$\ref{eq:get_bn_an}$ or $\ref{eq:get_bm_am}$, we can take numerical derivative and get all $b_n$ and $a_n$.  However, determining the Taylor coefficient, especially high order ones, are noisy.  Alternatively, we may rewrite the Beth representation in terms of $B_r$ and $B_\phi$ (as shown in above figure),</p>
+<p>\begin{align}
+B_\phi+iB_r &amp;= B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right)e^{i(n+1)\phi} r^{n} &amp;&amp;\quad\text{(U.S. convention)} \label{eq:Bcomplex_us}\\
+&amp;= B_0 \sum_{m=1}^\infty \left(b_m + i a_m\right)e^{i m\phi} r^{m-1} &amp;&amp;\quad\text{(European convention)} \label{eq:Bcomplex_european}
+\end{align}</p>
 <p>where $z\equiv x+iy=re^{i\phi}$.  Or, we may seperately write as:
 \begin{align}
-B_\phi&amp;=B_0 \sum_{n=0}^\infty \left[b_n\cos(n+1)\phi-a_n\sin(n+1)\phi\right]r^n
-\nonumber\\
-B_r&amp;=B_0 \sum_{n=0}^\infty \left[b_n\sin(n+1)\phi+a_n\cos(n+1)\phi\right]r^n \label{eq:Br_Bphi}
-\end{align}</p>
-<p>Then we measure the magnetic field along the circle, $B_r(r=R_0,\phi)$ and $B_\phi(r=R_0,\phi)$.  Take integral $\int_0^{2\pi}e^{-i(m+1)\phi}d\phi$ on both side:</p>
-<p>\begin{align}
-\int_0^{2\pi}e^{-i(m+1)\phi}\left(B_\phi+iB_r\right)d\phi &amp;= B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right)R_0^n\int_0^{2\pi}e^{-i(m+1)\phi}e^{i(n+1)\phi}d\phi\\
-&amp;=2\pi B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right)R_0^n \delta_{m,n}\\
-&amp;=2\pi B_0 \left(b_m + i a_m\right)R_0^m 
+B_\phi&amp;=B_0 \sum_{n=0}^\infty \left[b_n\cos(n+1)\phi-a_n\sin(n+1)\phi\right]r^n &amp;&amp;\quad\text{(U.S. convention)}
+\label{eq:Bphi_us}\\
+&amp;=B_0 \sum_{m=1}^\infty \left[b_m\cos m\phi-a_m\sin m\phi\right]r^{m-1} &amp;&amp;\quad\text{(European convention)}
+\label{eq:Bphi_european}\\
+B_r&amp;=B_0 \sum_{n=0}^\infty \left[b_n\sin(n+1)\phi+a_n\cos(n+1)\phi\right]r^n &amp;&amp;\quad\text{(U.S. convention)}\label{eq:Br_us} \\
+&amp;=B_0 \sum_{m=1}^\infty \left[b_m\sin m\phi+a_m\cos m\phi\right]r^{m-1} &amp;&amp;\quad\text{(European convention)} \label{eq:Br_european}
 \end{align}</p>
 
 </div>
@@ -14002,11 +14008,22 @@ B_r&amp;=B_0 \sum_{n=0}^\infty \left[b_n\sin(n+1)\phi+a_n\cos(n+1)\phi\right]r^n
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Therefore, we can get the coefficient by:
+<p>Then we measure the magnetic field along the circle, $B_r(r=R_0,\phi)$ and $B_\phi(r=R_0,\phi)$.  Take integral $\int_0^{2\pi}e^{-i(n'+1)\phi}d\phi$ on both side of $\ref{eq:Bcomplex_us}$:</p>
+<p>\begin{align}
+\int_0^{2\pi}e^{-i(n'+1)\phi}\left(B_\phi+iB_r\right)d\phi &amp;= B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right)R_0^n\int_0^{2\pi}e^{-i(n'+1)\phi}e^{i(n+1)\phi}d\phi\\
+&amp;=2\pi B_0 \sum_{n=0}^\infty \left(b_n + i a_n\right)R_0^n \delta_{n',n}\\
+&amp;=2\pi B_0 \left(b_{n'} + i a_{n'}\right)R_0^{n'}
+\end{align}
+Therefore, we can get the coefficient in U.S convention by:
 \begin{equation}
 b_n + i a_n=\frac{1}{2\pi B_0 R_0^n}\int_0^{2\pi}e^{-i(n+1)\phi}\left(B_\phi+iB_r\right)d\phi
+\end{equation}
+Similarly, using European convention gives:
+\begin{equation}
+b_m + i a_m=\frac{1}{2\pi B_0 R_0^{m-1}}\int_0^{2\pi}e^{-i m\phi}\left(B_\phi+iB_r\right)d\phi
 \end{equation}</p>
-<p>Even for arbitrary field due to design errors, Eq. $\ref{eq:Br_Bphi}$ still hold, just with different values of the coefficient. Therefore one can prove that the radial and the azimuthal component has the same contribution</p>
+<p>Even for arbitrary field due to design and manufacture errors, the above analysis still hold. We can get the multi-pole coefficient of the errors using the above integrals.</p>
+<p>One can prove that the radial and the azimuthal component has the same contribution</p>
 <p>\begin{align}
 b_n + i a_n&amp;=\frac{1}{\pi B_0 R_0^n}\int_0^{2\pi}e^{-i(n+1)\phi}B_\phi d\phi\nonumber\\
 &amp;=\frac{i}{\pi B_0 R_0^n}\int_0^{2\pi}e^{-i(n+1)\phi}B_r d\phi
@@ -14051,7 +14068,21 @@ $$\frac{\partial B_x}{\partial z}\ne 0\;\;\text{and/or}\;\;\frac{\partial B_y}{\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In many applications, the integrated strength of the multipoles is important to characterize the effect to be beam.  We may define the field integral of component $b_n$:
+<p>In many applications, we care about the integrated field over the direction of beam, viz. $z$ direction.</p>
+<p>In three dimension, the source-less magnetic field gives:
+\begin{equation}
+\nabla^2\phi_M =\frac{\partial^2\phi_M}{\partial x^2}+\frac{\partial^2\phi_M}{\partial y^2}+\frac{\partial^2\phi_M}{\partial z^2}=0
+\end{equation}</p>
+<p>Then integration over $z$ gives:
+\begin{equation}
+\left(\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}\right)\int_{z_1}^{z_2} \phi_M(x,y,z)dz + \left.\frac{\partial \phi_M}{\partial z} \right|_{z_1}^{z_2}=0
+\end{equation}
+or:
+\begin{equation}
+\left(\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}\right)\int_{z_1}^{z_2} \phi_M(x,y,z)dz = B(x,y,z_2)-B(x,y,z_1)
+\end{equation}</p>
+<p>By choosing the proper integrated region, the analysis for 2-D can be extropolated to the integrated field.</p>
+<p>The integrated strength of the multipoles is important to characterize the effect to be beam.  We may define the field integral of component $b_n$:
 \begin{equation}
 I_{b_n}=\int_{-\infty}^{\infty}b_n(z)dz
 \end{equation}</p>
@@ -14101,10 +14132,10 @@ L_{eqv}=\frac{\int_{-\infty}^{\infty}b_n(z)dz}{b_n(z=0)}
 
 
 
-<div id="c8afd69d-1f71-48ad-b38c-48a5a3d27114"></div>
+<div id="ad7e8995-9b85-40b3-87cf-d09a6c483ae0"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#c8afd69d-1f71-48ad-b38c-48a5a3d27114');
+var element = $('#ad7e8995-9b85-40b3-87cf-d09a6c483ae0');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14967,10 +14998,10 @@ I_2=\frac{\int_{-\infty}^{\infty}B(z)(B_0-B(z))dz}{B_0^2}
 
 
 
-<div id="754be5db-2d10-495a-92d7-6989cf6a4f0d"></div>
+<div id="ac52ade9-ef0d-4d84-b997-cd78127e5254"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#754be5db-2d10-495a-92d7-6989cf6a4f0d');
+var element = $('#ac52ade9-ef0d-4d84-b997-cd78127e5254');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
