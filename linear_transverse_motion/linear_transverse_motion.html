@@ -11767,50 +11767,6 @@ div#notebook {
     });
     </script>
     <!-- End of mathjax configuration --></head>
-
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
-
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
-
-<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
-
-<script>
-$( document ).ready(function(){
-
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': false,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
-
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
-
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
-    });
-</script>
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -12076,7 +12032,7 @@ And the curl of the vector gives:
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We consider the approach from Lagrangian of a relativistic charged particle in a E-M field.
-\begin{equation}|
+\begin{equation}
 L\left(\mathbf{x}, \mathbf{v}, t\right)=
 -mc^2\sqrt{1-\frac{v^2}{c^2}}
 +e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
@@ -12155,7 +12111,7 @@ H\left(x_1,\cdots,x_n, P_1,\cdots,P_n, t\right)=\sqrt{\left(m c^2\right)^2
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The first necessary transformation that we need to make is to change the coordinate system to the Frenet-Serret coordinate system, i.e. from Cartesian coordinate $\mathbf{r}=x\hat{x}+y\hat{y},z\hat{z}$ to $\mathbf{r}=\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)$.<br>
+<p>The first necessary transformation that we need to make is to change the coordinate system to the Frenet-Serret coordinate system, i.e. from Cartesian coordinate $\mathbf{r}=x\hat{x}+y\hat{y}+z\hat{z}$ to $\mathbf{r}=\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)$.<br>
 We use the generating function of the $3^{rd}$ type to perform this transformation:
 \begin{equation}
 F_3=-\mathbf{P}\cdot\left(\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)\right)
@@ -12683,93 +12639,6 @@ $$W(s_0+s)=det(M(s_0+s,s_0))W(s)$$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Primer-on-symplecticity">Primer on symplecticity<a class="anchor-link" href="#Primer-on-symplecticity">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For a N-dimensional Hamiltonian system ($\mathbf{x}^N, \mathbf{p}^N$), the N sets of Hamiltonian equation reads:
-\begin{align}
-\frac{dx_i}{dt}&amp;=\frac{\partial H}{\partial p_i}\\
-\frac{dp_i}{dt}&amp;=-\frac{\partial H}{\partial x_i}
-\end{align}</p>
-<p>Let's write a column vector $X=(x_1, p_1, x_2,p_2,\cdots,x_N,p_n)$, the Hamiltonian can be written as:
-\begin{align}
-\frac{d}{dt}X &amp; \equiv S_N \frac{\partial H}{\partial X}
-= \left(\begin{array}{cccc}
-S_{1} &amp; 0 &amp; \cdots &amp; 0\\
-0 &amp; S_{1} &amp; \cdots &amp; 0\\
-\vdots &amp; \vdots &amp; \ddots &amp; 0\\
-0 &amp; 0 &amp; 0 &amp; S_{1}
-\end{array}\right)
-\frac{\partial H}{\partial X}
-\end{align}</p>
-<p>where $S_1$ is the matrix for one dimension space:
-\begin{align}
- S_1
-= \left(\begin{array}{cc}
-0 &amp; 1\\
--1 &amp; 0
-\end{array}\right)
-\end{align}</p>
-<p>Later on lets ignore the subscript.  We found that the following facts about S</p>
-<ul>
-<li>Determinant of S: 
-\begin{equation}\left|S\right|=1\end{equation}</li>
-<li>Inverse of $S$: \begin{equation} S^{-1}=1 \text{ or } S^2 = -I\end{equation}</li>
-<li>The transpose of $S$: \begin{equation}S^T=-S\end{equation}</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For a map from location $s_0$ to $s_1=s_0+s$, we have: 
-\begin{align}
-X\left(s_1\right)=M X\left(s_0\right)
-\end{align}</p>
-<p>M is a matrix and the components is defined as:
-\begin{align}
-M_{ij}=\frac{\partial X_i\left(s_1\right)}{ \partial X_j\left(s_0\right)}
-\end{align}</p>
-<p>If $M_{ij}$ are not functions of $X$, the map represents a linear map.  Otherwise $M$ is a non-linear map.  Regardless of the linearity, the condition that map $M$ need to follow due to the system is a Hamiltonian system is called <strong>symplectic condition</strong>.  We just explored the condition in 1-D case.  In N-D system, from the Map definition:</p>
-<p>\begin{align}
-X\left(s_1\right)=M X\left(s_0\right)
-\end{align}</p>
-<p>We take the derivative of the $i^{th}$ row of $X(s_1)$ with respect to $s$:
-\begin{align}
-\frac{dX_i\left(s_1\right)}{ds}
-&amp;=\frac{\partial X_i\left(s_1\right)}{\partial X_j\left(s_0\right)}\frac{dX_j\left(s_0\right)}{ds}\nonumber\\
-&amp;=M_{ij}S_{jk}\frac{\partial H}{\partial X_k\left(s_0\right)}\nonumber\\
-&amp;=M_{ij}S_{jk}\frac{\partial H}{\partial X_l\left(s_1\right)}\frac{\partial X_l\left(s_1\right)}{\partial X_k\left(s_0\right)}\nonumber\\
-&amp;=M_{ij}S_{jk}M_{kl}^T\frac{\partial H}{\partial X_l\left(s_1\right)}
-\end{align}</p>
-<p>We know that</p>
-<p>\begin{equation}
-\frac{dX_i\left(s_1\right)}{ds}=S_{il}\frac{\partial H}{\partial X_l\left(s_1\right)}
-\end{equation}</p>
-<p>Therefore we have 
-\begin{align}
-MSM^T=S
-\end{align}
-Using the property of $S$, we have the usual form:
-\begin{align}
-M^TSM=S
-\end{align}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Long-term-stability-condition">Long-term stability condition<a class="anchor-link" href="#Long-term-stability-condition">&#182;</a></h4>
 </div>
 </div>
@@ -12896,7 +12765,7 @@ M_{x,seg}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span>
@@ -12910,7 +12779,7 @@ M_{x,seg}
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sqkx</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">l</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;\sqrt</span><span class="si">{k_x}</span><span class="s2">,s,L&quot;</span><span class="p">)</span>
@@ -12934,7 +12803,7 @@ M_{x,seg}
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[8]:</div>
+<div class="prompt output_prompt">Out[2]:</div>
 
 
 
