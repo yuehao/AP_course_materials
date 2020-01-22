@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>synchrotron_radiation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': true,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "True"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": false};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11837,8 +11887,8 @@ $( document ).ready(function(){
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Synchrotron radiation was first observed in GE synchrotron on 1946.
 <img src=ge_synchrotron.png width=400><img src=sr_paper_1947.png width=400></p>
-<p>Then it was realized as the major obstacle to achieve higher electron energy in a ring accelerator.  Since the radiation power is scaled as:
-\begin{equation}
+<p>Then it was realized as the major obstacle to achieve higher electron energy in a ring accelerator.  Since the radiation power is scaled as:</p>
+<p>\begin{equation}
 P\sim \frac{\gamma^4}{\rho^2}
 \end{equation}</p>
 
@@ -11857,21 +11907,21 @@ P\sim \frac{\gamma^4}{\rho^2}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We are interested in the E-M field generated by a moving charged particle  Suppose the charge particle has determined trajectory $\mathbf{r}_0(t_r)$, the time $t_r$ is the time at the charged particle.  The observer located at $P$ as position $\mathbf{r}=\mathbf{r}_0(t_r) + \mathbf{R}(t_r)$.  The time $t$ is related to $t_r$ by:
-\begin{align}
+<p>We are interested in the E-M field generated by a moving charged particle  Suppose the charge particle has determined trajectory $\mathbf{r}_0(t_r)$, the time $t_r$ is the time at the charged particle.  The observer located at $P$ as position $\mathbf{r}=\mathbf{r}_0(t_r) + \mathbf{R}(t_r)$.  The time $t$ is related to $t_r$ by:</p>
+<p>\begin{align}
 t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c}=t
 \end{align}</p>
-<p>$t_r$ is the retarded time.  The time derivative of $t_r$ is given by:
-\begin{align}
+<p>$t_r$ is the retarded time.  The time derivative of $t_r$ is given by:</p>
+<p>\begin{align}
 d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 \left(1+\frac{d}{dt_r}\frac{\left|\mathbf{R}(t_r)\right|}{c}\right)dt_r&amp;=dt
 \end{align}</p>
-<p>from $R^2=\mathbf{R}\cdot\mathbf{R}$, we have
-\begin{align}
+<p>from $R^2=\mathbf{R}\cdot\mathbf{R}$, we have</p>
+<p>\begin{align}
 \frac{dR}{dt_r}=-\frac{\mathbf{v}\cdot\mathbf{R}}{R}
 \end{align}</p>
-<p>So the $t_r$ 's derivative is :
-\begin{align}
+<p>So the $t_r$ 's derivative is :</p>
+<p>\begin{align}
 \frac{dt_r}{dt}=\frac{1}{1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}}
 \end{align}</p>
 
@@ -11882,8 +11932,8 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From the wave form of the Maxwell equation of one particle:
-\begin{align}
+<p>From the wave form of the Maxwell equation of one particle:</p>
+<p>\begin{align}
 (-\nabla^2 +\frac{1}{c^2}\frac{\partial^2}{\partial t^2}) \phi &amp;= \frac{\rho}{\varepsilon_0} \\
 (-\nabla^2 +\frac{1}{c^2}\frac{\partial^2}{\partial t^2}) \mathbf A &amp;= \mu_0 \mathbf J
 \end{align}</p>
@@ -11895,18 +11945,18 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here, the charged density and current density are 
-\begin{align}
+<p>Here, the charged density and current density are</p>
+<p>\begin{align}
 \rho&amp;=q\delta(\mathbf{r}-\mathbf{r}_0(t_r)) \\
 \mathbf{J}&amp;=q\mathbf{r}(t_r)\delta(\mathbf{r}-\mathbf{r}_0(t_r))
 \end{align}</p>
-<p>The scalar and vector potential are 
-\begin{align}
+<p>The scalar and vector potential are</p>
+<p>\begin{align}
 \phi(\mathbf{r}, t) &amp;= \frac{1}{4\pi \epsilon_0} \iint \frac{q\delta^3(\mathbf{r'} - \mathbf{r}_s(t'))}{|\mathbf{r} - \mathbf{r}'|} \delta(t' - t_r') \, dt' \, d^3\mathbf{r}'\\
 \mathbf{A}(\mathbf{r}, t) &amp;= \frac{\mu_0}{4\pi} \iint \frac{q\mathbf{v}_s(t') \delta^3(\mathbf{r'} - \mathbf{r}_s(t'))}{|\mathbf{r} - \mathbf{r}'|} \delta(t' - t_r') \, dt' \, d^3\mathbf{r}'
 \end{align}</p>
-<p>Then the potentials reduces to 
-\begin{align}
+<p>Then the potentials reduces to</p>
+<p>\begin{align}
 \phi(\mathbf{r}, t) &amp;= \frac{1}{4\pi \epsilon_0} \frac{q}{\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)\left|\mathbf{r}-\mathbf{r_0}\right|} \\
 \mathbf{A}(\mathbf{r}, t) &amp;= \frac{\mu_0}{4\pi } \frac{q\mathbf{v}}{\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)\left|\mathbf{r}-\mathbf{r_0}\right|}
 \end{align}</p>
@@ -11919,8 +11969,8 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The fields therefore can be calculated as from 
-\begin{align}
+<p>The fields therefore can be calculated as from</p>
+<p>\begin{align}
 \mathbf{E}&amp;=-\boldsymbol {\nabla} \phi -\frac{\partial \mathbf{A}}{\partial t}\\
 \mathbf{B}&amp;=\boldsymbol {\nabla} \times \mathbf{A}
 \end{align}</p>
@@ -11929,13 +11979,13 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 \boldsymbol {\nabla} \left|\mathbf{r}-\mathbf{r_0}\right| &amp;= \boldsymbol{\nabla} t_r \frac{d |\mathbf{r}-\mathbf{r_0}|}{d t_r} + \mathbf{\hat{R}} \\
 &amp;= -\boldsymbol{\nabla} t_r c\boldsymbol{\beta}\cdot\mathbf{\hat{R}} + \mathbf{\hat{R}}
 \end{align}</p>
-<p>And we know that 
-\begin{align}
+<p>And we know that</p>
+<p>\begin{align}
 \boldsymbol{\nabla} t_r + \frac{1}{c}{\boldsymbol \nabla} |\mathbf{r}-\mathbf{r_0}| &amp;= 0 \\
 \boldsymbol{\nabla} t_r (1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}) &amp;= -\frac{1}{c}\mathbf{\hat{R}}  \nonumber\\
 \end{align}</p>
-<p>Therefore we can gather all useful relations below:
-\begin{align}
+<p>Therefore we can gather all useful relations below:</p>
+<p>\begin{align}
 \frac{dt_r}{dt}&amp;=\frac{1}{1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}}\\
 \boldsymbol{\nabla} t_r &amp;= -\frac{1}{c}\frac{\mathbf{\hat{R}}}{1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}} \\
 \boldsymbol {\nabla} \left|\mathbf{r}-\mathbf{r_0}\right| &amp;= \frac{\mathbf{\hat{R}}}{\left(1 - \mathbf{\hat{R}}\cdot{\boldsymbol \beta}_s\right)}
@@ -11948,13 +11998,13 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The the electric field gives:
-\begin{align}
+<p>The the electric field gives:</p>
+<p>\begin{align}
 \mathbf{E}=\frac{q}{4\pi\epsilon_0\gamma^2}\frac{\mathbf{\hat{R}}-\boldsymbol{\beta}}{R^2\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)^3} + 
 \frac{q}{4\pi\epsilon_0 c} \mathbf{\hat{R}}\times\frac{\left(\mathbf{\hat{R}}-\boldsymbol{\beta}\right)\times\boldsymbol{\dot{\beta}}}{R\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)^3}
 \end{align}</p>
-<p>The magnetic field gives:
-\begin{align}
+<p>The magnetic field gives:</p>
+<p>\begin{align}
 \mathbf{B}=\mathbf{\hat{R}}\times\mathbf{E}/c
 \end{align}</p>
 <p>The first term does not involve acceleration, which described a 'uniformly' moving charge (see "The classical Theory of Fields" by Landau and Lifshitz).  After a Lorentz transform, tt is just the static electric field from a charged particle.  The emitted energy from this term is zero.  Therefore only the contribution from the second term 'radiates' out, which is consequence of $\boldsymbol{\dot{\beta}}$, or acceleration.</p>
@@ -11974,14 +12024,14 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Poynting vector of the radiation term gives (using the fact $\mathbf{\hat{R}}\cdot \mathbf{E}=0$):
-\begin{align}
+<p>The Poynting vector of the radiation term gives (using the fact $\mathbf{\hat{R}}\cdot \mathbf{E}=0$):</p>
+<p>\begin{align}
 \mathbf{S}&amp;=\frac{1}{\mu_0}\mathbf{E}\times\mathbf{B}\\
 &amp;=\frac{1}{\mu_0}\mathbf{E}\times(\mathbf{\hat{R}}\times\mathbf{E}/c)\\
 &amp;=\frac{1}{\mu_0c}E^2\mathbf{\hat{R}}
 \end{align}</p>
-<p>The power dissipates in the unit solid angle gives, <strong><em>evalutated as source</em></strong> is :
-\begin{align}
+<p>The power dissipates in the unit solid angle gives, <strong><em>evalutated as source</em></strong> is :</p>
+<p>\begin{align}
 \frac{dP}{d\Omega}&amp;=R^2\mathbf{S}\cdot \mathbf{\hat{R}} \frac{dt}{dt_r}\\
 &amp;=\left(1 - \mathbf{\hat{R}}\cdot{\boldsymbol \beta}_s\right) \frac{R^2 E^2}{\mu_0 c}\\
 &amp;=\frac{q^2}{16\pi^2\epsilon_0 c}
@@ -12009,14 +12059,14 @@ d(t_r+\frac{\left|\mathbf{R}(t_r)\right|}{c})&amp;=dt\\
 <li>$\mathbf{\hat{R}}-\boldsymbol{\beta} \approx \mathbf{\hat{R}}$</li>
 <li>$1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}} \approx 1$</li>
 </ul>
-<p>Then the power flux gives:
-\begin{align}
+<p>Then the power flux gives:</p>
+<p>\begin{align}
 \frac{dP}{d\Omega}&amp;=\frac{q^2}{16\pi^2\epsilon_0 c}
 \Big(\mathbf{\hat{R}}\times\left(\mathbf{\hat{R}}\times\boldsymbol{\dot{\beta}}\right)\Big)^2\nonumber\\
 &amp;=\frac{q^2}{16\pi^2\epsilon_0 c^3} \mathbf{\dot{v}}^2 \left(\sin\theta\right)^2
 \end{align}</p>
-<p>Here we establish the spherical coordinate system along $\mathbf{\dot{v}}$ and the angle between $\mathbf{\dot{v}}$ and $\mathbf{\hat{R}}$ is $\theta$.  Therefore the total power is simply:
-\begin{align}
+<p>Here we establish the spherical coordinate system along $\mathbf{\dot{v}}$ and the angle between $\mathbf{\dot{v}}$ and $\mathbf{\hat{R}}$ is $\theta$.  Therefore the total power is simply:</p>
+<p>\begin{align}
 P&amp;=\int\frac{dP}{d\Omega}d\Omega \\
 &amp;=\frac{q^2}{16\pi^2\epsilon_0 c^3} \mathbf{\dot{v}}^2 
 \int_0^{2\pi} d\phi \int_0^{\pi} \left(\sin\theta\right)^2 \sin \theta d\theta \nonumber\\
@@ -12166,26 +12216,26 @@ P&amp;=\int\frac{dP}{d\Omega}d\Omega \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In a linac, the total radiation power is:
-\begin{align}
+<p>In a linac, the total radiation power is:</p>
+<p>\begin{align}
 P=\frac{1}{4\pi\epsilon_0}\frac{2q^2}{3c}\gamma^6\dot{\beta}^2
 \end{align}</p>
-<p>It is more convenient to convert the change of velocity to the energy.  From $\beta^2\gamma^2=\gamma^2-1$, we have 
-\begin{align}
+<p>It is more convenient to convert the change of velocity to the energy.  From $\beta^2\gamma^2=\gamma^2-1$, we have</p>
+<p>\begin{align}
 \beta\dot{\beta}=\gamma^{-3}\dot\gamma=\frac{1}{mc^2\gamma^3}\frac{dE}{dx}\frac{dx}{dt}=\frac{\beta}{mc\gamma^3}\frac{dE}{dx}
 \end{align}</p>
-<p>Therefore:
-\begin{align}
+<p>Therefore:</p>
+<p>\begin{align}
 P&amp;=\frac{1}{4\pi\epsilon_0}\frac{2q^2}{3c}\gamma^6\frac{1}{m^2c^2\gamma^6}\left(\frac{dE}{dx}\right)^2 \nonumber \\
 &amp;=\frac{1}{4\pi\epsilon_0}\frac{2q^2c}{3(mc^2)^2}\left(\frac{dE}{dx}\right)^2 \\
 &amp;\approx 0.288 eV/s \times\left(\frac{\text{Energy gradient [MeV/m]}}{\text{Beam rest energy [MeV]}}\right)^2
 \end{align}</p>
-<p>The angular dependence becomes:
-\begin{align}
+<p>The angular dependence becomes:</p>
+<p>\begin{align}
 \frac{dP}{d\Omega}\sim \frac{\dot{\beta}^{2} \sin^{2}{\left (\theta \right )}}{\left(- \beta \cos{\left (\theta \right )} + 1\right)^{5}}
 \end{align}</p>
-<p>when the beam is ultra-relativistic, $\beta\approx 1-\frac{1}{2\gamma^2}$, $\sin\theta\approx\theta$, and $\cos\theta\approx 1-\theta^2/2$, therefore, the angular distribution becomes:
-\begin{align}
+<p>when the beam is ultra-relativistic, $\beta\approx 1-\frac{1}{2\gamma^2}$, $\sin\theta\approx\theta$, and $\cos\theta\approx 1-\theta^2/2$, therefore, the angular distribution becomes:</p>
+<p>\begin{align}
 \frac{dP}{d\Omega}\sim \frac{\dot{\beta}^{2} \theta^2}{\left(\theta^2+\frac{1}{\gamma^2}\right)^{5}}
 \end{align}</p>
 <p>The maximum angle locates at $\theta\sim\frac{1}{\gamma}$.</p>
@@ -12229,10 +12279,10 @@ P&amp;=\frac{1}{4\pi\epsilon_0}\frac{2q^2}{3c}\gamma^6\frac{1}{m^2c^2\gamma^6}\l
 
 
 
-<div id="a393cd1c-2531-4ad0-b678-66efda0df4e0"></div>
+<div id="ed071ebe-5232-46b6-a5e9-544e9839f3bc"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a393cd1c-2531-4ad0-b678-66efda0df4e0');
+var element = $('#ed071ebe-5232-46b6-a5e9-544e9839f3bc');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13077,10 +13127,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="904da684-5a02-4f49-a604-a749fa8afa75"></div>
+<div id="4ba830df-22e0-4e83-82f0-c1e4b733b1c6"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#904da684-5a02-4f49-a604-a749fa8afa75');
+var element = $('#4ba830df-22e0-4e83-82f0-c1e4b733b1c6');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -13897,28 +13947,28 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the magnetic field, the velocity only changes its direction, $\boldsymbol{\dot\beta}\perp\boldsymbol{\beta}$, and the amplitude is
-\begin{align}
+<p>In the magnetic field, the velocity only changes its direction, $\boldsymbol{\dot\beta}\perp\boldsymbol{\beta}$, and the amplitude is</p>
+<p>\begin{align}
 \dot\beta=\frac{c\beta^2}{\rho}
 \end{align}</p>
-<p>Then the total power is:
-\begin{align}
+<p>Then the total power is:</p>
+<p>\begin{align}
 P&amp;=\frac{1}{4\pi\epsilon_0}\frac{2q^2}{3c}\gamma^6 \dot{\beta}^2\left(1-\beta^{2} \sin^{2}{\left (\Theta \right )}\right)\\
 &amp;=\frac{1}{4\pi\epsilon_0}\frac{2q^2}{3}\frac{c\gamma^4\beta^4}{\rho^2}
 \end{align}</p>
-<p>We try to re-express the power in terms of the classical radius $r_0$ and radiation constant $C_\gamma$, who are defined as:
-\begin{align}
+<p>We try to re-express the power in terms of the classical radius $r_0$ and radiation constant $C_\gamma$, who are defined as:</p>
+<p>\begin{align}
 r_0=\frac{1}{4\pi\epsilon_0}\frac{q^2}{mc^2}
 \end{align}</p>
 <p>\begin{align}
 C_\gamma=\frac{4\pi}{3}\frac{r_0}{\left(mc^2\right)^3}
 \end{align}</p>
-<p>Then
-\begin{align}
+<p>Then</p>
+<p>\begin{align}
 P=\frac{C_\gamma}{2\pi}c\beta^4 \frac{E^4}{\rho^2}
 \end{align}</p>
-<p>For different particle species the constant $C_\gamma$ gives:
-\begin{align}
+<p>For different particle species the constant $C_\gamma$ gives:</p>
+<p>\begin{align}
 C_\gamma=
 \begin{cases}
 8.85\times10^{-5} \text{ m/(GeV)}^3 &amp; \text{Electron}\\
@@ -13926,8 +13976,8 @@ C_\gamma=
 7.78\times10^{-18} \text{ m/(GeV)}^3 &amp; \text{Proton}\\
 \end{cases}
 \end{align}</p>
-<p>The total energy radiated of the ring will be:
-\begin{align}
+<p>The total energy radiated of the ring will be:</p>
+<p>\begin{align}
 U_r&amp;=\int_{0}^{T}Pdt \\
 &amp;\approx\frac{C_\gamma}{2\pi}\beta^4 E^4\oint \frac{1}{\rho^2}ds
 \end{align}</p>
@@ -13939,8 +13989,8 @@ U_r&amp;=\int_{0}^{T}Pdt \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The angular distribution can be found as: 
-\begin{align}
+<p>The angular distribution can be found as:</p>
+<p>\begin{align}
 \frac{dP}{d\Omega}
 &amp;\sim\frac{\dot{\beta}^{2}}{\left(1- \beta \cos{\left (\theta \right )}\right)^{5}} 
 \left(-\beta^{2} \sin^{2}{\left (\phi \right )} \sin^{2}{\left (\theta \right )} + \beta^{2} - 2 \beta \cos{\left (\theta \right )} + \sin^{2}{\left (\phi \right )} \sin^{2}{\left (\theta \right )} + \cos^{2}{\left (\theta \right )}\right)  \\
@@ -14010,10 +14060,10 @@ U_r&amp;=\int_{0}^{T}Pdt \\
 
 
 
-<div id="5475f67e-c727-4576-bff4-d51468a796e7"></div>
+<div id="d40b0d30-d5c3-4fe8-96d3-0ee75bc356a4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#5475f67e-c727-4576-bff4-d51468a796e7');
+var element = $('#d40b0d30-d5c3-4fe8-96d3-0ee75bc356a4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -14855,16 +14905,16 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=sr_ering.png width=400>
-We are interested in an electron storage ring. The retarded time interval of shining the SR cone to a far field target is
-\begin{align}
+We are interested in an electron storage ring. The retarded time interval of shining the SR cone to a far field target is</p>
+<p>\begin{align}
 \Delta t_r \approx \frac{\rho\theta}{\beta c}\sim \frac{\rho}{\gamma c}
 \end{align}</p>
-<p>Convert to the observer's time:
-\begin{align}
+<p>Convert to the observer's time:</p>
+<p>\begin{align}
 \Delta t=\frac{dt}{dtr}\Delta t_r \sim \frac{\rho}{\gamma^3 c}
 \end{align}</p>
-<p>Therefore the frequency content is approximated with:
-\begin{align}
+<p>Therefore the frequency content is approximated with:</p>
+<p>\begin{align}
 \omega\sim 1/\Delta t\sim \frac{\gamma^3 c}{\rho}\sim \gamma^3 \omega_0
 \end{align}</p>
 
@@ -14883,18 +14933,18 @@ We are interested in an electron storage ring. The retarded time interval of shi
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To study the frequency spectrum of the synchrotron radiation, we return to the flux, evaluated at the <strong><em>observation point</em></strong> gives
-\begin{align}
+<p>To study the frequency spectrum of the synchrotron radiation, we return to the flux, evaluated at the <strong><em>observation point</em></strong> gives</p>
+<p>\begin{align}
 \frac{dP}{d\Omega}&amp;=R^2\mathbf{S}\cdot \mathbf{\hat{R}} \\
 &amp;=\frac{1}{\mu_0 c}R^2 E^2
 \equiv G(t)^2
 \end{align}</p>
-<p>We define an amplitude radiation function which is the square root of the flux:
-\begin{align}
+<p>We define an amplitude radiation function which is the square root of the flux:</p>
+<p>\begin{align}
 \mathbf{G}(t)=\sqrt{\frac{1}{\mu_0 c}} R (t) \mathbf{E}
 \end{align}</p>
-<p>Then the frequency content is given by Fourier transform:
-\begin{align}
+<p>Then the frequency content is given by Fourier transform:</p>
+<p>\begin{align}
 \mathbf{G}(\omega)
 &amp;=\frac{1}{\sqrt{2\pi}}\int\mathbf G(t)e^{i\omega t}dt\\
 &amp;=\frac{q}{4\pi\epsilon_0 c}\sqrt{\frac{1}{2\pi\mu_0 c}}\int \mathbf{\hat{R}}\times\frac{\left(\mathbf{\hat{R}}-\boldsymbol{\beta}\right)\times\boldsymbol{\dot{\beta}}}{\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)^3}e^{i\omega t}dt \nonumber\\
@@ -14915,8 +14965,8 @@ R&amp;=\left|\mathbf{r}-\mathbf{r}_0\right| \nonumber\\
 &amp;\approx r(1-\mathbf{\hat{r}}\cdot\mathbf{r}_0/r)\nonumber\\
 &amp;\approx r-\mathbf{\hat{R}}\cdot\mathbf{r}_0
 \end{align}</p>
-<p>Then the frequency spectrum becomes
-\begin{align}
+<p>Then the frequency spectrum becomes</p>
+<p>\begin{align}
 \mathbf{G}(\omega)
 &amp;=\sqrt{\frac{q^2}{32\pi^3\epsilon_0 c}}e^{i\omega r/c}
 \int \mathbf{\hat{R}}\times\frac{\left(\mathbf{\hat{R}}-\boldsymbol{\beta}\right)\times\boldsymbol{\dot{\beta}}}{\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)^2}e^{i\omega \left(t_r-\mathbf{\hat{R}}\cdot\mathbf{r}_0/c\right)}dt_r \\
@@ -14924,14 +14974,14 @@ R&amp;=\left|\mathbf{r}-\mathbf{r}_0\right| \nonumber\\
 \int \mathbf{\hat{R}}\times \left(\mathbf{\hat{R}} \times \boldsymbol{\beta}\right)
 e^{i\omega \left(t_r-\mathbf{\hat{R}}\cdot\mathbf{r}_0/c\right)}dt_r
 \end{align}</p>
-<p>Here we use the relation below and integration by part:
-\begin{align}
+<p>Here we use the relation below and integration by part:</p>
+<p>\begin{align}
 \frac{d}{dt_r}\left(\frac{\mathbf{\hat{R}}\times \left(\mathbf{\hat{R}} \times \boldsymbol{\beta}\right)}
 {1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}}\right)=
 \mathbf{\hat{R}}\times\frac{\left(\mathbf{\hat{R}}-\boldsymbol{\beta}\right)\times\boldsymbol{\dot{\beta}}}{\left(1-\boldsymbol{\beta}\cdot\mathbf{\hat{R}}\right)^2}
 \end{align}</p>
-<p>Here we found the frequency spectrum of the radiation amplitude.  However, what we can measure is the total radiation energy per solid angle:
-\begin{align}
+<p>Here we found the frequency spectrum of the radiation amplitude.  However, what we can measure is the total radiation energy per solid angle:</p>
+<p>\begin{align}
 \frac{dU}{d\Omega}&amp;=\int_{-\infty}^{\infty} \frac{dP}{d\Omega} dt \\
 &amp;=\int_{-\infty}^{\infty} \left|\mathbf{G}(t)\right|^2 dt=\int_{-\infty}^{\infty} \left|\mathbf{G}(\omega)\right|^2 d\omega    \qquad(\text{Parseval's theorem})\\
 &amp;=2\int_{0}^{\infty} \left|\mathbf{G}(\omega)\right|^2 d\omega \equiv \int_{0}^{\infty} \frac{dI}{d\omega} d\omega
@@ -14954,16 +15004,16 @@ e^{i\omega \left(t_r-\mathbf{\hat{R}}\cdot\mathbf{r}_0/c\right)}dt_r \right|^2
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we concentrate on the spectrum of an electron storage ring with coordinate shown below:
 <img src=sr_coordinate.png width=400>
-and assume $\mathbf{r}_0$ is along a ring with radius $\rho$, therefore:
-\begin{align}
+and assume $\mathbf{r}_0$ is along a ring with radius $\rho$, therefore:</p>
+<p>\begin{align}
 \mathbf{r}_0=\rho\Big(1-\cos\left(\omega_0t_r\right), 0, \sin\left(\omega_0t_r\right)\Big)
 \end{align}
 Here, $\omega_0$ is the angular revolution frequency.  The velocity therefore gives</p>
 <p>\begin{align}
 \boldsymbol{\beta}=\beta\Big(\sin\left(\omega_0t_r\right), 0, \cos\left(\omega_0t_r\right)\Big)
 \end{align}</p>
-<p>And the unit vector $\mathbf{\hat{R}}$ in spherical coordinate is written as:
-\begin{align}
+<p>And the unit vector $\mathbf{\hat{R}}$ in spherical coordinate is written as:</p>
+<p>\begin{align}
 \mathbf{\hat{R}}=\left(\sin\theta\cos\phi, \sin\theta\sin\phi, \cos\theta\right)
 \end{align}
 We may only consider the tangential plane ($y$-$z$), without losing generality, viz. $\phi=\pi/2$.  Therefore</p>
@@ -14975,14 +15025,14 @@ Also we use the following assumption:</p>
 <li>small cone size $\theta\sim1/\gamma \ll 1$</li>
 <li>short retarded time interval $\omega_0t_r \ll 1$</li>
 </ul>
-<p>We have:
-\begin{align}
+<p>We have:</p>
+<p>\begin{align}
 \mathbf{\hat{R}}\times \left(\mathbf{\hat{R}} \times \boldsymbol{\beta}\right) 
 &amp;=\mathbf{\hat{R}}(\mathbf{\hat{R}}\cdot\boldsymbol{\beta}) - \boldsymbol{\beta} \\
 &amp;=\beta \left(-\omega_0 t_r, \theta, 0\right)
 \end{align}</p>
-<p>and
-\begin{align}
+<p>and</p>
+<p>\begin{align}
 \omega(t_r-\mathbf{\hat{R}}\cdot \mathbf{r}_0/c)
 &amp;=\omega\left(t_r- \frac{\rho}{c}\sin\left(\omega_0t_r\right) \cos\theta\right)\nonumber\\
 &amp;=\omega\left(t_r- \frac{\beta}{\omega_0}\sin\left(\omega_0t_r\right) \cos\theta\right)\nonumber\\
@@ -14998,14 +15048,14 @@ Also we use the following assumption:</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, we redefine the variable $a\equiv\gamma\theta\sim 1$, and further define:
-\begin{align}
+<p>Now, we redefine the variable $a\equiv\gamma\theta\sim 1$, and further define:</p>
+<p>\begin{align}
 x&amp;\equiv\sqrt{\frac{\omega_0^2 t_r^2}{\theta^2+\frac{1}{\gamma^2}}}
 =\frac{\gamma\omega_0 t_r}{\left(1+a^2\right)^{1/2}} \\
 \xi&amp;\equiv\frac{\omega}{3}\frac{\left(1+a^2\right)^{3/2}}{\gamma^3\omega_0}=\frac{\omega}{2\omega_c}\left(1+a^2\right)^{3/2}
 \end{align}</p>
-<p>Here we define the <strong><em>critical frequency</em></strong> of synchrotron radiation:
-\begin{align}
+<p>Here we define the <strong><em>critical frequency</em></strong> of synchrotron radiation:</p>
+<p>\begin{align}
 \omega_c\equiv\frac{3}{2}\gamma^3 \omega_0\approx\frac{3\gamma^3c}{2\rho} 
 \end{align}</p>
 <p>Then, we have:</p>
@@ -15021,8 +15071,8 @@ x&amp;\equiv\sqrt{\frac{\omega_0^2 t_r^2}{\theta^2+\frac{1}{\gamma^2}}}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The spectrum of the energy flux finally reduces to:
-\begin{align}
+<p>The spectrum of the energy flux finally reduces to:</p>
+<p>\begin{align}
 \frac{dI}{d\omega}
 &amp;=\frac{q^2\omega^2}{16\pi^3\epsilon_0 c} \left|
 \int \mathbf{\hat{R}}\times \left(\mathbf{\hat{R}} \times \boldsymbol{\beta}\right)
@@ -15058,16 +15108,16 @@ G_y&amp;=\frac{a\left(1+a^2\right)^{1/2}}{\omega_0 \gamma^2}\int
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then the frequency spectrum becomes
-\begin{align}
+<p>Then the frequency spectrum becomes</p>
+<p>\begin{align}
 \frac{dI}{d\omega}
 &amp;=\frac{\beta^2 q^2\omega^2}{16\pi^3\epsilon_0 c} \left|
  \left(-{G}_x \hat{x}+ {G}_y \hat{y})\right) 
 \right|^2 \nonumber\\
 &amp;=\frac{\beta^2 q^2\omega^2}{16\pi^3\epsilon_0 c} \frac{4}{3}\frac{1+a^2}{\omega_0^2\gamma^4} \left(\left(1+a^2\right)K_{2/3}^2(\xi)+a^2K_{1/3}^2(\xi)\right)
 \end{align}</p>
-<p>We are interest in the frequency range of the characteristic frequency of the SR.  Using the definition of  <strong><em>critical frequency</em></strong>, $\omega_c=3\gamma^3\omega_0/2$:
-\begin{align}
+<p>We are interest in the frequency range of the characteristic frequency of the SR.  Using the definition of  <strong><em>critical frequency</em></strong>, $\omega_c=3\gamma^3\omega_0/2$:</p>
+<p>\begin{align}
 \frac{dI}{d\omega}
 &amp;=\frac{3q^2}{16\pi^3\epsilon_0 c} \frac{\omega^2}{\omega_c^2}\gamma^2\left({1+a^2}\right)^2 \left(K_{2/3}^2(\xi)+\frac{a^2}{1+a^2}K_{1/3}^2(\xi)\right)\\
 &amp;=\frac{3q^2}{4\pi^3\epsilon_0 c} \xi^2\gamma^2\left({1+a^2}\right)^{-1} \left(K_{2/3}^2(\xi)+\frac{a^2}{1+a^2}K_{1/3}^2(\xi)\right)
@@ -15130,10 +15180,10 @@ We see that in the bending plane, $a=\gamma\theta=0$, the radiation is purely ho
 
 
 
-<div id="9562e9dd-74a5-43f5-aefb-42dd0e35f609"></div>
+<div id="d4501c6a-fc57-47f8-a1a8-43121ef01f25"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#9562e9dd-74a5-43f5-aefb-42dd0e35f609');
+var element = $('#d4501c6a-fc57-47f8-a1a8-43121ef01f25');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -15955,19 +16005,19 @@ if (IPython.notebook.kernel != null) {
 <p>\begin{align}
 \frac{dU}{d\Omega}=\int_{0}^{\infty} \frac{dI}{d\omega} d\omega
 \end{align}</p>
-<p>Therefore, the energy spectrum can be achieved by integrating all solid angles:
-\begin{align}
+<p>Therefore, the energy spectrum can be achieved by integrating all solid angles:</p>
+<p>\begin{align}
 \frac{dU}{d\omega}
 &amp;=\int \frac{dI}{d\omega} d\Omega \nonumber\\
 &amp;=\frac{\sqrt{3}q^2}{4\pi\epsilon_0c}\gamma\frac{\omega}{\omega_c}
 \int_{\omega/\omega_c}^{\infty}K_{5/3}(\xi)d\xi
 \end{align}</p>
-<p>By defining 
-\begin{align}
+<p>By defining</p>
+<p>\begin{align}
 S(\xi)=\frac{9\sqrt{3}}{8\pi}\xi\int_{\xi}^{\infty}K_{5/3}(\xi')d\xi'
 \end{align}
-which satisfy $\int_0^{\infty}S(\xi)d\xi=1$, we will rewrite the energy spectrum as:
-\begin{align}
+which satisfy $\int_0^{\infty}S(\xi)d\xi=1$, we will rewrite the energy spectrum as:</p>
+<p>\begin{align}
 \frac{dU}{d\omega}
 &amp;=\frac{2q^2}{9\epsilon_0 c}\gamma S\left(\frac{\omega}{\omega_c}\right)
 \end{align}</p>
@@ -16024,10 +16074,10 @@ which satisfy $\int_0^{\infty}S(\xi)d\xi=1$, we will rewrite the energy spectrum
 
 
 
-<div id="4c23e1b1-e659-491d-a6ea-07b6bd42a34d"></div>
+<div id="eb23dfc1-c415-4a5d-a853-f6c418fe3797"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4c23e1b1-e659-491d-a6ea-07b6bd42a34d');
+var element = $('#eb23dfc1-c415-4a5d-a853-f6c418fe3797');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16834,8 +16884,8 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The total energy can be also attained from the frequency domain integration.
-\begin{align}
+<p>The total energy can be also attained from the frequency domain integration.</p>
+<p>\begin{align}
 U&amp;=\int_0^{\infty}\frac{dU}{d\omega}d\omega\\
 &amp;=\frac{2q^2}{9\epsilon_0 c}\gamma \int_0^{\infty} S\left(\frac{\omega}{\omega_c}\right) d\omega \nonumber \\
 &amp;=\frac{2q^2}{9\epsilon_0 c}\gamma \omega_c\nonumber \\
@@ -16858,35 +16908,35 @@ U&amp;=\int_0^{\infty}\frac{dU}{d\omega}d\omega\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The photon emission in the SR process is a quantum effect.  The energy $u$ of the photon is related to its frequency by $u=\hbar\omega$  The photon number is found by:
-\begin{align}
+<p>The photon emission in the SR process is a quantum effect.  The energy $u$ of the photon is related to its frequency by $u=\hbar\omega$  The photon number is found by:</p>
+<p>\begin{align}
 un(u)du=\frac{dU}{d\omega} d\omega
 \end{align}</p>
-<p>Therefore: the photon number density gives:
-\begin{align}
+<p>Therefore: the photon number density gives:</p>
+<p>\begin{align}
 n(u)
 &amp;=\frac{1}{\hbar^2\omega}\frac{dU}{d\omega}\\
 &amp;=\frac{1}{\hbar^2\omega_c^2}\frac{2q^2\omega_c}{9\epsilon_0 c}\gamma \frac{\omega_c}{\omega}S\left(\frac{\omega}{\omega_c}\right)\\
 &amp;=\frac{U_{SR}}{u_c^2}\frac{\omega_c}{\omega}S\left(\frac{\omega}{\omega_c}\right)
 \end{align}</p>
-<p>And using the integration fact:
-\begin{align}
+<p>And using the integration fact:</p>
+<p>\begin{align}
 \int_0^{\infty}\frac{S(\xi)}{\xi}d\xi=\frac{15\sqrt{3}}{8}
 \end{align}</p>
-<p>We get the total emitted photon in one revolution gives:
-\begin{align}
+<p>We get the total emitted photon in one revolution gives:</p>
+<p>\begin{align}
 N&amp;=\int n(u) du \\
 &amp;=\frac{15\sqrt{3}}{8}\frac{U_{SR}}{u_c} \nonumber\\
 &amp;=\frac{15\sqrt{3}}{8}\frac{q^2}{3\epsilon_0 \rho \hbar }\gamma\frac{2\rho}{3c}\nonumber\\
 &amp;=\frac{5\pi}{\sqrt{3}}\frac{q^2}{4\pi\epsilon_0  \hbar c }\gamma =\frac{5\pi}{\sqrt{3}}\alpha\gamma
 \end{align}
 Here $\alpha$ is the fine structure constant.  These photons emits randomly around one revolution.</p>
-<p>The average emitted photon gives energy by
-\begin{align}
+<p>The average emitted photon gives energy by</p>
+<p>\begin{align}
 \bar{u}=\frac{1}{N}\int_0^{\infty}u n(u) du = \frac{8}{15\sqrt{3}}u_c
 \end{align}</p>
-<p>And the variation gives by 
-\begin{align}
+<p>And the variation gives by</p>
+<p>\begin{align}
 \bar{u^2}=\frac{1}{N}\int_0^{\infty}u^2 n(u) du = \frac{11}{27}u_c^2
 \end{align}</p>
 
@@ -16938,8 +16988,4 @@ Here $\alpha$ is the fine structure constant.  These photons emits randomly arou
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

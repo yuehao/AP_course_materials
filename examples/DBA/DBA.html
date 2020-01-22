@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>DBA</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': true,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "True"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": false};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11852,8 +11902,8 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We consider a simplest cell that satisfy achromatic condition. The minimum required lattice is:
-\begin{align}
+<p>We consider a simplest cell that satisfy achromatic condition. The minimum required lattice is:</p>
+<p>\begin{align}
 B-O-QF-O-B \nonumber
 \end{align}</p>
 <p>Let's assume the bending magnet has length $L$ and bending angle $\theta$.  We use thin length approximation on the focusing quad, which has focal length $f$.  The distance between the bending magnet and quadrupole is $L_1$. From the symmetry of the lattice, we require that zero dispersion outside the cell and the dispersion derivative $d'$ vanishes at the center of the quad.</p>
@@ -11904,12 +11954,12 @@ $$\left[\begin{matrix}1 & L + L_{1} & \frac{\theta}{2} \left(L + 2 L_{1}\right)\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Therefore, the required quad focal length for the achromatic condition is 
-\begin{align}
+<p>Therefore, the required quad focal length for the achromatic condition is</p>
+<p>\begin{align}
 f=\frac{L+2L_1}{4}
 \end{align}</p>
-<p>And the dispersion function at central point is
-\begin{align}
+<p>And the dispersion function at central point is</p>
+<p>\begin{align}
 D_c=\frac{\theta}{2}\left(L+2L_1\right)
 \end{align}</p>
 <p>The one quad between dipole can only match dispersion.  In order to match the optics function also, we can add more complicated symmetric lattice between two dipoles. But as seen below, the dispersion function in the dipole will not change, as long as achromatic condition on both side holds.</p>
@@ -11929,13 +11979,13 @@ D_c=\frac{\theta}{2}\left(L+2L_1\right)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since one side of the dipole entrance (outward side from the cell) is dispersion free, the dispersion inside the dipole is determined as:
-\begin{align}
+<p>Since one side of the dipole entrance (outward side from the cell) is dispersion free, the dispersion inside the dipole is determined as:</p>
+<p>\begin{align}
 D(s)&amp;=\frac{1}{2}s\theta(s)=\frac{s^2}{2\rho}\\
 D'(s)&amp;=\theta(s)=\frac{s}{\rho}
 \end{align}</p>
-<p>Therefore, we can only optimized the $\mathcal{H}$ by varying the twiss parameters in dipole. Assuming the optics at the achromatic side of dipole is $\beta=\beta_0$, $\alpha=\alpha_0$ and $\gamma_0=\left(1+\alpha_0^2\right)/\beta_0$.  Therefore, at location $s$ the twiss parameters read:
-\begin{align}
+<p>Therefore, we can only optimized the $\mathcal{H}$ by varying the twiss parameters in dipole. Assuming the optics at the achromatic side of dipole is $\beta=\beta_0$, $\alpha=\alpha_0$ and $\gamma_0=\left(1+\alpha_0^2\right)/\beta_0$.  Therefore, at location $s$ the twiss parameters read:</p>
+<p>\begin{align}
 \beta(s)&amp;=\frac{1}{\gamma_0}+\gamma_0\left(s-\frac{\alpha_0}{\gamma_0}\right)^2\\
 \alpha(s)&amp;=\alpha_0-\gamma_0 s \\
 \gamma(s)&amp;=\gamma_0
@@ -11996,43 +12046,43 @@ $$\frac{\sqrt{15}}{60}$$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Therefore the $\mathcal{H}$ function at location s gives:
-\begin{align}
+<p>Therefore the $\mathcal{H}$ function at location s gives:</p>
+<p>\begin{align}
 \mathcal{H}(s)=\frac{s^{2}}{\rho^{2}} \left(\frac{(1+\alpha_0^{2}) s^{2}}{4\beta_0} - \alpha_0  s + \beta_0 \right)
 \end{align}
-Then the average $\mathcal{H}$ function in dipole is 
-\begin{align}
+Then the average $\mathcal{H}$ function in dipole is</p>
+<p>\begin{align}
 \left&lt;\mathcal{H}(s)\right&gt;=\frac{L^3}{\rho^2} \left(\frac{L \left(\alpha_0^{2} + 1\right)}{20 \beta_0 } - \frac{\alpha_0}{4} + \frac{\beta_0}{3L}\right)
 \end{align}</p>
-<p>It is convenient to define ${\tilde{\beta}}=\beta_0/L$, then we have:
-\begin{align}
+<p>It is convenient to define ${\tilde{\beta}}=\beta_0/L$, then we have:</p>
+<p>\begin{align}
 \left&lt;\mathcal{H}(s)\right&gt;=\rho\theta^3 \left(\frac{\left(\alpha_0^{2} + 1\right)}{20 \tilde{\beta}} - \frac{\alpha_0}{4} + \frac{\tilde{\beta}}{3}\right)
 \end{align}</p>
-<p>To minimize $\mathcal{H}$ with two independent variable $\tilde\beta$ and $\alpha_0$, we have 
-\begin{align}
+<p>To minimize $\mathcal{H}$ with two independent variable $\tilde\beta$ and $\alpha_0$, we have</p>
+<p>\begin{align}
 \frac{\alpha_0}{10\tilde\beta}=\frac{1}{4}
 \end{align}</p>
-<p>Then $\tilde\beta=\sqrt{12/5}$, and the minimum $\mathcal{H}$ gives:
-\begin{align}
+<p>Then $\tilde\beta=\sqrt{12/5}$, and the minimum $\mathcal{H}$ gives:</p>
+<p>\begin{align}
 \mathcal{H}_{min}=\frac{\sqrt{15}}{60}\rho\theta^3
 \approx 0.06455\rho\theta^3
 \end{align}</p>
-<p>at initial condition: 
-\begin{align}
+<p>at initial condition:</p>
+<p>\begin{align}
 \beta_0&amp;=\sqrt{12/5}L \\
 \alpha_0&amp;=\sqrt{15}\\
 \gamma_0&amp;=\frac{16}{\sqrt{12/5}L}
 \end{align}</p>
-<p>Therefore the beta waist should be at:
-\begin{align}
+<p>Therefore the beta waist should be at:</p>
+<p>\begin{align}
 s^* &amp;= \frac{\alpha_0}{\gamma_0} = \sqrt{15} \sqrt{12/5} L /16 = \frac{3}{8} L
 \end{align}
-with beta function at waist:
-\begin{align}
+with beta function at waist:</p>
+<p>\begin{align}
 \beta^* &amp;= \frac{1}{\gamma_0} = \sqrt{12/5} L /16 = \frac{3}{8\sqrt{15}} L
 \end{align}</p>
-<p>At location of the thin length Quad, we have:
-\begin{align}
+<p>At location of the thin length Quad, we have:</p>
+<p>\begin{align}
 \beta(s) &amp;= \beta^* + \frac{(s-s^*)^2}{\beta^*}  \\
 &amp;= \frac{\sqrt{3/5}}{8} L + \frac{16}{\sqrt{12/5}L} \left(L_1+\frac{5}{8} L\right)^2
 \end{align}</p>
@@ -12122,8 +12172,4 @@ with beta function at waist:
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>off_momentum_orbit</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': false,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "False"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": false, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": false};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11850,8 +11900,8 @@ $$\delta = \frac{\Delta p}{p_0}=0$$</p>
 $$K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-p_x^2-p_y^2} 
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
 $$</p>
-<p>With the paraxial approximation: 
-\begin{equation}
+<p>With the paraxial approximation:</p>
+<p>\begin{equation}
 K\left(x, p_x, y, p_y, z, \delta,s\right)=
 -\left(1+\frac{x}{\rho}\right)\left(1+\delta-\frac{p_x^2}{2(1+\delta)}-\frac{p_y^2}{2(1+\delta)}\right)
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
@@ -11864,14 +11914,14 @@ K\left(x, p_x, y, p_y, z, \delta,s\right)=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Keeping only up to the linear term of $delta$ and $x/\rho$, and using $$A_{s,d}\approx-B_0\left(x - \frac{x^2}{2\rho}\right)$$, $$A_{s,q}=-B_0 b_1(s) \left(x^2-y^2\right)/2=-G(s)\left(x^2-y^2\right)/2$$, we get: 
-\begin{align}
+<p>Keeping only up to the linear term of $delta$ and $x/\rho$, and using $$A_{s,d}\approx-B_0\left(x - \frac{x^2}{2\rho}\right)$$, $$A_{s,q}=-B_0 b_1(s) \left(x^2-y^2\right)/2=-G(s)\left(x^2-y^2\right)/2$$, we get:</p>
+<p>\begin{align}
 K\left(x, p_x, y, p_y, z, \delta,s\right)&amp;=
 -\left(1+\frac{x}{\rho}\right)\left(1+\delta-\frac{p_x^2}{2(1+\delta)}-\frac{p_y^2}{2(1+\delta)}\right)
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)\\
 &amp;\approx -1-\delta-\delta\frac{x}{\rho}+\frac{p_x^2}{2}+\frac{p_y^2}{2}+\frac{x^2}{2\rho^2}+k(s)\left(x^2-y^2\right)/2
 \end{align}</p>
-<p>Here we assume $z$ and $delta$ are parameter, therefore constants.  The motion of $x$ any $y$ directions are still decoupled, and the Hamiltonian for the x direction is :
+<p>Here we assume $z$ and $\delta$ are parameter, therefore constants.  The motion of $x$ any $y$ directions are still decoupled, and the Hamiltonian for the x direction is :
 $$
 K\left(x, p_x\right)=\frac{p_x^2}{2}+\frac{x^2}{2\rho^2}+\frac{k(s)x^2}{2}-\delta\frac{x}{\rho}
 $$</p>
@@ -11891,8 +11941,8 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The equation of motion then becomes a non-homogeneous one :
-\begin{equation}
+<p>The equation of motion then becomes a non-homogeneous one :</p>
+<p>\begin{equation}
 x''+\left(\frac{1}{\rho^2}+k(s)\right)x=\frac{\delta}{\rho} 
 \end{equation}</p>
 <p><img src="dispersive_orbit_in_dipole.png" alt="Drawing" style="width: 200px;"/>
@@ -11901,12 +11951,12 @@ If we write the solution as:
 $$
 x(s)=x_\beta(s)+D(s)\delta + \mathcal{O}\left(\delta^2\right)
 $$</p>
-<p>where $x_\beta(s)$ satisfies the homogeneous Hill's equation:
-\begin{equation}
+<p>where $x_\beta(s)$ satisfies the homogeneous Hill's equation:</p>
+<p>\begin{equation}
 x''+\left(\frac{1}{\rho^2}+k(s)\right)x=0
 \end{equation}</p>
-<p>The coefficient $D(s)=\frac{\partial x(s)}{\partial \delta}|_{\delta=0}$ is the linear dispersion function, which is also depend on the design lattice.  It is the solution of the inhomogeneous ODE:
-\begin{equation}
+<p>The coefficient $D(s)=\frac{\partial x(s)}{\partial \delta}|_{\delta=0}$ is the linear dispersion function, which is also depend on the design lattice.  It is the solution of the inhomogeneous ODE:</p>
+<p>\begin{equation}
 D''+\left(\frac{1}{\rho^2}+k(s)\right)D=\frac{1}{\rho}
 \end{equation}</p>
 
@@ -11917,8 +11967,8 @@ D''+\left(\frac{1}{\rho^2}+k(s)\right)D=\frac{1}{\rho}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The solution of the dispersion function is the sum of the general solution of the homoneneous ODE and the special solution:
-\begin{equation}
+<p>The solution of the dispersion function is the sum of the general solution of the homoneneous ODE and the special solution:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 D\\
 D'
@@ -11938,8 +11988,8 @@ d'
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For constant dipole with fixed gradient, let's write $K=k+1/\rho^2$, the transver matrix $M$ has been calculated before:
-\begin{equation}
+<p>For constant dipole with fixed gradient, let's write $K=k+1/\rho^2$, the transver matrix $M$ has been calculated before:</p>
+<p>\begin{equation}
 M\left(s_0+s,s_0\right)=
 \begin{cases}
 \left(\begin{array}{cc}
@@ -11953,8 +12003,8 @@ M\left(s_0+s,s_0\right)=
 \end{array}\right)&amp;K&lt;0\\
 \end{cases}
 \end{equation}</p>
-<p>The spectial solution in this case, should satisfy $d(s=0)=d'(s=0)=0$, one can easily prove that the following expression satisfy the inhomogeous equation:
-\begin{equation}
+<p>The spectial solution in this case, should satisfy $d(s=0)=d'(s=0)=0$, one can easily prove that the following expression satisfy the inhomogeous equation:</p>
+<p>\begin{equation}
 d(s)=
 \begin{cases}
 \frac{1}{\rho K}\left(
@@ -11983,8 +12033,8 @@ d'(s)=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For pure dipole $K=1/\rho^2$, the special solution simply becomes:
-\begin{align}
+<p>For pure dipole $K=1/\rho^2$, the special solution simply becomes:</p>
+<p>\begin{align}
 d(s)&amp;= \rho \left(1-\cos\theta\right) \approx\rho\theta^2\\
 d(s)&amp;= \sin\theta \approx\theta
 \end{align}
@@ -11997,8 +12047,8 @@ Here $\theta=s/\rho$ is the bending angle.  The approximation is taken when the 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can rewrite the matrix form in to a 3 by 3 matrix $\mathcal{M}$ and 3- vector form:
-\begin{equation}
+<p>We can rewrite the matrix form in to a 3 by 3 matrix $\mathcal{M}$ and 3- vector form:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 D\\
 D'\\
@@ -12015,8 +12065,8 @@ D'\\
 1
 \end{array}\right)_{s=s_{0}}
 \end{equation}</p>
-<p>For pure dipole, we have the form: 
-\begin{align}
+<p>For pure dipole, we have the form:</p>
+<p>\begin{align}
 \mathcal{M}_{dipole}&amp;=
 \left(\begin{array}{ccc}
 \cos(\theta) &amp; \rho\sin(\theta) &amp; \rho\left(1-\cos\theta\right)\\
@@ -12053,8 +12103,8 @@ D\left(s_0\right)=D\left(s_0+L\right)
 \;;\;
 D'\left(s_0\right)=D'\left(s_0+L\right)
 $$</p>
-<p>And the expanded $3\times3$ oneturn matrix has:
-\begin{equation}
+<p>And the expanded $3\times3$ oneturn matrix has:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 D\\
 D'\\
@@ -12071,8 +12121,8 @@ D'\\
 1
 \end{array}\right)_{s=s_{0}}
 \end{equation}
-Here the matrix $M\left(s_0\right)$ is the oneturn betatron matrix:
-\begin{align}
+Here the matrix $M\left(s_0\right)$ is the oneturn betatron matrix:</p>
+<p>\begin{align}
 M\left(s_0\right)&amp;=
 \left(\begin{array}{cc}
 M_{11} &amp; M_{12}\\
@@ -12091,8 +12141,8 @@ M_{21} &amp; M_{22}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The elements $M_{13}$ and $M_{23}$ are related to the dispersion function by:
-\begin{equation}
+<p>The elements $M_{13}$ and $M_{23}$ are related to the dispersion function by:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 M_{13}\\
 M_{23}
@@ -12104,8 +12154,8 @@ D\\
 D'
 \end{array}\right)\label{eq:matrix_from_dispersion}
 \end{equation}</p>
-<p>The matrix $I-M\left(s_0\right)$ has determinant $2-M_{11}-M_{22}$ Recall that the stable condition of the periodic transfer matrix: $\left|Tr(M\left(s_0\right))\right|&lt;2$, the determinant of $I-M\left(s_0\right)$ is always positive.  Therefore we can reverse the Eq.$\ref{eq:matrix_from_dispersion}$ and calculate the dispersion function from the expanded one-turn matrix:
-\begin{align}
+<p>The matrix $I-M\left(s_0\right)$ has determinant $2-M_{11}-M_{22}$ Recall that the stable condition of the periodic transfer matrix: $\left|Tr(M\left(s_0\right))\right|&lt;2$, the determinant of $I-M\left(s_0\right)$ is always positive.  Therefore we can reverse the Eq.$\ref{eq:matrix_from_dispersion}$ and calculate the dispersion function from the expanded one-turn matrix:</p>
+<p>\begin{align}
 \left(\begin{array}{c}
 D\\
 D'
@@ -12138,13 +12188,13 @@ M_{23}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the dispersion function follows the inhomogeneous Hill's function, we can follow the action-angle treatment of the particle motion and define the normalized dispersion as:
-\begin{align}
+<p>Since the dispersion function follows the inhomogeneous Hill's function, we can follow the action-angle treatment of the particle motion and define the normalized dispersion as:</p>
+<p>\begin{align}
 X_d&amp;=\frac{D}{\sqrt{\beta}}\\
 P_d&amp;=\frac{\beta D'+\alpha D }{\sqrt{\beta}}
 \end{align}</p>
-<p>We define $\mathcal{H}$ function as
-\begin{align}
+<p>We define $\mathcal{H}$ function as</p>
+<p>\begin{align}
 \mathcal{H}&amp;\equiv X_d^2+P_d^2\\
 &amp;=\beta D'^2+2\alpha D D' + \gamma D^2
 \end{align}</p>
@@ -12165,15 +12215,15 @@ P_d&amp;=\frac{\beta D'+\alpha D }{\sqrt{\beta}}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The measurement of the dispersion in accelerator follows it definition:
-\begin{equation}
+<p>The measurement of the dispersion in accelerator follows it definition:</p>
+<p>\begin{equation}
 D=\frac{\partial x}{\partial \delta}
 \end{equation}</p>
-<p>In a linac, this is straight forward to realize in real machine.  One can easily change the energy of the beam by tweaking the accelerating cavity, then the dispersion is calculated from the beam centroid change at each Beam position monitor:
-\begin{equation}
+<p>In a linac, this is straight forward to realize in real machine.  One can easily change the energy of the beam by tweaking the accelerating cavity, then the dispersion is calculated from the beam centroid change at each Beam position monitor:</p>
+<p>\begin{equation}
 D=\frac{\Delta x}{\Delta p/p_0}
 \end{equation}</p>
-<p>The measurement in a ring will be introduce in the later part of this note.</p>
+<p>The measurement in a ring will be not as trivial, since the change of the accelerating voltage will not affect the energy of the particle linearly.  The dispersion measurement in a ring will be  introduce in the later part of this note.</p>
 
 </div>
 </div>
@@ -12190,16 +12240,16 @@ D=\frac{\Delta x}{\Delta p/p_0}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From the similarity of the Hill's equation with dipole error and the dispersion equation:
-\begin{equation}
+<p>From the similarity of the Hill's equation with dipole error and the dispersion equation:</p>
+<p>\begin{equation}
 D''+\left(\frac{1}{\rho^2}+k(s)\right)D=\frac{1}{\rho}
 \end{equation}
-and
-\begin{equation}
+and</p>
+<p>\begin{equation}
 x''\left(s\right)+\left(\frac{1}{\rho^2}+k(s)\right)x\left(s\right)=\frac{\Delta B(s)}{B_0\rho} 
 \end{equation}</p>
-<p>The integrated form of dispersion function can be achieved from the closed orbit integrals by substituting $\frac{\Delta B(s)}{B_0\rho} $ with $\frac{1}{\rho}$.
-\begin{align}
+<p>The integrated form of dispersion function can be achieved from the closed orbit integrals by substituting $\frac{\Delta B(s)}{B_0\rho} $ with $\frac{1}{\rho}$.</p>
+<p>\begin{align}
 D(s)&amp;=\int_{s}^{s+C}\frac{1}{\rho(s_0)}G\left(s,s_{0}\right) ds_0 \nonumber\\
 &amp;=\frac{\sqrt{\beta\left(s\right)}}{{2\sin\pi\nu}}
 \int_{s}^{s+C}\frac{\sqrt{\beta\left(s_{0}\right)}}{\rho(s_0)}\cos\left(\psi\left(s\right)-\psi\left(s_{0}\right)-\pi\nu\right)ds_0
@@ -12228,8 +12278,8 @@ D(s)&amp;=\int_{s}^{s+C}\frac{1}{\rho(s_0)}G\left(s,s_{0}\right) ds_0 \nonumber\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For a lattice cell represented by $\mathcal{M}$, the acromatic condition guarantees that the if the nonzero dispersion is given at the entrance, zero dispersion is achieved at the exit.<br>
-\begin{equation}
+<p>For a lattice cell represented by $\mathcal{M}$, the acromatic condition guarantees that the if the nonzero dispersion is given at the entrance, zero dispersion is achieved at the exit.</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 0\\
 0\\
@@ -12246,8 +12296,8 @@ M_{23}
 1
 \end{array}\right)
 \end{equation}</p>
-<p>Therefore the acromatic condition requires:
-\begin{equation}
+<p>Therefore the acromatic condition requires:</p>
+<p>\begin{equation}
 \bar{d}=\left(\begin{array}{c}
 M_{13}\\
 M_{23}
@@ -12281,8 +12331,8 @@ M_{23}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If we repeat a non-achromatic cell for N times, the $3\times 3$ matrix becomes:
-\begin{align}
+<p>If we repeat a non-achromatic cell for N times, the $3\times 3$ matrix becomes:</p>
+<p>\begin{align}
 \mathcal{M}^N&amp;=\left(\begin{array}{cc}
 {M} &amp; \bar{d}\\
 0 &amp; 1
@@ -12304,15 +12354,15 @@ D'
 \end{array}\right)
 \end{align}</p>
 <p>Therefore, to achieve a achromatic condition by repeating a non-achromatic cell $N$ times, it is required to have $$M^N=I$$</p>
-<p>The betatron transfer matrix $M$ can be expressed by the twiss parameter:
-\begin{equation}
+<p>The betatron transfer matrix $M$ can be expressed by the twiss parameter:</p>
+<p>\begin{equation}
 M=\left(\begin{array}{cc}
 \cos\Phi+\alpha\sin\Phi &amp; \beta\sin\Phi\\
 -\gamma\sin\Phi &amp; \cos\Phi-\alpha\sin\Phi
 \end{array}\right)
 \end{equation}
-Therefore the requirement becomes:
-\begin{equation}
+Therefore the requirement becomes:</p>
+<p>\begin{equation}
 N\Phi=2n\pi \;,\; n\in \text{Integer}
 \end{equation}</p>
 
@@ -12331,8 +12381,8 @@ N\Phi=2n\pi \;,\; n\in \text{Integer}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For a non-achromatic lattice in a periodical structure, we have 
-\begin{equation}
+<p>For a non-achromatic lattice in a periodical structure, we have</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 D\\
 D'\\
@@ -12354,8 +12404,8 @@ D'\\
 1
 \end{array}\right)
 \end{equation}</p>
-<p>A dispersion suppression section, represented by matrix $\tilde{\mathcal{M}}$ can match a non-zero dispersion $(D,D')$ at the end of a curved lattice to zero dispersion, which reads
-\begin{equation}
+<p>A dispersion suppression section, represented by matrix $\tilde{\mathcal{M}}^{-1}$ can match a non-zero dispersion $(D,D')$ at the end of a curved lattice to zero dispersion, which reads</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 D\\
 D'\\
@@ -12374,13 +12424,13 @@ D'\\
 \end{array}\right)\\
 0 &amp; 1
 \end{array}\right)\left(\begin{array}{c}
-D\\
-D'\\
+0\\
+0\\
 1
 \end{array}\right)
 \end{equation}</p>
-<p>Then the required terms in the suppressor is simply:
-\begin{equation}
+<p>Then the required terms in the suppressor is simply:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 \tilde{M}_{13}\\
 \tilde{M}_{23}
@@ -12411,8 +12461,8 @@ M_{23}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Generally, dispersion matching will change the optical functions as well.  However, there are some special elegant case, which suppresses the dispersion while maintaining the optics. Suppose we have a lattice cell described by the transfer matrix $M$. It is non-achromatic and have:
-\begin{equation}
+<p>Generally, dispersion matching will change the optical functions as well.  However, there are some special elegant case, which suppresses the dispersion while maintaining the optics. Suppose we have a lattice cell described by the transfer matrix $M$. It is non-achromatic and have:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 D\\
 D'\\
@@ -12443,8 +12493,8 @@ and it satisfy $M^{2N}=I$.  Therefore half of the $2N$ cell satisfy $M^N=-I$.</p
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The $3\times 3$ matrix of the $N$ repeating cells is:
-\begin{align}
+<p>The $3\times 3$ matrix of the $N$ repeating cells is:</p>
+<p>\begin{align}
 \mathcal{M}^N
 &amp;=\left(\begin{array}{cc}
 M^N &amp; \left(I-M^{N} \right)\left(I-M \right)^{-1}\left(\begin{array}{c}
@@ -12492,25 +12542,25 @@ C&amp;=\oint\left|\frac{d\mathbf{r}(s)}{ds}\right|ds\nonumber\\
 &amp;=\oint\left|(1+x/\rho)\hat{s}+x'\hat{x}+y'\hat{y}\right|ds\nonumber\\
 &amp;=\oint\sqrt{\left(1+x/\rho\right)^{2}+x'^{2}+y'^{2}}ds
 \end{align}</p>
-<p>If we keep only the linear term, then plug in the off-momentum term, we have 
-\begin{align}
+<p>If we keep only the linear term, then plug in the off-momentum term, we have</p>
+<p>\begin{align}
 C&amp;=\oint\left(1+\frac{x}{\rho}\right) ds \nonumber\\
 &amp;=C_0+\oint\left(\frac{x_\beta+D\delta}{\rho}\right) ds \nonumber\\
 &amp;=C_\beta+\left(\oint\frac{D}{\rho} ds \right)\delta
 \end{align}</p>
-<p>This indicates that the extra circumference of the off-momentum is proportional to the momentum deviation. We define the <strong>Momentum Compaction Factor</strong> as: 
-\begin{equation}
+<p>This indicates that the extra circumference of the off-momentum is proportional to the momentum deviation. We define the <strong>Momentum Compaction Factor</strong> as:</p>
+<p>\begin{equation}
 \alpha_c=\frac{1}{C_0}\frac{dC}{d\delta}=\frac{1}{C_0}\oint\frac{D}{\rho}ds
 \end{equation}</p>
 <p>Since the dispersion function is usually positive, the momentum compaction factor is also positive.  This means the higher energy particles usually travels longer.  However there are special lattice which is designed to have zero or even negative compaction factor.</p>
-<p>We can also calculate the travel time $t=C/v$ difference of the off-momentum particles:
-\begin{align}
+<p>We can also calculate the travel time $t=C/v$ difference of the off-momentum particles:</p>
+<p>\begin{align}
 \frac{\Delta T}{T}&amp;=\frac{\Delta C}{C}-\frac{\Delta v}{v}\\
 &amp;=\alpha_c \delta-\frac{1}{\gamma^2}\delta\\
 &amp;\equiv\eta \delta
 \end{align}</p>
-<p>The new quantity $\eta=dT/d\delta$ is named <strong>phase-slip factor</strong>, which is very useful in the latter longitudinal dynamics.  In suggests that, for a positive momentum compaction factor $\alpha_c$, viz. that higher energy particles travels longer, may spend less time if the reference energy is low enough.  At specific energy, a small momentum deviation does not change the time-of-flight, which is called <strong>isochronous</strong>.  This energy is called <strong>transition energy</strong> $\gamma_T$:
-\begin{equation}
+<p>The new quantity $\eta=dT/d\delta$ is named <strong>phase-slip factor</strong>, which is very useful in the latter longitudinal dynamics.  In suggests that, for a positive momentum compaction factor $\alpha_c$, viz. that higher energy particles travels longer, may spend less time if the reference energy is low enough.  At specific energy, a small momentum deviation does not change the time-of-flight, which is called <strong>isochronous</strong>.  This energy is called <strong>transition energy</strong> $\gamma_T$:</p>
+<p>\begin{equation}
 \gamma_T\equiv\frac{1}{\sqrt{\alpha_c}}
 \end{equation}</p>
 
@@ -12530,8 +12580,8 @@ C&amp;=\oint\left(1+\frac{x}{\rho}\right) ds \nonumber\\
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The 3-by-3 matrix $\mathcal{M}$ describes the horizontal phase space as function of the energy.  That is not a full description.  The symplectic condition requires that if the horizontal phase space is affected by the longitudinal coordinate ($\delta$), the longitudinal phase space coordinate must be affected by the horizontal coordinates.</p>
-<p>Therefore, the full dynamics has to be described by 6-by-6 matrix. 
-\begin{align}
+<p>Therefore, the full dynamics has to be described by 6-by-6 matrix.</p>
+<p>\begin{align}
 \left(\begin{array}{c}
 x\\
 p_{x}\\
@@ -12564,8 +12614,8 @@ z\\
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The $R$ matrix represents the linear map for the 6-D phase space.<br>
-For lattice that only contains DC magnets and pure accelerating cavities, the arriving time does not affect the transverse phase space.  As a consequence of symplecticity, the energy will not affected by the initial transverse phase phase space.   Therefore:
-\begin{align}
+For lattice that only contains DC magnets and pure accelerating cavities, the arriving time does not affect the transverse phase space.  As a consequence of symplecticity, the energy will not affected by the initial transverse phase phase space.   Therefore:</p>
+<p>\begin{align}
 R_{15}=R_{25}=R_{35}=R_{45}&amp;=0\\
 R_{61}=R_{62}=R_{63}=R_{64}&amp;=0
 \end{align}</p>
@@ -12577,13 +12627,13 @@ R_{61}=R_{62}=R_{63}=R_{64}&amp;=0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>When there is no accelerating components, $R_{65}$ is also zero. Also in the special case when there is no transverse coupling, the R<em>{51} and R</em>{52} is only related to R_{16} and R{26} by:</p>
+<p>When there is no accelerating components, $R_{65}$ is also zero. Also in the special case when there is no transverse coupling, the $R_{51}$ and $R_{52}$ is only related to $R_{16}$ and $R_{26}$ by:</p>
 <p>\begin{align}
 R_{51}=(-R_{26})R_{11}+(R_{16})R_{21}\\
 R_{52}=(-R_{26})R_{12}+(R_{16})R_{22}\\
 \end{align}
-or vector form:
-\begin{align}
+or vector form:</p>
+<p>\begin{align}
 \left(\begin{array}{cc}
 R_{51} &amp; R_{52}\end{array}\right)=\left(\begin{array}{cc}
 -R_{26} &amp; R_{16}\end{array}\right)\left(\begin{array}{cc}
@@ -12591,8 +12641,8 @@ R_{11} &amp; R_{12}\\
 R_{21} &amp; R_{22}
 \end{array}\right)
 \end{align}</p>
-<p>Similarly we have for vertical direction:
-\begin{align}
+<p>Similarly we have for vertical direction:</p>
+<p>\begin{align}
 \left(\begin{array}{cc}
 R_{53} &amp; R_{54}\end{array}\right)=\left(\begin{array}{cc}
 -R_{36} &amp; R_{46}\end{array}\right)\left(\begin{array}{cc}
@@ -12660,8 +12710,8 @@ D=\frac{\Delta x_{co}}{\delta}=-\eta f_0\frac{\Delta x_{co}}{\Delta f}
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One idea of avoiding the harmful effect of crossing transition energy is to cross the transition energy fast, using a set of pulsed power quadrupoles (named $\gamma_T$ quad). These quads, after turned on, can change the momentum compaction factor quick enough the decrease the $\gamma_T$ almost 'suddenly'.</p>
-<p>These quads has to be placed in dispersive area, where the kick to the off-momentum particle by the ith quad is 
-\begin{equation}
+<p>These quads has to be placed in dispersive area, where the kick to the off-momentum particle by the ith quad is</p>
+<p>\begin{equation}
 \Delta \theta_i= K_i \tilde{D}_i\delta
 \end{equation}</p>
 <p>The quad will change the dispersion function over the ring and disturb the dispersion at the location from $D_i$ to $\tilde{D}_i$</p>
@@ -12695,8 +12745,4 @@ D=\frac{\Delta x_{co}}{\delta}=-\eta f_0\frac{\Delta x_{co}}{\Delta f}
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

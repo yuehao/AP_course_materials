@@ -22,7 +22,7 @@ MathJax.Hub.Config({ TeX: { equationNumbers: {
 
 
 <meta charset="utf-8" />
-<title>linear_transverse_motion</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>linear_transverse_coupling</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11849,7 +11849,7 @@ $( document ).ready(function(){
 
   
         // toc2
-        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "413px", "left": "0px", "right": "904.8px", "top": "112px", "width": "247px"}, "toc_section_display": "block", "toc_window_display": true};
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
         // fire the main function with these parameters
         require(['nbextensions/toc2/toc2'], function (toc2) {
             toc2.table_of_contents(cfg);
@@ -11869,7 +11869,7 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Linear-Transverse-Motion">Linear Transverse Motion<a class="anchor-link" href="#Linear-Transverse-Motion">&#182;</a></h1>
+<h1 id="Linear-Coupling">Linear Coupling<a class="anchor-link" href="#Linear-Coupling">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11877,12 +11877,7 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this chapter,we will discuss the particle motion in perpendicular to the  particle ideal trajectory in linear magnets.  Linear magnets refer to the dipole and quadrupole magnets that produce linear magnetic field.  The force of the particle is given by the Lorentz force:</p>
-<p>\begin{equation}
-\mathbf{F}=q\mathbf{v}\times \mathbf{B}
-\end{equation}
-The force is always perpendicular to its velocity, therefore the particle can not be accelerated by the magnetic field.</p>
-
+<h2 id="Hamiltonian-with-Longitudinal-Vector-Potentials">Hamiltonian with Longitudinal Vector Potentials<a class="anchor-link" href="#Hamiltonian-with-Longitudinal-Vector-Potentials">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11890,985 +11885,17 @@ The force is always perpendicular to its velocity, therefore the particle can no
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Design-Trajectory">Design Trajectory<a class="anchor-link" href="#Design-Trajectory">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The geometry of the accelerator is determined by the dipole magnet.  Let us assume that the magnetic field is constant in certain region and along the vertical direction $\mathbf{B}=B\hat{y}$.  The particle travels through this region initially in $\hat{s}$ direction in the $x$-$s$ plane, as shown below.
-<img src=reference_orbit.png width=400></p>
-<p>The equation of motion is</p>
-<p>\begin{equation}
-\frac{d\mathbf{P}}{dt}=q\mathbf{v}\times\mathbf{B}
-\end{equation}
-The momentum change will be only in the $x$-$s$ plane, the velocity is always perpendicular to the magnetic field and the energy of the beam does not change, therefore:</p>
-<p>\begin{equation}
-m\gamma \frac{d\mathbf{v}}{dt}=qB\mathbf{v}\times\hat{y}
-\end{equation}</p>
-<p>Using the fact that the amplitude of the velocity will not change therefore:</p>
-<p>\begin{equation}
-m\gamma \frac{v^2}{\rho}=qvB
-\end{equation}
-The bending radius is given by:</p>
-<p>\begin{equation}
-\rho=\frac{\left|\mathbf{P}\right|}{qB}
-\end{equation}</p>
-<p>Here, we define the term 'rigidity' $B\rho=P/q$, to quantify 'how hard to bend the beam'.  And naturally it is only function of the particle momentum amplitude.  It is a very important normalization factor of the transverse motion, as will shown later.  After normalization, most our calculation becomes particle energy independent.</p>
-<p>The dipoles that defines the geometry of the accelerator are sometimes called main dipoles.  They define a ideal trajectory.  A charge particle with correct energy, once inject with correct position and angle, will exactly follow the ideal trajectory.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="First-look:-Beam-motion-in-Quadrupole-field">First look: Beam motion in Quadrupole field<a class="anchor-link" href="#First-look:-Beam-motion-in-Quadrupole-field">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The quadrupole field, from the previous section, has</p>
-<p>\begin{align}
-B_x&amp;=Gy\\
-B_y&amp;=Gx
-\end{align}
-where the gradient is $G=B_0 b_1$.</p>
-<p>Quadrupole is usually positioned so that the zero field axis is located on the ideal trajectory.  The ideal particle will not experience any field from the Quadrupole.</p>
-<p>From the Lorentz force, we have
-$$\gamma m \frac{d\mathbf{v}}{dt} = q \mathbf{v}\times \mathbf{B}$$</p>
-<p>Expand the vector production and get</p>
-<p>\begin{align}
-\gamma m\frac{d^{2}x}{dt^{2}}&amp;=-qGxv_{z}\\
-\gamma m\frac{d^{2}y}{dt^{2}}&amp;=qGyv_{z}
-\end{align}</p>
-<p>Here we need to make following approximation:</p>
-<ul>
-<li><strong>paraxial approximation</strong>, indicate that the particle will only deviate the design direction by small angles, i.e. if z is the forward direction, the two transverse velocity satisfy: $v_x,v_y \ll \left|\mathbf{v}\right|$</li>
-<li>In such approximation, </li>
-</ul>
-<p>\begin{align}
-v_z&amp;=\sqrt{v^2-v_x^2-v_y^2}\nonumber\\
-&amp;=v\left(1-\frac{v_x^2+v_y^2}{2v^2}\right)\sim v
-\end{align}</p>
-<ul>
-<li>Using such approximation, we have 
-$$\frac{d}{dt}=v_s\frac{d}{ds}\sim v\frac{d}{ds}\;\frac{d^2}{dt^2}\sim v^2\frac{d^2}{ds^2}$$</li>
-</ul>
-<p>Then the equation of motion in quadrupole is simplified as</p>
-<p>\begin{align}
-\gamma m v\frac{d^{2}x}{ds^{2}}&amp;=qGx\\
-\gamma m v\frac{d^{2}y}{ds^{2}}&amp;=-qGy
-\end{align}</p>
-<p>Using the definition of the rigidity $B\rho$, the EOM can be rewritten as :</p>
-<p>\begin{align}
-\frac{d^{2}x}{ds^{2}}&amp;=-\frac{G}{B\rho}x\\
-\frac{d^{2}y}{ds^{2}}&amp;=\frac{G}{B\rho}y
-\end{align}</p>
-<p>Then, we define the normalized quadrupole strength $k=G/(B\rho)$, the EOM is simply:</p>
-<p>\begin{align}
-\frac{d^{2}x}{ds^{2}}+kx&amp;=0\\
-\frac{d^{2}y}{ds^{2}}-ky&amp;=0
-\end{align}</p>
-<p>Depend on the sign of $k$, it is easy to solve the differential equation:</p>
-<p>\begin{equation}
-x\left(s\right)=
-\begin{cases}
-a \cos \left(\sqrt{k}s\right)+b \sin \left(\sqrt{k}s\right)&amp;k&gt;0\\
-a s + b &amp;k=0\\
-a \cosh \left(\sqrt{-k}s\right)+b\sinh \left(\sqrt{-k}s\right)&amp;k&lt;0
-\end{cases}
-\end{equation}</p>
-<p>The three cases corresponds to a focusing quadrupole, drift space and a defocusing quadrupole respectively. The parameter $a$, $b$ are determined by the initial particle position $x$ and its derivative $x'$. We also learn that the quadrupole will always focus the particles in one transverse direction and defocus in the other.</p>
-<p>In general, the focusing strength can be also function of the longitudinal direction and the EOM of transverse motion (using horizontal direction $\hat{x}$ as an example) gives:</p>
-<p>\begin{equation}
-\frac{d^{2}x}{ds^{2}}+k\left(s\right)x=0
-\end{equation}</p>
-<p>This ODE is named Hill's equation.  It can be rewritten as:</p>
-<p>\begin{align}
-\frac{dx}{ds}&amp;=x'\\
-\frac{dx'}{ds}&amp;=-k(s)x
-\end{align}</p>
-<p>They are just the form of Hamiltonian equations of the Hamiltonian:</p>
-<p>\begin{align}
-H=\frac{1}{2}x'^2+\frac{1}{2}k(s)x^2
-\end{align}
-Latter we will use alternative method to rederive this equation and try to solve it in general.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Curvilinear-Coordinate-System">Curvilinear Coordinate System<a class="anchor-link" href="#Curvilinear-Coordinate-System">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The ideal trajectory is usually used as reference for the dynamics of the charged particles. This trajectory can be determined from a vector $\mathbf{r_0}\left(t\right)$. The length along the curve is given by</p>
-<p>\begin{align}
-s(t)=\int_0^t \left|\mathbf{r'_0}\left(t^\prime\right)\right| dt^\prime
-\end{align}
-Therefore our study is usually performed in the curvilinear coordinate system, named Frenet-Serret coordinate system, as illustrated in the figure:
-<img src=curvilinear_frame.png width=300></p>
-<p>In this representation, the independent variable is the location on the reference orbit $s$.  The reference point on the reference orbit is defined by the vector $\mathbf{r_0}\left(s\right)$.  The unit vector of the tangent direction is given by:</p>
-<p>\begin{equation}
-\hat{s}\left(s\right)=\frac{d\mathbf{r_0}\left(s\right)}{ds}
-\end{equation}</p>
-<p>The unit vector of the tangent plane and the normal plane is:</p>
-<p>\begin{equation}\hat{x}\left(s\right)=-\rho\left(s\right)\frac{d\hat{s}\left(s\right)}{ds}
-\end{equation}</p>
-<p>Here $\rho$ denotes the local radius, which is the recipocal of the curvature $\kappa$. At last, the binormal vector is simply defined by:</p>
-<p>\begin{equation}
-\hat{y}\left(s\right)=\hat{s}\left(s\right)\times\hat{x}\left(s\right)
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We defining The derivative of the unit vectors are:</p>
-<p>\begin{align}
-\frac{d\hat{s}\left(s\right)}{ds} &amp;= -\kappa\left(s\right) \hat{x}\left(s\right)\\
-\frac{d\hat{x}\left(s\right)}{ds} &amp;= \kappa\left(s\right) \hat{s}\left(s\right)+\tau\left(s\right)\hat{y}\left(s\right)\\
-\frac{d\hat{y}\left(s\right)}{ds} &amp;= -\tau\left(s\right)\hat{x}\left(s\right)
-\end{align}</p>
-<p>Here, $\tau$ is the local torsion of the curve.
-In matrix form, the relation can be expressed as:</p>
-<p>\begin{equation}
-\frac{{d}}{ds}\left(\begin{array}{c}
-\hat{{s}}\\
-\hat{{x}}\\
-\hat{y}
-\end{array}\right)=\left(\begin{array}{ccc}
-0 &amp; -\kappa &amp; 0\\
-\kappa &amp; 0 &amp; \tau\\
-0 &amp; -\tau &amp; 0
-\end{array}\right)\left(\begin{array}{c}
-\hat{{s}}\\
-\hat{{x}}\\
-\hat{y}
-\end{array}\right)
-\end{equation}</p>
-<p>In most cases, we focus our discussion on the motion in plane geometry, therefore the torsion is zero.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Then, the coordinate of particle can be expressed as:</p>
-<p>\begin{equation}
-\mathbf{r}=\mathbf{r_0}\left(s\right)+x\hat{x}\left(s\right)+y\hat{y}\left(s\right)
-\end{equation}</p>
-<p>Compared with the Cartesian coordinate system, $\mathbf{r}=x \hat{x}+y \hat{y}+z \hat{z} $, the differentials give: $\partial \mathbf{r}/\partial x = \hat{x}$, $\partial \mathbf{r}/\partial y = \hat{y}$, $\partial \mathbf{r}/\partial z = \hat{z}$; the differentials of the Frenet-Serret Coordinate yields:</p>
-<p>\begin{align}
-\frac{\partial \mathbf{r}}{\partial s} &amp;= \hat{s}\left(1+ \kappa x\right) \\
-\frac{\partial \mathbf{r}}{\partial x} &amp;= \hat{x} \\
-\frac{\partial \mathbf{r}}{\partial y} &amp;= \hat{y}
-\end{align}</p>
-<p>The Lame coefficient of the Frenet-Serret coordinate system is $h_s=1+\kappa x$ and $h_x=h_y=1$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this coordinate system, the vector operation has different form, for example:</p>
-<p>\begin{equation}
-\nabla \phi = \frac{1}{1+\kappa x}\frac{\partial \phi}{\partial s}\hat{s}+\frac{\partial \phi}{\partial x}\hat{x}+\frac{\partial \phi}{\partial y}\hat{y}
-\end{equation}
-And the curl of the vector gives:</p>
-<p>\begin{equation}
-\nabla\times A=\frac{1}{1+\kappa x}\left|\begin{array}{ccc}
-\left(1+\kappa x\right)\hat{{s}} &amp; \hat{{x}} &amp; \hat{y}\\
-\frac{\partial}{\partial s} &amp; \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y}\\
-\left(1+\kappa x\right)A_{s} &amp; A_{x} &amp; A_{y}
-\end{array}\right|
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hamiltonian-Approach">Hamiltonian Approach<a class="anchor-link" href="#Hamiltonian-Approach">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Lagrangian-to-Hamiltonian">Lagrangian to Hamiltonian<a class="anchor-link" href="#Lagrangian-to-Hamiltonian">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We consider the approach from Lagrangian of a relativistic charged particle in a E-M field.</p>
-<p>\begin{equation}
-L\left(\mathbf{x}, \mathbf{v}, t\right)=
--mc^2\sqrt{1-\frac{v^2}{c^2}}
-+e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
--e\phi \left(\mathbf{x},t\right)
-\end{equation}</p>
-<p>Here, $\mathbf{x}$ is the position and the velocity is $\mathbf{v}=\dot{\mathbf{x}} =d\mathbf{x}/dt$. The vector potential $\mathbf{A}$ and scalar potential $\phi$ is the function of the position and time.  The fields is calculated as:</p>
-<p>\begin{align}
-\mathbf{E}&amp;=-\nabla\phi-\frac{\partial\mathbf{A}}{\partial t}\\
-\mathbf{B}&amp;=\nabla\times\mathbf{A}
-\end{align}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The equation of motion can be derived from the equation</p>
-<p>\begin{equation}
-\frac{\partial L}{x_i}=\frac{d}{dt}\frac{\partial L}{\dot{x}_i}
-\end{equation}</p>
-<p>Using the Lagrangian above will get the EOM with Lorentz force.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We are interested in the generalized momentum $P_i$ of the $i^{th}$ coordinate $x_i$ which is given by:</p>
-<p>\begin{align}
-P_i&amp;=\frac{\partial L}{\partial \dot{x}_i} \nonumber\\
-   &amp;=\frac{m\dot{x}_i}{\sqrt{1-\frac{v^2}{c^2}}}+eA_i \nonumber\\
-   &amp;=p_i+eA_i
-\end{align}</p>
-<p>Here $p_i$ is the momentum of the particle.  The above components can be combined to get a vector form, $\mathbf{P}=\mathbf{p}+e\mathbf{A}$, between the generalized (or conjugate) momentum $\mathbf{P}$, the momentum $\mathbf{p}$ and the vector potential $\mathbf{A}$.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Then the Hamiltonian is calculated as:</p>
-<p>\begin{align}
-H&amp;=\mathbf{v}\cdot\mathbf{P}-L \nonumber\\
-&amp;=\mathbf{v}\cdot\mathbf{p}+e\mathbf{v}\cdot\mathbf{A}+mc^2\sqrt{1-\frac{v^2}{c^2}}
-    -e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
-    +e\phi \left(\mathbf{x},t\right) \nonumber\\
-&amp;=\gamma m v^2 +mc^2\sqrt{1-\frac{v^2}{c^2}}+e\phi \left(\mathbf{x},t\right) \nonumber\\
-&amp;=(\gamma\beta^2+1/\gamma)mc^2+e\phi \left(\mathbf{x},t\right) \nonumber\\
-&amp;=\gamma mc^2 +e\phi \left(\mathbf{x},t\right)
-\end{align}</p>
-<p>With no surprise, the Hamiltonian reflects the total energy of the particle and the potential energy in the E-M field. For further analysis, we express the Hamiltonian as function of the conjugate variable pair:</p>
-<p>\begin{align}
-H(\mathbf{x},\mathbf{p})&amp;=H\left(x_1,\cdots,x_n, P_1,\cdots,P_n, t\right)\\
-&amp;=\sqrt{\left(m c^2\right)^2
-+\left(\mathbf{P}-e\mathbf{A}\left(\mathbf{x},t\right)\right)^2c^2}
-+e\phi\left(\mathbf{x},t\right)
-\end{align}</p>
-<p>Later we will use a series of canonical transformations to change the coordinates and independent variable.  A generating function is handy to create the canonical transformations from old coordinate $(q,p)$ to a new set (Q,P). There are four types of generating functions:
-<img src=generating_function.png width=220 style="float: right;margin: 20px 20px 20px 20px;" ></p>
-<p>\begin{align}
-F_1=F_1(\mathbf{q},\mathbf{Q},t)\quad &amp;  \mathbf{p}=\frac{\partial F_1}{\partial \mathbf{q}}; \mathbf{P}=-\frac{\partial F_1}{\partial \mathbf{Q}}\\
-F_2=F_2(\mathbf{q},\mathbf{P},t)\quad &amp; \mathbf{p}=\frac{\partial F_2}{\partial \mathbf{q}}; \mathbf{Q}=\frac{\partial F_2}{\partial \mathbf{P}}\\
-F_3=F_3(\mathbf{p},\mathbf{Q},t)\quad &amp; \mathbf{q}=-\frac{\partial F_3}{\partial \mathbf{p}}; \mathbf{P}=-\frac{\partial F_3}{\partial \mathbf{Q}}\\
-F_4=F_4(\mathbf{p},\mathbf{P},t)\quad &amp; \mathbf{q}=-\frac{\partial F_4}{\partial \mathbf{P}}; \mathbf{Q}=\frac{\partial F_4}{\partial \mathbf{P}}
-\end{align}</p>
-<p>The right figure shows a way to remember the relative relations of the generating functions.  The new Hamiltonian $K(Q,P,t)$ is calculated by:</p>
-<p>\begin{align}
-K(\mathbf{Q},\mathbf{P},t)=H\left(\mathbf{q}(\mathbf{Q},\mathbf{P}),\mathbf{p}(\mathbf{Q},\mathbf{P})\right)+\frac{\partial F}{\partial t}
-\end{align}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Transformation-to-Frenet-Serret-coordinate-system">Transformation to Frenet-Serret coordinate system<a class="anchor-link" href="#Transformation-to-Frenet-Serret-coordinate-system">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The first necessary transformation that we need to make is to change the coordinate system to the Frenet-Serret coordinate system, i.e. from Cartesian coordinate $\mathbf{r}=x\hat{x}+y\hat{y}+z\hat{z}$ to $\mathbf{r}=\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)$.<br>
-We use the generating function of the $3^{rd}$ type to perform this transformation:</p>
-<p>\begin{equation}
-F_3=-\mathbf{P}\cdot\left(\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)\right)
-\end{equation}</p>
-<p>The new conjugate momentum, $\boldsymbol{\Pi}$ can be calculated as:</p>
-<p>\begin{align}
-\Pi_x&amp;=-\frac{\partial F_3}{\partial x}=\mathbf{P}\cdot\hat{x}\\
-\Pi_y&amp;=-\frac{\partial F_3}{\partial y}=\mathbf{P}\cdot\hat{y}\\
-\Pi_s&amp;=-\frac{\partial F_3}{\partial s}=\mathbf{P}\cdot\hat{s}\left(1+\frac{x}{\rho}\right)\\
-\end{align}</p>
-<p>Therefore, in the Frenet-Serret coordinate system:</p>
-<p>\begin{equation}
-H=c\sqrt{
-\left(m c\right)^2
-+\left(\Pi_x-eA_x\right)^2+\left(\Pi_y-eA_y\right)^2
-+\left(\frac{\Pi_s}{1+x/\rho}-eA_s\right)^2
-} +e\phi
-\end{equation}</p>
-<p>The vector potential now also take its components from the Frenet-Serret coordinate system as $A_x=\mathbf{A}\cdot\hat{x}$, $A_y=\mathbf{A}\cdot\hat{y}$ and $A_s=\mathbf{A}\cdot\hat{s}$.  Sometimes, the longitudinal component of the vector potential also can be define as $A_s=\mathbf{A}\cdot \frac{\partial \mathbf{r}}{\partial s}= (1+x/\rho) \mathbf{A}\cdot\hat{s}$, which will <strong>NOT</strong> be used in the latter contents.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Use-$s$-as-independent-variable">Use $s$ as independent variable<a class="anchor-link" href="#Use-$s$-as-independent-variable">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we need charge the independent coordinate from time to '$s$', the position on the reference orbit. The Hamiltonian above is function of $(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)$ and the Hamiltonian equation are:</p>
-<p>\begin{align}
-\frac{\partial H}{\partial x}&amp;=-\dot{\Pi}_x &amp; \frac{\partial H}{\partial \Pi_x}&amp;=\dot{x} \\
-\frac{\partial H}{\partial y}&amp;=-\dot{\Pi}_y &amp; \frac{\partial H}{\partial \Pi_y}&amp;=\dot{y} \\
-\frac{\partial H}{\partial s}&amp;=-\dot{\Pi}_s &amp; \frac{\partial H}{\partial \Pi_s}&amp;=\dot{s}
-\end{align}</p>
-<p>To change the independent coordinate to $s$, we first look at the derivative:</p>
-<p>\begin{equation}
-x^\prime\equiv\frac{dx}{ds}=\frac{dx}{dt}\left(\frac{ds}{dt}\right)^{-1}
-=\frac{\partial H}{\partial \Pi_x}\left(\frac{\partial H}{\partial \Pi_s}\right)^{-1}
-\end{equation}</p>
-<p>Using the differential chain rule of the implicit equation $H(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)-f(t)=0$, we have:</p>
-<p>\begin{equation}
-x^\prime\equiv\frac{dx}{ds}=-\frac{\partial \Pi_s}{\partial \Pi_x}
-\end{equation}</p>
-<p>Use the similar trick, we will find that</p>
-<p>\begin{align}
-{\Pi_x}^\prime&amp;\equiv\frac{d\Pi_x}{ds}=\frac{\partial \Pi_s}{\partial x}\\
-y^\prime&amp;\equiv\frac{dy}{ds}=-\frac{\partial \Pi_s}{\partial \Pi_y}\\
-{\Pi_y}^\prime&amp;\equiv\frac{d\Pi_y}{ds}=\frac{\partial \Pi_s}{\partial y}\\
-\end{align}</p>
-<p>We also find the other two relationship easily:</p>
-<p>\begin{equation}
-t^\prime\equiv\frac{dt}{ds}=\left(\frac{\partial H}{\partial \Pi_s}\right)^{-1}=\frac{\partial \Pi_s}{\partial H}
-\end{equation}</p>
-<p>\begin{equation}
-H^\prime\equiv\frac{dH}{ds}=-\frac{\partial \Pi_s}{\partial t}
-\end{equation}</p>
-<p>Therefore we can choose the new Hamiltonian $K=-\Pi_s(x,\Pi_x, y, \Pi_y, H, t,s)$, which will satisfy the Hamiltonian relation.  However, it is awkward to set $H$ as the 'coordinate' and $t$ as 'general momentum'.  To fix this, we can set the conjugate pair as $(t,-H)$.  Therefore the new Hamiltonian reads:</p>
-<p>\begin{align}
-K\left(x,\Pi_x, y, \Pi_y, t, -H,s\right) = -\Pi_s \nonumber\\
-=-\left(1+\frac{x}{\rho}\right)\sqrt{\left(\frac{H-e\phi}{c}\right)^2-(mc)^2-\left(\Pi_x-eA_x\right)^2-\left(\Pi_y-eA_y\right)^2}\nonumber\\-eA_s\left(1+\frac{x}{\rho}\right)
-\end{align}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Simplifications-of-Hamiltonian">Simplifications of Hamiltonian<a class="anchor-link" href="#Simplifications-of-Hamiltonian">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the new Hamiltonian has a very complicated form, we will use the following simplifications.</p>
-<ul>
-<li>First, we have seen that for 2-D magnetic field, only the longitudinal vector potential is needed. We can set the both transverse potential to be zero: $A_x=A_y=0$. Then, the generalized momentum reduce to the particle's momentum $\Pi_{x/y}=p_{x/y}$.</li>
-<li><p>Second, let us assume the potential $\phi$ is not time dependent, then we can make canonical transformation $(t, -H)$ to $(t, -h)$ with $h=H-e\phi$.  $h$ is just the total energy of the particle and the first two terms give the momentum of the particle  $p^2=\left(h/c\right)^2-(mc)^2$.</p>
-</li>
-<li><p>Third, Let's define a reference momentum of the particle $p_0$, and each particle will have a deviation from the reference, $p=p_0(1+\delta)$.  $\delta$ is called fractional momentum deviation. We scale the Hamiltonian $K$ by factor of $p_0$ and get new $\tilde{K}$.</p>
-</li>
-</ul>
-<p>\begin{equation}
-\frac{K}{p_0}
-\equiv\tilde{K}\left(x, \tilde{p_x}=\frac{p_x}{p_0}, y, \tilde{p_y}=\frac{p_y}{p_0}, t,-h=\frac{-H}{p_0}\right)=\\
--\left(1+\frac{x}{\rho}\right)
-\sqrt{\left(\frac{h}{c}\right)^2-\left(\frac{mc^2}{p_0}\right)^2-\tilde{p_x}^2-\tilde{p_y}^2}
+<p>Let us recall the exact Hamiltonian has the form:
+$$K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-p_x^2-p_y^2} 
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
-\end{equation}</p>
+$$</p>
+<p>and take the following special cases or approximations:</p>
 <ul>
-<li>Last, we will make a canonical transformation from the pair $(t, -h)$ to $(z,\delta)$ with generating function $F_2=f(\delta)t$ and </li>
+<li>Mono-energy, $\delta=0$</li>
+<li>Straight section, $\rho=\infty$</li>
+<li>Paraxial Approximation $p_x\ll 1$ and $p_y\ll 1$.</li>
+<li>Consider the skew Quadrupoles</li>
 </ul>
-<p>\begin{equation}
--h=\frac{\partial F_2}{\partial t}=f(\delta)
-\end{equation}
-The new coordinate $z$ is calculated as</p>
-<p>\begin{align}
-z&amp;=\frac{\partial F_2}{\partial \delta} \nonumber \\
-&amp;=\left(-\sqrt{c^2(1+\delta)^2+m^2c^4}\right)'t\nonumber \\
-&amp;=-\beta ct
-\end{align}
-the Hamiltonian becomes:</p>
-<p>\begin{equation}
-\tilde{K}\left(x, \tilde{p_x}, y, \tilde{p_y}, z=-\beta ct, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-\tilde{p_x}^2-\tilde{p_y}^2} 
--e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
-\end{equation}</p>
-<p>The new longitudinal coordinate $z$ has the meaning: the distance of the particle travels at current speed.</p>
-<p>For later convenience, we remove the tilde of the above Hamiltonian and it looks like:</p>
-<p>\begin{equation}
-K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-p_x^2-p_y^2} 
--e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)\label{eq:Hamiltonian_popular_form}
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Further-assumptions">Further assumptions<a class="anchor-link" href="#Further-assumptions">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The above Hamiltonian can be consider as exact in most accelerator cases.  Next, we will make assumptions and expand the Hamiltonian up to 2nd order.  The assumptions includes:</p>
-<ul>
-<li>Momentum spread is very small. For any particle, $\delta \ll 1$</li>
-<li>Paraxial approximation, the longitudinal momentum is close to the reference momentum and $p_x,p_y \ll 1$</li>
-</ul>
-<p>Then we can expand the Hamiltonian up to 2nd order in $p_x$ and $p_y$ and have:</p>
-<p>\begin{align}
-K\left(x, p_x, y, p_y, z, \delta,s\right)&amp;=-(1+\delta)\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2(1+\delta)^2}-\frac{p_y^2}{2(1+\delta)^2}\right)
--e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)   \nonumber\\
-&amp;=-\left(1+\frac{x}{\rho}\right)\left(1+\delta-\frac{p_x^2}{2(1+\delta)}-\frac{p_y^2}{2(1+\delta)}\right)
--e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
-\end{align}</p>
-<p>Recall that 
-$$p_x=\frac{\mathbf{p}\cdot\hat{x}}{p_0} \;;\; p_y=\frac{\mathbf{p}\cdot\hat{y}}{p_0}$$</p>
-<p>is different from the orbit slope:</p>
-<p>\begin{equation}
-x^\prime\equiv\frac{dx}{ds}=\frac{\mathbf{p}\cdot\hat{x}}{p_s}\sim\frac{\mathbf{p}\cdot\hat{x}}{p_0(1+\delta)}=\frac{p_x}{1+\delta}
-\end{equation}</p>
-<p>\begin{equation}
-y^\prime\equiv\frac{dy}{ds}=\frac{\mathbf{p}\cdot\hat{y}}{p_s}\sim\frac{\mathbf{p}\cdot\hat{y}}{p_0(1+\delta)}=\frac{p_y}{1+\delta}
-\end{equation}</p>
-<p>Therefore, we only consider the transverse motion without energy dependence, the slope $x^\prime$ and $y^\prime$ can be used as conjugate momentum in paraxial approximation.  Otherwise using the slope instead of $p_x$ and $p_y$ will violate Hamiltonian dynamics.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In 4-Dimensional motion for particle with reference momentum, the Hamiltonian is</p>
-<p>\begin{equation}
-K\left(x, p_x, y, p_y,s\right)=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
--e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)   
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Vector-potentials-for-linear-elements">Vector potentials for linear elements<a class="anchor-link" href="#Vector-potentials-for-linear-elements">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, its time to consider the real form for the vector potential $A_s$.  We will limit our discussion within linear regime.</p>
-<p>For a main dipole, where the reference orbit bend inside with radius $\rho$ or its reciprocal, curvature $\kappa=1/\rho$, we need to find $A_s$ to get vertical magnetic field $\mathbf{B}=B_0(s)\hat{y}$ in the Frenet-Serret coordinate system:</p>
-<p>\begin{equation}
-B_0(s)=-\frac{1}{1+\kappa x}\frac{\partial\left((1+\kappa x)A_s\right)}{\partial x}
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It seems exact solution for this differential equation doesnot exist.  However, with the assumption of $\left|x\right|\kappa \ll 1$, we can get approximation of $A_s$ up to second order.  Let's assume $A_s=-B_0(s)(a x + bx^2)$.  Then we get:</p>
-<p>\begin{equation}
-1+\kappa x=\frac{\partial\left((1+\kappa x)(ax+bx^2)\right)}{\partial x}
-\end{equation}</p>
-<p>By solve the index of the $0^{th}$ and $1^{th}$ terms, we get $a=1$ and $b=-\kappa/2$.   Therefore in a constant field main dipole:</p>
-<p>\begin{equation}
-A_{s,d}\approx-B_0\left(x - \frac{x^2}{2\rho}\right)
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For quadrupole, the radius is infinity.  The vector potential will be the same as its form in a Cartesian coordinate.  From the Beth's representation:</p>
-<p>\begin{equation}
-A_{s,q}=-B_0 b_1(s) \left(x^2-y^2\right)/2=-G(s)\left(x^2-y^2\right)/2
-\end{equation}</p>
-<p>Here $G(s)$ is the field gradient in unit of [Tesla/m].</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We get the Hamiltonian and truncate down to second order, and recall that the rigidity $B_0 \rho=p_0/e$:</p>
-<p>\begin{align}
-K\left(x, p_x, y, p_y,s\right)&amp;=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
-+\frac{eB_0}{p_0}\left(1+\frac{x}{\rho}\right)\left(x-\frac{x^2}{2\rho}\right)\nonumber\\
-+\frac{eB_0b_1}{2p_0}\left(x^2-y^2\right) \nonumber\\
-&amp;=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
-+\frac{1}{\rho}\left(1+\frac{x}{\rho}\right)\left(x-\frac{x^2}{2\rho}\right)+\frac{G(s)}{2B_0\rho}\left(x^2-y^2\right) \nonumber\\
-&amp;\approx -1+\frac{p_x^2}{2}+\frac{p_y^2}{2}+\frac{x^2}{2\rho^2}+k(s)\left(x^2-y^2\right)/2
-\end{align}</p>
-<p>Here we use normalized quadrupole strength $k(s)=G(s)/B_0\rho$.  It is the most useful quantity in the simulation to characterize the strength of a quadrupole.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In the approximate Hamiltonian of dipole and normal quadrupole, we can first ignore the constant, then split it in to two separate Hamiltonian, one for each transverse direction.
-$$K\left(x, p_x, y, p_y,s\right)=K_x\left(x, p_x,s\right)+K_y\left( y, p_y,s\right)$$
-This indicate that the motion of two directions are de-coupled and can be treat separately.</p>
-<p>\begin{align}
-K_x\left(x,p_x,s\right)&amp;=\frac{p_x^2}{2}+\frac{x^2}{2\rho^2}+\frac{k(s)x^2}{2} \\
-K_y\left(y,p_y,s\right)&amp;=\frac{p_y^2}{2}-\frac{k(s)y^2}{2}
-\end{align}</p>
-<p>The equations of motion can be found from Hamiltonian equation:</p>
-<p>\begin{align}
-&amp; x''+\left(\frac{1}{\rho^2}+k(s)\right)x=0 \\
-&amp; y''-k(s)y=0
-\end{align}</p>
-<p>We returned to the Hill's equation including both the main dipole and quadrupole in the Frenet-Serret coordinate system.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Combine the effect of dipole and quad, there is an chance to have focusing effect in both plane:</p>
-<p>\begin{align}
--\frac{1}{\rho^2}&lt;k(s)&lt;0
-\end{align}</p>
-<p>If a machine can have this condition through out, the motion of both transverse plane will be stable.  This is called <strong>weak focusing</strong>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Transfer-Matrix-for-Linear-Elements">Transfer Matrix for Linear Elements<a class="anchor-link" href="#Transfer-Matrix-for-Linear-Elements">&#182;</a></h2><p>It is convenient to write the solution of the Hill's equation using matrix form.  Such matrix is named betatron transfer matrix.  The motion in each transverse direction can be described by $2\times 2$ matrix.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Drift-space">Drift space<a class="anchor-link" href="#Drift-space">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The EOM for drift space is simply $x''=0$ and $y''=0$.  Using horizontal direction as instance, if the initial condition at the starting point $s_0$ are $x(s=s_0)=x_0$ and $x'(s=s_0)={x_0'}$.  The solution is:</p>
-<p>\begin{equation}
-x(s=s_0+l)=x_0+x'_0l
-\end{equation}
-Or in matrix form</p>
-<p>\begin{equation}
-\left(\begin{array}{c}
-x\\
-x'
-\end{array}\right)_{s=s_0+l}=\left(\begin{array}{cc}
-1 &amp; l\\
-0 &amp; 1
-\end{array}\right)\left(\begin{array}{c}
-x\\
-x
-\end{array}\right)_{s=s_0}
-\end{equation}</p>
-<p>We write the transfer matrix for drift space as:</p>
-<p>\begin{equation}M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
-1 &amp; s\\
-0 &amp; 1
-\end{array}\right)
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Dipole-(main)">Dipole (main)<a class="anchor-link" href="#Dipole-(main)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For the dipole that bend the beam with the radius $\rho$ in horizontal plane, the $x$ direction follows an EOM as a harmonic oscillator, while in $y$ direction, the motion is just as in a drift space.</p>
-<p>The matrix form in the dipole can be easily get as:</p>
-<p>\begin{equation}
-\left(\begin{array}{c}
-x\\
-x'
-\end{array}\right)_{s=s_0+l}=\left(\begin{array}{cc}
-\cos(l/\rho) &amp; \rho\sin(l/\rho)\\
--\sin(l/\rho)/\rho &amp; \cos(l/\rho)
-\end{array}\right)\left(\begin{array}{c}
-x\\
-x
-\end{array}\right)_{s=s_0}
-\end{equation}</p>
-<p>The transfer matrix for dipole in horizontal space is:</p>
-<p>\begin{equation}
-M\left(s_0+l,s_0\right)=\left(\begin{array}{cc}
-\cos\left(\frac{l}{\rho}\right) &amp; \rho\sin\left(\frac{l}{\rho}\right)\\
--\frac{1}{\rho}\sin\left(\frac{l}{\rho}\right) &amp; \cos\left(\frac{l}{\rho}\right)
-\end{array}\right)
-\end{equation}</p>
-<p>In a small angle approximation $l/\rho \ll1$, we can expand the matrix up to first order of $l/\rho$.  The matrix reduce to a drift space:</p>
-<p>\begin{equation}
-M\left(s_0+l,s_0\right)=\left(\begin{array}{cc}
-1 &amp; l\\
-0 &amp; 1
-\end{array}\right)
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Quadrupole-(Normal)">Quadrupole (Normal)<a class="anchor-link" href="#Quadrupole-(Normal)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In the example before, we already derived the solution for particle in the quadrupole.  It can be rewritten in the matrix form as</p>
-<p>\begin{equation}
-M\left(s_0+s,s_0\right)=
-\begin{cases}
-\left(\begin{array}{cc}
-\cos\left(\sqrt{k}s\right) &amp; \sin\left(\sqrt{k}s\right)/\sqrt{k}\\
--\sqrt{k}\sin\left(\sqrt{k}s\right) &amp; \cos\left(\sqrt{k}s\right)
-\end{array}\right)&amp;k&gt;0, \text{Focusing Quad}\\
-\\
-\left(\begin{array}{cc}
-\cosh\left(\sqrt{k}s\right) &amp; \sinh\left(\sqrt{k}s\right)/\sqrt{k}\\
-\sqrt{k}\sinh\left(\sqrt{k}s\right) &amp; \cosh\left(\sqrt{k}s\right)
-\end{array}\right)&amp;k&lt;0, \text{Defocusing Quad}\\
-\end{cases}
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Usually, the quadrupole has short length and strong field gradient. We may model such short quad as a 'lens with zero length', and define the focal length $f$ as:</p>
-<p>\begin{equation}
-f=\lim_{l\to 0}\frac{1}{|k|l}
-\end{equation}</p>
-<p>In such limit the transfer map for a thin-length quad is</p>
-<p>\begin{equation}
-M_{\text{quad}}=
-\begin{cases}
-\left(\begin{array}{cc}
-1 &amp; 0\\
--1/f &amp; 1
-\end{array}\right)&amp; \text{Focusing Quad}\\
-\\
-\left(\begin{array}{cc}
-1 &amp; 0\\
-1/f &amp; 1
-\end{array}\right)&amp; \text{Defocusing Quad}\\
-\end{cases}
-\end{equation}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Chain-of-linear-elements">Chain of linear elements<a class="anchor-link" href="#Chain-of-linear-elements">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src=chain_of_elements.png width=400>
-In accelerators, we have chain of magnets, as illustrated above.  Each magnet has a transfer matrix, the transfer matrix for the chain can be found by matrix multiplications:</p>
-<p>\begin{equation}
-M\left(s_n,s_0\right)=M\left(s_n,s_{n-1}\right)\cdots M\left(s_2,s_1\right)M\left(s_1,s_0\right)
-\end{equation}</p>
-<p>Note that the order of the multiplication is the reverse order of the placement of the magnet.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Properties-of-the-betatron-transfer-matrix">Properties of the betatron transfer matrix<a class="anchor-link" href="#Properties-of-the-betatron-transfer-matrix">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Symplectic-condition">Symplectic condition<a class="anchor-link" href="#Symplectic-condition">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's return to the most general form of the matrix $M$:</p>
-<p>\begin{equation}
-M(s)=\left(\begin{array}{cc}
-a(s) &amp; b(s)\\
-c(s) &amp; d(s)
-\end{array}\right)
-\end{equation}</p>
-<p>The matrix represent the solution:</p>
-<p>\begin{align}
-x(s)&amp;=x_0a(s)+x'_0b(s)\\
-x'(s)&amp;=x_0c(s)+x'_0d(s)
-\end{align}</p>
-<p>that satisfy the Hill's equation with general focusing term $K(s)$:</p>
-<p>\begin{equation}
-x''+K(s)x=0
-\end{equation}</p>
-<p>It can be constructed from the Hamiltonian, which reads:</p>
-<p>\begin{equation}
-H(x,x')=x'^2+K(s)x^2
-\end{equation}</p>
-<p>The implicit requirement raised from fact that the system is described by a Hamiltonian is called <strong><em>symplecticity</em></strong>.  The symplectic property for a 1-D system is the simplest case.
-To review this property, we use the concept of Wronskian of differential equation.  For 1-D second order ODE, there aways exist 2 independent solution.  We name it $x_1(s)$ and $x_2(s)$. 
-Wronskian is defined as:</p>
-<p>\begin{equation}
-W\equiv x_1x'_2-x_2x'_1
-\end{equation}
-And</p>
-<p>\begin{align}
-\frac{dW}{ds}&amp;=x'_1x'_2+x_1x''_2-x'_2x'_1-x_2x''_1  \nonumber\\
-&amp;=-K(s)x_1x_2+K(s)x_2x_1 \nonumber\\
-&amp;=0
-\end{align}</p>
-<p>Therefore Wronskian is the constant of motion and not zero(the two solution are indepedent).  Then from the map:</p>
-<p>\begin{equation}
-\left(\begin{array}{cc}
-x_{1} &amp; x_{2}\\
-x'_{1} &amp; x'_{2}
-\end{array}\right)_{s=s_{0}+s}=\left(\begin{array}{cc}
-a(s) &amp; b(s)\\
-c(s) &amp; d(s)
-\end{array}\right)\left(\begin{array}{cc}
-x_{1} &amp; x_{2}\\
-x'_{1} &amp; x'_{2}
-\end{array}\right)_{s=s_{0}}
-\end{equation}</p>
-<p>Take the determinant on both sides, we have 
-$$W(s_0+s)=det(M(s_0+s,s_0))W(s)$$</p>
-<p>Since $W(s)$ is constant of motion, therefore <strong><em>the determinant of transfer matrix is always 1</em></strong>.  This is a sufficient and necessary condition of symplecticity for 1-D system.  We will learn later, in multi-dimension problem, this is still a necessary condition but not sufficient anymore.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Long-term-stability-condition">Long-term stability condition<a class="anchor-link" href="#Long-term-stability-condition">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The symplecticity ensures the area phase space is constant.  However, in most times, we have stronger requirements for a repeating chain of elements.</p>
-<p>In accelerator, the beam usually will pass through a chain of elements (called cell) many times.  A long lattice usually consist of repeating cells.  In a ring accelerator, the particle will travels through the lattice billions of turns.  If the transfer matrix for one cell is $M$, we are interested in the behavior of repeating $k$ cells
-$$M_{total}=M\cdot M\cdots M\cdot M=M^k$$
-where k is a very large integer or infinity.</p>
-<p>To avoid the either $x$ or $x'$ to be very large (or infinity) after k cells. We required that the absolute value of the eigenvalues of $M$ is no larger than 1.  The eigenvalue is found by:</p>
-<p>\begin{equation}
-\left|\begin{array}{cc}
-\lambda-a &amp; -b\\
--c &amp; \lambda-d
-\end{array}\right|=0
-\end{equation}</p>
-<p>or</p>
-<p>\begin{equation}
-\lambda^2-(a+d)\lambda+1=0
-\end{equation}</p>
-<p>To satisfy $|\lambda|\le 1$, we require</p>
-<p>\begin{equation}
-\left|Tr(M)\right|=\left|a+d\right|\le 2
-\end{equation}
-This is the stable condition for one cell in periodical structure.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Revisit,-the-'weak-focusing'">Revisit, the 'weak focusing'<a class="anchor-link" href="#Revisit,-the-'weak-focusing'">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's write the matrix term for the weak focusing.  The weak focusing satisfy:</p>
-<p>\begin{align}
-x''+k_x(s)x&amp;=0 \\
-y''+k_y(s)y&amp;=0
-\end{align}</p>
-<p>Here, $k_x(s)$ and $k_y(s)$ are piece wise constant and always positive, and $k_x(s)+k_y(s)=1/\rho ^2$.</p>
-<p>Each constant focusing piece, we have:</p>
-<p>\begin{align}
-M_x\left(s_0+s,s_0\right)
-&amp;=\left(\begin{array}{cc}
-\cos\left(\sqrt{k_x}s\right) &amp; \sin\left(\sqrt{k_x}s\right)/\sqrt{k_x}\\
--\sqrt{k_x}\sin\left(\sqrt{k_x}s\right) &amp; \cos\left(\sqrt{k_x}s\right)
-\end{array}\right)\\
-M_y\left(s_0+s,s_0\right)
-&amp;=\left(\begin{array}{cc}
-\cos\left(\sqrt{k_y}s\right) &amp; \sin\left(\sqrt{k_y}s\right)/\sqrt{k_y}\\
--\sqrt{k_y}\sin\left(\sqrt{k_y}s\right) &amp; \cos\left(\sqrt{k_y}s\right)
-\end{array}\right)
-\end{align}</p>
-<p>The matrix indicates that except a scaling factor, the transfer matrix is just a rotation of the phase space.  If we define $P_x=x'/\sqrt{k_x}$ and $P_y=y'/\sqrt{k_y}$, the transfer matrix for $(x,P_x)$, $(y,P_y)$ are just rotation matrix with angle $\sqrt{k_{x/y}}s$ respectively.  Then we call the angle <strong>betatron phase advance</strong>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src=weak_focusing.png width=200>
-If we have an entire ring, made of weak focusing structure as shown above, the matrix for entire ring gives:</p>
-<p>\begin{align}
-M_x\left(s_0+C,s_0\right)
-&amp;=\left(\begin{array}{cc}
-\cos\left(\sqrt{k_x}2\pi\rho\right) &amp; \sin\left(\sqrt{k_x}2\pi\rho\right)/\sqrt{k_x}\\
--\sqrt{k_x}\sin\left(\sqrt{k_x}2\pi\rho\right) &amp; \cos\left(\sqrt{k_x}2\pi\rho\right)
-\end{array}\right)\\
-M_y\left(s_0+C,s_0\right)
-&amp;=\left(\begin{array}{cc}
-\cos\left(\sqrt{k_y}2\pi\rho\right) &amp; \sin\left(\sqrt{k_y}2\pi\rho\right)/\sqrt{k_y}\\
--\sqrt{k_y}\sin\left(\sqrt{k_y}2\pi\rho\right) &amp; \cos\left(\sqrt{k_y}2\pi\rho\right)
-\end{array}\right)
-\end{align}</p>
-<p>It means, after one turn the phase advance of the two transverse plane is just $2\pi\sqrt{k_{x/y}}\rho$.  We define the transverse tune $\nu_{x/y}$ is the one turn phase advance in unit of $2\pi$.  Therefore:</p>
-<p>\begin{align}
-\nu_x&amp;=\sqrt{k_{x}}\rho=\sqrt{1+\rho^2 k}\\
-\nu_y&amp;=\sqrt{k_{y}}\rho=\sqrt{-k}\rho
-\end{align}</p>
-<p>Therefore for continuous weak-focusing ring, we always have:</p>
-<p>\begin{align}
-\nu_x^2+\nu_y^2=1
-\end{align}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src=weak_focusing_drift.png width=200>
-We may also look at the weak focusing ring is made of several sections with small drift space $L$ in between.  The segment matrix is represented as:</p>
-<p>\begin{align}
-M_{x,seg}
-&amp;=\left(\begin{array}{cc}
-1 &amp; L/2\\
-0 &amp; 1
-\end{array}\right)
-\left(\begin{array}{cc}
-\cos\left(\sqrt{k_x}s\right) &amp; \sin\left(\sqrt{k_x}s\right)/\sqrt{k_x}\\
--\sqrt{k_x}\sin\left(\sqrt{k_x}s\right) &amp; \cos\left(\sqrt{k_x}s\right)
-\end{array}\right)
-\left(\begin{array}{cc}
-1 &amp; L/2\\
-0 &amp; 1
-\end{array}\right)\\
-\end{align}</p>
 
 </div>
 </div>
@@ -12878,29 +11905,80 @@ M_{x,seg}
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span>
-<span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">map2D</span> <span class="k">import</span> <span class="n">map2D</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#from matplotlib import animation</span>
+<span class="c1">#from IPython.display import HTML</span>
+<span class="o">%</span><span class="k">matplotlib</span> notebook
 
-</div>
-</div>
-</div>
+<span class="n">tunex</span><span class="o">=</span><span class="mf">0.283</span>
+<span class="n">dtune</span><span class="o">=</span><span class="mf">0.01</span>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sqkx</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">l</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;\sqrt</span><span class="si">{k_x}</span><span class="s2">,s,L&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">mat_f</span><span class="p">(</span><span class="n">sqk</span><span class="p">,</span><span class="n">s</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">sympy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">sqk</span><span class="o">*</span><span class="n">s</span><span class="p">),</span><span class="n">sympy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">sqk</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">sqk</span><span class="p">],</span>
-                         <span class="p">[</span><span class="o">-</span><span class="n">sympy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">sqk</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">sqk</span><span class="p">,</span><span class="n">sympy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">sqk</span><span class="o">*</span><span class="n">s</span><span class="p">)]])</span>
-<span class="k">def</span> <span class="nf">mat_d</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">pxs</span><span class="o">=</span><span class="mf">0.0005</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pxps</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pxs</span><span class="p">)</span>
+<span class="c1">#pxs=0.005*np.cos(np.linspace(0,np.pi, 10))</span>
+<span class="c1">#pxps=0.005*np.sin(np.linspace(0,np.pi, 10))</span>
 
-<span class="n">mat_seg</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">mat_d</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">mat_f</span><span class="p">(</span><span class="n">sqkx</span><span class="p">,</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="n">mat_d</span><span class="p">(</span><span class="n">l</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">mat_seg</span>
+<span class="n">particles</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">pxs</span><span class="p">,</span><span class="n">pxps</span><span class="p">])</span>
+<span class="n">xpx</span><span class="o">=</span><span class="n">map2D</span><span class="p">(</span><span class="n">npart</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">twiss</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">twiss_beam</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">tune</span><span class="o">=</span><span class="n">tunex</span><span class="p">,</span> <span class="n">chrom</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">espr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">particles</span><span class="o">=</span><span class="n">particles</span><span class="p">)</span>
+
+<span class="n">pys</span><span class="o">=</span><span class="mf">0.004</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pyps</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">pys</span><span class="p">)</span>
+<span class="n">particles</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">pys</span><span class="p">,</span><span class="n">pyps</span><span class="p">])</span>
+<span class="n">ypy</span><span class="o">=</span><span class="n">map2D</span><span class="p">(</span><span class="n">npart</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">pxs</span><span class="p">),</span> <span class="n">twiss</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">twiss_beam</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">tune</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">tunex</span><span class="o">+</span><span class="n">dtune</span><span class="p">,</span> <span class="n">chrom</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">espr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+          <span class="n">particles</span><span class="o">=</span><span class="n">particles</span><span class="p">,</span> 
+          <span class="n">emit</span><span class="o">=</span><span class="mf">0.1e-6</span><span class="p">)</span>
+
+<span class="n">avex</span><span class="p">,</span><span class="n">avep</span><span class="p">,</span><span class="n">sizex</span><span class="p">,</span><span class="n">sizep</span><span class="p">,</span><span class="n">emit</span><span class="o">=</span><span class="n">xpx</span><span class="o">.</span><span class="n">statistics</span><span class="p">()</span>
+<span class="n">emitlist</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">sizelist</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">avelist</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">N_turn</span><span class="o">=</span><span class="mi">1000</span>
+
+
+<span class="k">def</span> <span class="nf">evolve_func</span><span class="p">(</span><span class="n">turns</span><span class="p">,</span> <span class="n">kick_turn_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ks</span><span class="o">=-</span><span class="mf">0.01</span><span class="p">,</span>
+               <span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">turns</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">&gt;=</span><span class="n">kick_turn_start</span><span class="p">:</span>
+            <span class="n">xpx</span><span class="o">.</span><span class="n">coor2D</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">+=</span><span class="n">ks</span><span class="o">*</span><span class="n">ypy</span><span class="o">.</span><span class="n">coor2D</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+            <span class="n">ypy</span><span class="o">.</span><span class="n">coor2D</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">+=</span><span class="n">ks</span><span class="o">*</span><span class="n">xpx</span><span class="o">.</span><span class="n">coor2D</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+        
+        <span class="n">xpx</span><span class="o">.</span><span class="n">propagate</span><span class="p">()</span>
+        <span class="n">ypy</span><span class="o">.</span><span class="n">propagate</span><span class="p">()</span>
+        
+        <span class="c1">#avex,avep,sizex,sizep,emit=xpx.statistics()</span>
+        <span class="c1">#avelist.append(avex)</span>
+        <span class="c1">#sizelist.append(sizex)</span>
+        <span class="c1">#emitlist.append(emit)</span>
+        <span class="k">yield</span> <span class="n">xpx</span><span class="o">.</span><span class="n">coor2D</span><span class="p">,</span> <span class="n">ypy</span><span class="o">.</span><span class="n">coor2D</span>
+        
+<span class="n">evolve</span><span class="o">=</span><span class="n">evolve_func</span><span class="p">(</span><span class="n">N_turn</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+    
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.01</span><span class="p">])</span>
+<span class="n">xlist</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">xplist</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">ylist</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">yplist</span><span class="o">=</span><span class="p">[]</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_turn</span><span class="p">):</span>
+    <span class="n">arrx</span><span class="p">,</span> <span class="n">arry</span><span class="o">=</span><span class="nb">next</span><span class="p">(</span><span class="n">evolve</span><span class="p">)</span>
+    <span class="c1">#if np.max(arr)&gt;1: break</span>
+    <span class="n">xlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arrx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">xplist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arrx</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">yplist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arry</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">xarr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span>
+<span class="n">xparr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">xplist</span><span class="p">)</span>
+<span class="n">yarr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">ylist</span><span class="p">)</span>
+<span class="n">yparr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">yplist</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xarr</span><span class="p">,</span><span class="n">xparr</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Jx</span><span class="o">=</span><span class="n">xarr</span><span class="o">*</span><span class="n">xarr</span><span class="o">+</span><span class="n">xparr</span><span class="o">*</span><span class="n">xparr</span>
+<span class="n">Jy</span><span class="o">=</span><span class="n">yarr</span><span class="o">*</span><span class="n">yarr</span><span class="o">+</span><span class="n">yparr</span><span class="o">*</span><span class="n">yparr</span>
 </pre></div>
 
 </div>
@@ -12913,13 +11991,796 @@ M_{x,seg}
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[2]:</div>
+<div class="prompt"></div>
 
 
 
 
-<div class="output_latex output_subarea output_execute_result">
-$$\left[\begin{matrix}- \frac{L \sqrt{k_x}}{2} \sin{\left (\sqrt{k_x} s \right )} + \cos{\left (\sqrt{k_x} s \right )} & - \frac{L^{2} \sqrt{k_x}}{4} \sin{\left (\sqrt{k_x} s \right )} + L \cos{\left (\sqrt{k_x} s \right )} + \frac{1}{\sqrt{k_x}} \sin{\left (\sqrt{k_x} s \right )}\\- \sqrt{k_x} \sin{\left (\sqrt{k_x} s \right )} & - \frac{L \sqrt{k_x}}{2} \sin{\left (\sqrt{k_x} s \right )} + \cos{\left (\sqrt{k_x} s \right )}\end{matrix}\right]$$
+
+<div id="383633c2-cae6-4e4b-b02a-118599b83a99"></div>
+<div class="output_subarea output_javascript ">
+<script type="text/javascript">
+var element = $('#383633c2-cae6-4e4b-b02a-118599b83a99');
+/* Put everything inside the global mpl namespace */
+window.mpl = {};
+
+
+mpl.get_websocket_type = function() {
+    if (typeof(WebSocket) !== 'undefined') {
+        return WebSocket;
+    } else if (typeof(MozWebSocket) !== 'undefined') {
+        return MozWebSocket;
+    } else {
+        alert('Your browser does not have WebSocket support. ' +
+              'Please try Chrome, Safari or Firefox ≥ 6. ' +
+              'Firefox 4 and 5 are also supported but you ' +
+              'have to enable WebSockets in about:config.');
+    };
+}
+
+mpl.figure = function(figure_id, websocket, ondownload, parent_element) {
+    this.id = figure_id;
+
+    this.ws = websocket;
+
+    this.supports_binary = (this.ws.binaryType != undefined);
+
+    if (!this.supports_binary) {
+        var warnings = document.getElementById("mpl-warnings");
+        if (warnings) {
+            warnings.style.display = 'block';
+            warnings.textContent = (
+                "This browser does not support binary websocket messages. " +
+                    "Performance may be slow.");
+        }
+    }
+
+    this.imageObj = new Image();
+
+    this.context = undefined;
+    this.message = undefined;
+    this.canvas = undefined;
+    this.rubberband_canvas = undefined;
+    this.rubberband_context = undefined;
+    this.format_dropdown = undefined;
+
+    this.image_mode = 'full';
+
+    this.root = $('<div/>');
+    this._root_extra_style(this.root)
+    this.root.attr('style', 'display: inline-block');
+
+    $(parent_element).append(this.root);
+
+    this._init_header(this);
+    this._init_canvas(this);
+    this._init_toolbar(this);
+
+    var fig = this;
+
+    this.waiting = false;
+
+    this.ws.onopen =  function () {
+            fig.send_message("supports_binary", {value: fig.supports_binary});
+            fig.send_message("send_image_mode", {});
+            if (mpl.ratio != 1) {
+                fig.send_message("set_dpi_ratio", {'dpi_ratio': mpl.ratio});
+            }
+            fig.send_message("refresh", {});
+        }
+
+    this.imageObj.onload = function() {
+            if (fig.image_mode == 'full') {
+                // Full images could contain transparency (where diff images
+                // almost always do), so we need to clear the canvas so that
+                // there is no ghosting.
+                fig.context.clearRect(0, 0, fig.canvas.width, fig.canvas.height);
+            }
+            fig.context.drawImage(fig.imageObj, 0, 0);
+        };
+
+    this.imageObj.onunload = function() {
+        fig.ws.close();
+    }
+
+    this.ws.onmessage = this._make_on_message_function(this);
+
+    this.ondownload = ondownload;
+}
+
+mpl.figure.prototype._init_header = function() {
+    var titlebar = $(
+        '<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ' +
+        'ui-helper-clearfix"/>');
+    var titletext = $(
+        '<div class="ui-dialog-title" style="width: 100%; ' +
+        'text-align: center; padding: 3px;"/>');
+    titlebar.append(titletext)
+    this.root.append(titlebar);
+    this.header = titletext[0];
+}
+
+
+
+mpl.figure.prototype._canvas_extra_style = function(canvas_div) {
+
+}
+
+
+mpl.figure.prototype._root_extra_style = function(canvas_div) {
+
+}
+
+mpl.figure.prototype._init_canvas = function() {
+    var fig = this;
+
+    var canvas_div = $('<div/>');
+
+    canvas_div.attr('style', 'position: relative; clear: both; outline: 0');
+
+    function canvas_keyboard_event(event) {
+        return fig.key_event(event, event['data']);
+    }
+
+    canvas_div.keydown('key_press', canvas_keyboard_event);
+    canvas_div.keyup('key_release', canvas_keyboard_event);
+    this.canvas_div = canvas_div
+    this._canvas_extra_style(canvas_div)
+    this.root.append(canvas_div);
+
+    var canvas = $('<canvas/>');
+    canvas.addClass('mpl-canvas');
+    canvas.attr('style', "left: 0; top: 0; z-index: 0; outline: 0")
+
+    this.canvas = canvas[0];
+    this.context = canvas[0].getContext("2d");
+
+    var backingStore = this.context.backingStorePixelRatio ||
+	this.context.webkitBackingStorePixelRatio ||
+	this.context.mozBackingStorePixelRatio ||
+	this.context.msBackingStorePixelRatio ||
+	this.context.oBackingStorePixelRatio ||
+	this.context.backingStorePixelRatio || 1;
+
+    mpl.ratio = (window.devicePixelRatio || 1) / backingStore;
+
+    var rubberband = $('<canvas/>');
+    rubberband.attr('style', "position: absolute; left: 0; top: 0; z-index: 1;")
+
+    var pass_mouse_events = true;
+
+    canvas_div.resizable({
+        start: function(event, ui) {
+            pass_mouse_events = false;
+        },
+        resize: function(event, ui) {
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+        stop: function(event, ui) {
+            pass_mouse_events = true;
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+    });
+
+    function mouse_event_fn(event) {
+        if (pass_mouse_events)
+            return fig.mouse_event(event, event['data']);
+    }
+
+    rubberband.mousedown('button_press', mouse_event_fn);
+    rubberband.mouseup('button_release', mouse_event_fn);
+    // Throttle sequential mouse events to 1 every 20ms.
+    rubberband.mousemove('motion_notify', mouse_event_fn);
+
+    rubberband.mouseenter('figure_enter', mouse_event_fn);
+    rubberband.mouseleave('figure_leave', mouse_event_fn);
+
+    canvas_div.on("wheel", function (event) {
+        event = event.originalEvent;
+        event['data'] = 'scroll'
+        if (event.deltaY < 0) {
+            event.step = 1;
+        } else {
+            event.step = -1;
+        }
+        mouse_event_fn(event);
+    });
+
+    canvas_div.append(canvas);
+    canvas_div.append(rubberband);
+
+    this.rubberband = rubberband;
+    this.rubberband_canvas = rubberband[0];
+    this.rubberband_context = rubberband[0].getContext("2d");
+    this.rubberband_context.strokeStyle = "#000000";
+
+    this._resize_canvas = function(width, height) {
+        // Keep the size of the canvas, canvas container, and rubber band
+        // canvas in synch.
+        canvas_div.css('width', width)
+        canvas_div.css('height', height)
+
+        canvas.attr('width', width * mpl.ratio);
+        canvas.attr('height', height * mpl.ratio);
+        canvas.attr('style', 'width: ' + width + 'px; height: ' + height + 'px;');
+
+        rubberband.attr('width', width);
+        rubberband.attr('height', height);
+    }
+
+    // Set the figure to an initial 600x600px, this will subsequently be updated
+    // upon first draw.
+    this._resize_canvas(600, 600);
+
+    // Disable right mouse context menu.
+    $(this.rubberband_canvas).bind("contextmenu",function(e){
+        return false;
+    });
+
+    function set_focus () {
+        canvas.focus();
+        canvas_div.focus();
+    }
+
+    window.setTimeout(set_focus, 100);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('<div/>');
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items) {
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) {
+            // put a spacer in here.
+            continue;
+        }
+        var button = $('<button/>');
+        button.addClass('ui-button ui-widget ui-state-default ui-corner-all ' +
+                        'ui-button-icon-only');
+        button.attr('role', 'button');
+        button.attr('aria-disabled', 'false');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+
+        var icon_img = $('<span/>');
+        icon_img.addClass('ui-button-icon-primary ui-icon');
+        icon_img.addClass(image);
+        icon_img.addClass('ui-corner-all');
+
+        var tooltip_span = $('<span/>');
+        tooltip_span.addClass('ui-button-text');
+        tooltip_span.html(tooltip);
+
+        button.append(icon_img);
+        button.append(tooltip_span);
+
+        nav_element.append(button);
+    }
+
+    var fmt_picker_span = $('<span/>');
+
+    var fmt_picker = $('<select/>');
+    fmt_picker.addClass('mpl-toolbar-option ui-widget ui-widget-content');
+    fmt_picker_span.append(fmt_picker);
+    nav_element.append(fmt_picker_span);
+    this.format_dropdown = fmt_picker[0];
+
+    for (var ind in mpl.extensions) {
+        var fmt = mpl.extensions[ind];
+        var option = $(
+            '<option/>', {selected: fmt === mpl.default_extension}).html(fmt);
+        fmt_picker.append(option);
+    }
+
+    // Add hover states to the ui-buttons
+    $( ".ui-button" ).hover(
+        function() { $(this).addClass("ui-state-hover");},
+        function() { $(this).removeClass("ui-state-hover");}
+    );
+
+    var status_bar = $('<span class="mpl-message"/>');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+}
+
+mpl.figure.prototype.request_resize = function(x_pixels, y_pixels) {
+    // Request matplotlib to resize the figure. Matplotlib will then trigger a resize in the client,
+    // which will in turn request a refresh of the image.
+    this.send_message('resize', {'width': x_pixels, 'height': y_pixels});
+}
+
+mpl.figure.prototype.send_message = function(type, properties) {
+    properties['type'] = type;
+    properties['figure_id'] = this.id;
+    this.ws.send(JSON.stringify(properties));
+}
+
+mpl.figure.prototype.send_draw_message = function() {
+    if (!this.waiting) {
+        this.waiting = true;
+        this.ws.send(JSON.stringify({type: "draw", figure_id: this.id}));
+    }
+}
+
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    var format_dropdown = fig.format_dropdown;
+    var format = format_dropdown.options[format_dropdown.selectedIndex].value;
+    fig.ondownload(fig, format);
+}
+
+
+mpl.figure.prototype.handle_resize = function(fig, msg) {
+    var size = msg['size'];
+    if (size[0] != fig.canvas.width || size[1] != fig.canvas.height) {
+        fig._resize_canvas(size[0], size[1]);
+        fig.send_message("refresh", {});
+    };
+}
+
+mpl.figure.prototype.handle_rubberband = function(fig, msg) {
+    var x0 = msg['x0'] / mpl.ratio;
+    var y0 = (fig.canvas.height - msg['y0']) / mpl.ratio;
+    var x1 = msg['x1'] / mpl.ratio;
+    var y1 = (fig.canvas.height - msg['y1']) / mpl.ratio;
+    x0 = Math.floor(x0) + 0.5;
+    y0 = Math.floor(y0) + 0.5;
+    x1 = Math.floor(x1) + 0.5;
+    y1 = Math.floor(y1) + 0.5;
+    var min_x = Math.min(x0, x1);
+    var min_y = Math.min(y0, y1);
+    var width = Math.abs(x1 - x0);
+    var height = Math.abs(y1 - y0);
+
+    fig.rubberband_context.clearRect(
+        0, 0, fig.canvas.width / mpl.ratio, fig.canvas.height / mpl.ratio);
+
+    fig.rubberband_context.strokeRect(min_x, min_y, width, height);
+}
+
+mpl.figure.prototype.handle_figure_label = function(fig, msg) {
+    // Updates the figure title.
+    fig.header.textContent = msg['label'];
+}
+
+mpl.figure.prototype.handle_cursor = function(fig, msg) {
+    var cursor = msg['cursor'];
+    switch(cursor)
+    {
+    case 0:
+        cursor = 'pointer';
+        break;
+    case 1:
+        cursor = 'default';
+        break;
+    case 2:
+        cursor = 'crosshair';
+        break;
+    case 3:
+        cursor = 'move';
+        break;
+    }
+    fig.rubberband_canvas.style.cursor = cursor;
+}
+
+mpl.figure.prototype.handle_message = function(fig, msg) {
+    fig.message.textContent = msg['message'];
+}
+
+mpl.figure.prototype.handle_draw = function(fig, msg) {
+    // Request the server to send over a new figure.
+    fig.send_draw_message();
+}
+
+mpl.figure.prototype.handle_image_mode = function(fig, msg) {
+    fig.image_mode = msg['mode'];
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Called whenever the canvas gets updated.
+    this.send_message("ack", {});
+}
+
+// A function to construct a web socket function for onmessage handling.
+// Called in the figure constructor.
+mpl.figure.prototype._make_on_message_function = function(fig) {
+    return function socket_on_message(evt) {
+        if (evt.data instanceof Blob) {
+            /* FIXME: We get "Resource interpreted as Image but
+             * transferred with MIME type text/plain:" errors on
+             * Chrome.  But how to set the MIME type?  It doesn't seem
+             * to be part of the websocket stream */
+            evt.data.type = "image/png";
+
+            /* Free the memory for the previous frames */
+            if (fig.imageObj.src) {
+                (window.URL || window.webkitURL).revokeObjectURL(
+                    fig.imageObj.src);
+            }
+
+            fig.imageObj.src = (window.URL || window.webkitURL).createObjectURL(
+                evt.data);
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+        else if (typeof evt.data === 'string' && evt.data.slice(0, 21) == "data:image/png;base64") {
+            fig.imageObj.src = evt.data;
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+
+        var msg = JSON.parse(evt.data);
+        var msg_type = msg['type'];
+
+        // Call the  "handle_{type}" callback, which takes
+        // the figure and JSON message as its only arguments.
+        try {
+            var callback = fig["handle_" + msg_type];
+        } catch (e) {
+            console.log("No handler for the '" + msg_type + "' message type: ", msg);
+            return;
+        }
+
+        if (callback) {
+            try {
+                // console.log("Handling '" + msg_type + "' message: ", msg);
+                callback(fig, msg);
+            } catch (e) {
+                console.log("Exception inside the 'handler_" + msg_type + "' callback:", e, e.stack, msg);
+            }
+        }
+    };
+}
+
+// from http://stackoverflow.com/questions/1114465/getting-mouse-location-in-canvas
+mpl.findpos = function(e) {
+    //this section is from http://www.quirksmode.org/js/events_properties.html
+    var targ;
+    if (!e)
+        e = window.event;
+    if (e.target)
+        targ = e.target;
+    else if (e.srcElement)
+        targ = e.srcElement;
+    if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+
+    // jQuery normalizes the pageX and pageY
+    // pageX,Y are the mouse positions relative to the document
+    // offset() returns the position of the element relative to the document
+    var x = e.pageX - $(targ).offset().left;
+    var y = e.pageY - $(targ).offset().top;
+
+    return {"x": x, "y": y};
+};
+
+/*
+ * return a copy of an object with only non-object keys
+ * we need this to avoid circular references
+ * http://stackoverflow.com/a/24161582/3208463
+ */
+function simpleKeys (original) {
+  return Object.keys(original).reduce(function (obj, key) {
+    if (typeof original[key] !== 'object')
+        obj[key] = original[key]
+    return obj;
+  }, {});
+}
+
+mpl.figure.prototype.mouse_event = function(event, name) {
+    var canvas_pos = mpl.findpos(event)
+
+    if (name === 'button_press')
+    {
+        this.canvas.focus();
+        this.canvas_div.focus();
+    }
+
+    var x = canvas_pos.x * mpl.ratio;
+    var y = canvas_pos.y * mpl.ratio;
+
+    this.send_message(name, {x: x, y: y, button: event.button,
+                             step: event.step,
+                             guiEvent: simpleKeys(event)});
+
+    /* This prevents the web browser from automatically changing to
+     * the text insertion cursor when the button is pressed.  We want
+     * to control all of the cursor setting manually through the
+     * 'cursor' event from matplotlib */
+    event.preventDefault();
+    return false;
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    // Handle any extra behaviour associated with a key event
+}
+
+mpl.figure.prototype.key_event = function(event, name) {
+
+    // Prevent repeat events
+    if (name == 'key_press')
+    {
+        if (event.which === this._key)
+            return;
+        else
+            this._key = event.which;
+    }
+    if (name == 'key_release')
+        this._key = null;
+
+    var value = '';
+    if (event.ctrlKey && event.which != 17)
+        value += "ctrl+";
+    if (event.altKey && event.which != 18)
+        value += "alt+";
+    if (event.shiftKey && event.which != 16)
+        value += "shift+";
+
+    value += 'k';
+    value += event.which.toString();
+
+    this._key_event_extra(event, name);
+
+    this.send_message(name, {key: value,
+                             guiEvent: simpleKeys(event)});
+    return false;
+}
+
+mpl.figure.prototype.toolbar_button_onclick = function(name) {
+    if (name == 'download') {
+        this.handle_save(this, null);
+    } else {
+        this.send_message("toolbar_button", {name: name});
+    }
+};
+
+mpl.figure.prototype.toolbar_button_onmouseover = function(tooltip) {
+    this.message.textContent = tooltip;
+};
+mpl.toolbar_items = [["Home", "Reset original view", "fa fa-home icon-home", "home"], ["Back", "Back to previous view", "fa fa-arrow-left icon-arrow-left", "back"], ["Forward", "Forward to next view", "fa fa-arrow-right icon-arrow-right", "forward"], ["", "", "", ""], ["Pan", "Pan axes with left mouse, zoom with right", "fa fa-arrows icon-move", "pan"], ["Zoom", "Zoom to rectangle", "fa fa-square-o icon-check-empty", "zoom"], ["", "", "", ""], ["Download", "Download plot", "fa fa-floppy-o icon-save", "download"]];
+
+mpl.extensions = ["eps", "jpeg", "pdf", "png", "ps", "raw", "svg", "tif"];
+
+mpl.default_extension = "png";var comm_websocket_adapter = function(comm) {
+    // Create a "websocket"-like object which calls the given IPython comm
+    // object with the appropriate methods. Currently this is a non binary
+    // socket, so there is still some room for performance tuning.
+    var ws = {};
+
+    ws.close = function() {
+        comm.close()
+    };
+    ws.send = function(m) {
+        //console.log('sending', m);
+        comm.send(m);
+    };
+    // Register the callback with on_msg.
+    comm.on_msg(function(msg) {
+        //console.log('receiving', msg['content']['data'], msg);
+        // Pass the mpl event to the overridden (by mpl) onmessage function.
+        ws.onmessage(msg['content']['data'])
+    });
+    return ws;
+}
+
+mpl.mpl_figure_comm = function(comm, msg) {
+    // This is the function which gets called when the mpl process
+    // starts-up an IPython Comm through the "matplotlib" channel.
+
+    var id = msg.content.data.id;
+    // Get hold of the div created by the display call when the Comm
+    // socket was opened in Python.
+    var element = $("#" + id);
+    var ws_proxy = comm_websocket_adapter(comm)
+
+    function ondownload(figure, format) {
+        window.open(figure.imageObj.src);
+    }
+
+    var fig = new mpl.figure(id, ws_proxy,
+                           ondownload,
+                           element.get(0));
+
+    // Call onopen now - mpl needs it, as it is assuming we've passed it a real
+    // web socket which is closed, not our websocket->open comm proxy.
+    ws_proxy.onopen();
+
+    fig.parent_element = element.get(0);
+    fig.cell_info = mpl.find_output_cell("<div id='" + id + "'></div>");
+    if (!fig.cell_info) {
+        console.error("Failed to find cell for figure", id, fig);
+        return;
+    }
+
+    var output_index = fig.cell_info[2]
+    var cell = fig.cell_info[0];
+
+};
+
+mpl.figure.prototype.handle_close = function(fig, msg) {
+    var width = fig.canvas.width/mpl.ratio
+    fig.root.unbind('remove')
+
+    // Update the output cell to use the data from the current canvas.
+    fig.push_to_output();
+    var dataURL = fig.canvas.toDataURL();
+    // Re-enable the keyboard manager in IPython - without this line, in FF,
+    // the notebook keyboard shortcuts fail.
+    IPython.keyboard_manager.enable()
+    $(fig.parent_element).html('<img src="' + dataURL + '" width="' + width + '">');
+    fig.close_ws(fig, msg);
+}
+
+mpl.figure.prototype.close_ws = function(fig, msg){
+    fig.send_message('closing', msg);
+    // fig.ws.close()
+}
+
+mpl.figure.prototype.push_to_output = function(remove_interactive) {
+    // Turn the data on the canvas into data in the output cell.
+    var width = this.canvas.width/mpl.ratio
+    var dataURL = this.canvas.toDataURL();
+    this.cell_info[1]['text/html'] = '<img src="' + dataURL + '" width="' + width + '">';
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Tell IPython that the notebook contents must change.
+    IPython.notebook.set_dirty(true);
+    this.send_message("ack", {});
+    var fig = this;
+    // Wait a second, then push the new image to the DOM so
+    // that it is saved nicely (might be nice to debounce this).
+    setTimeout(function () { fig.push_to_output() }, 1000);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('<div/>');
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items){
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) { continue; };
+
+        var button = $('<button class="btn btn-default" href="#" title="' + name + '"><i class="fa ' + image + ' fa-lg"></i></button>');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+        nav_element.append(button);
+    }
+
+    // Add the status bar.
+    var status_bar = $('<span class="mpl-message" style="text-align:right; float: right;"/>');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+
+    // Add the close button to the window.
+    var buttongrp = $('<div class="btn-group inline pull-right"></div>');
+    var button = $('<button class="btn btn-mini btn-primary" href="#" title="Stop Interaction"><i class="fa fa-power-off icon-remove icon-large"></i></button>');
+    button.click(function (evt) { fig.handle_close(fig, {}); } );
+    button.mouseover('Stop Interaction', toolbar_mouse_event);
+    buttongrp.append(button);
+    var titlebar = this.root.find($('.ui-dialog-titlebar'));
+    titlebar.prepend(buttongrp);
+}
+
+mpl.figure.prototype._root_extra_style = function(el){
+    var fig = this
+    el.on("remove", function(){
+	fig.close_ws(fig, {});
+    });
+}
+
+mpl.figure.prototype._canvas_extra_style = function(el){
+    // this is important to make the div 'focusable
+    el.attr('tabindex', 0)
+    // reach out to IPython and tell the keyboard manager to turn it's self
+    // off when our div gets focus
+
+    // location in version 3
+    if (IPython.notebook.keyboard_manager) {
+        IPython.notebook.keyboard_manager.register_events(el);
+    }
+    else {
+        // location in version 2
+        IPython.keyboard_manager.register_events(el);
+    }
+
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    var manager = IPython.notebook.keyboard_manager;
+    if (!manager)
+        manager = IPython.keyboard_manager;
+
+    // Check for shift+enter
+    if (event.shiftKey && event.which == 13) {
+        this.canvas_div.blur();
+        // select the cell after this one
+        var index = IPython.notebook.find_cell_index(this.cell_info[0]);
+        IPython.notebook.select(index + 1);
+    }
+}
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    fig.ondownload(fig, null);
+}
+
+
+mpl.find_output_cell = function(html_output) {
+    // Return the cell and output element which can be found *uniquely* in the notebook.
+    // Note - this is a bit hacky, but it is done because the "notebook_saving.Notebook"
+    // IPython event is triggered only after the cells have been serialised, which for
+    // our purposes (turning an active figure into a static one), is too late.
+    var cells = IPython.notebook.get_cells();
+    var ncells = cells.length;
+    for (var i=0; i<ncells; i++) {
+        var cell = cells[i];
+        if (cell.cell_type === 'code'){
+            for (var j=0; j<cell.output_area.outputs.length; j++) {
+                var data = cell.output_area.outputs[j];
+                if (data.data) {
+                    // IPython >= 3 moved mimebundle to data attribute of output
+                    data = data.data;
+                }
+                if (data['text/html'] == html_output) {
+                    return [cell, data, j];
+                }
+            }
+        }
+    }
+}
+
+// Register the function which deals with the matplotlib target/channel.
+// The kernel may be null if the page has been refreshed.
+if (IPython.notebook.kernel != null) {
+    IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
+}
+
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABYAAAAQgCAYAAABfOvh0AAAgAElEQVR4XuzYQREAAAgCQelf2h43awNWXuwcAQIECBAgQIAAAQIECBAgQIAAAQIECCQFlkwlFAECBAgQIECAAAECBAgQIECAAAECBAicAVgJCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIMH5iaIAACAASURBVECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixOKYNrAAAIABJREFUCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQIECAAAECBAgQIEAgKmAAjj5WLAIECBAgQIAAAQIECBAgQIAAAQIECBiAdYAAAQIECBAgQIAAAQIECBAgQIAAAQJRAQNw9LFiESBAgAABAgQIECBAgAABAgQIECBAwACsAwQIECBAgAABAgQIECBAgAABAgQIEIgKGICjjxWLAAECBAgQIECAAAECBAgQIECAAAECBmAdIECAAAECBAgQIECAAAECBAgQIECAQFTAABx9rFgECBAgQIAAAQIECBAgQIAAAQIECBAwAOsAAQIECBAgQIAAAQIECBAgQIAAAQIEogIG4OhjxSJAgAABAgQIECBAgAABAgQIECBAgIABWAcIECBAgAABAgQIECBAgAABAgQIECAQFTAARx8rFgECBAgQIECAAAECBAgQIECAAAECBAzAOkCAAAECBAgQIECAAAECBAgQIECAAIGogAE4+lixCBAgQIAAAQIECBAgQIAAAQIECBAgYADWAQIECBAgQIAAAQIECBAgQIAAAQIECEQFDMDRx4pFgAABAgQIECBAgAABAgQIECBAgAABA7AOECBAgAABAgQIECBAgAABAgQIECBAICpgAI4+ViwCBAgQIECAAAECBAgQIECAAAECBAgYgHWAAAECBAgQIECAAAECBAgQIECAAAECUQEDcPSxYhEgQIAAAQIECBAgQIAAAQIECBAgQMAArAMECBAgQIAAAQIECBAgQIAAAQIECBCIChiAo48ViwABAgQIECBAgAABAgQIECBAgAABAgZgHSBAgAABAgQIECBAgAABAgQIECBAgEBUwAAcfaxYBAgQIECAAAECBAgQIECAAAECBAgQMADrAAECBAgQIECAAAECBAgQIECAAAECBKICBuDoY8UiQIAAAQIECBAgQIAAAQIECBAgQICAAVgHCBAgQIAAAQIECBAgQIAAAQIECBAgEBUwAEcfKxYBAgQIECBAgAABAgQIECBAgAABAgQMwDpAgAABAgQIECBAgAABAgQIECBAgACBqIABOPpYsQgQIECAAAECBAgQIECAAAECBAgQIGAA1gECBAgQIECAAAECBAgQIECAAAECBAhEBQzA0ceKRYAAAQIECBAgQIAAAQIECBAgQIAAAQOwDhAgQIAAAQIECBAgQIAAAQIECBAgQCAqYACOPlYsAgQIECBAgAABAgQIECBAgAABAgQIGIB1gAABAgQIECBAgAABAgQIECBAgAABAlEBA3D0sWIRIECAAAECBAgQIECAAAECBAgQIEDAAKwDBAgQIECAAAECBAgQIECAAAECBAgQiAoYgKOPFYsAAQIECBAgQIAAAQIECBAgQIAAAQIGYB0gQIAAAQIECBAgQIAAAQIECBAgQIBAVMAAHH2sWAQIECBAgAABAgQIECBAgAABAgQIEDAA6wABAgQIECBAgAABAgQIECBAgAABAgSiAgbg6GPFIkCAAAECBAgQIECAAAECBAgQIECAgAFYBwgQIECAAAECBAgQIECAAAECBAgQIBAVMABHHysWAQIECBAgQIAAAQIECBAgQIAAAQIEDMA6QIAAAQIECBAgQIAAAQIECBAgQIAAgaiAATj6WLEIECBAgAABAgQIECBAgAABAgQIECBgANYBAgQIECBAgAABAgQIECBAgAABAgQIRAUMwNHHikWAAAECBAgQIECAAAECBAgQIECAAAEDsA4QIECAAAECBAgQ+HbsmAYAAABhmH/X87FUAoULAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgTUVOMUAAAOLElEQVQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEHAA2wABAgQIECBAgAABAgQIECBAgAABAgSmAg7gabFiESBAgAABAgQIECBAgAABAgQIECBAwAFsAwQIECBAgAABAgQIECBAgAABAgQIEJgKOICnxYpFgAABAgQIECBAgAABAgQIECBAgAABB7ANECBAgAABAgQIECBAgAABAgQIECBAYCrgAJ4WKxYBAgQIECBAgAABAgQIECBAgAABAgQcwDZAgAABAgQIECBAgAABAgQIECBAgACBqYADeFqsWAQIECBAgAABAgQIECBAgAABAgQIEAio2QQh/12IfAAAAABJRU5ErkJggg==" width="639.9999861283738">
 </div>
 
 </div>
@@ -12928,44 +12789,43 @@ $$\left[\begin{matrix}- \frac{L \sqrt{k_x}}{2} \sin{\left (\sqrt{k_x} s \right )
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>When $L\sqrt{k_x}\ll1$, the diagnal terms can be written as:</p>
-<p>\begin{align}
-M_{11}=M_{22}
-&amp;=\cos\left(\sqrt{k_x}s + \Delta\phi\right)\nonumber\\
-&amp;\approx\cos\left(\sqrt{k_x}\rho\theta +L\sqrt{k_x}/2\right)
-\end{align}</p>
-<p>where $\Delta \phi=\arcsin(L\sqrt{k_x}/2)$.  Here we ignore any terms beyond $L^2 k(x)$.  And we know that $L^2 k(x) \le L^2/\rho^2$</p>
-<p>Therefore for one turn, which has $N$ such segments, the phase advance is :</p>
-<p>\begin{align}
-\phi(L)&amp;=N\left(\sqrt{k_x}\rho \frac{2\pi}{N} +L\sqrt{k_x}/2\right)\nonumber\\
-&amp;\approx 2\pi\rho\sqrt{k_x}\left(1+\frac{NL}{4\pi\rho}\right)\nonumber\\
-&amp;=\phi(L=0)\left(1+\frac{NL}{4\pi\rho}\right)
-\end{align}</p>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">#ax.set_xlim([1000,15000])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Jx</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Jy</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>And the scaling factor for change the $(x,x')$ to $(x,P_x)$ also  changes by an extra factor $\left(1+\frac{NL}{4\pi\rho}\right)$.</p>
+
+</div>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The weak-focusing scheme has large limitation since the bending gradient has to be continuous.  Later on the theory of strong focusing enables smaller beam size.</p>
 
-</div>
-</div>
 </div>
     </div>
   </div>

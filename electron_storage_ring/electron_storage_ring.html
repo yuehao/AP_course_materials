@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>electron_storage_ring</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': true,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "False"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": false};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11832,17 +11882,17 @@ $( document ).ready(function(){
 <li>Energy loss --&gt; Damping</li>
 <li>Quantum fluctuation --&gt; Excitation</li>
 </ul>
-<p>The radiation power gives:
-\begin{align}
+<p>The radiation power gives:</p>
+<p>\begin{align}
 P=\frac{cC_\gamma }{2\pi} \frac{E^4}{\rho^2}=\frac{e^2 c^3 C_\gamma }{2\pi} E^2B^2
 \end{align}</p>
-<p>For longitudinal maps, we care about the total radiated energy:
-\begin{align}
+<p>For longitudinal maps, we care about the total radiated energy:</p>
+<p>\begin{align}
 U=\oint P dt = \frac{C_\gamma E^4 }{2\pi} \oint\frac{1}{\rho^2} ds \equiv\frac{C_\gamma E^4 }{2\pi}  I_2
 \end{align}
 As you will see below, we will express results in a series of integrals through the ring, named <strong><em>radiation integral</em></strong>. Here is the definition of the second radiation integral.</p>
-<p>And the total photon emits per turn is:
-\begin{align}
+<p>And the total photon emits per turn is:</p>
+<p>\begin{align}
 N=\frac{5\pi}{\sqrt{3}}\alpha\gamma
 \end{align}</p>
 
@@ -11862,13 +11912,13 @@ N=\frac{5\pi}{\sqrt{3}}\alpha\gamma
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Since the radiation power is energy dependent, the particle with momentum deviation $\delta$ will radiate differently than the reference particles.</p>
-<p>In longitudinal dynamics session, we have 
-\begin{equation}
+<p>In longitudinal dynamics session, we have</p>
+<p>\begin{equation}
 \Delta E_{n+1}=
 \Delta E_{n} + eV \left(\sin \phi_n-\sin \phi_s\right)
 \end{equation}</p>
-<p>Adding the term of radiation energy loss, we should have:
-\begin{equation}
+<p>Adding the term of radiation energy loss, we should have:</p>
+<p>\begin{equation}
 \Delta E_{n+1}=
 \Delta E_{n} + eV \left(\sin \phi_n-\sin \phi_s\right) - \frac{dU}{dE}\Delta E_{n}
 \end{equation}</p>
@@ -11876,12 +11926,12 @@ N=\frac{5\pi}{\sqrt{3}}\alpha\gamma
 <p>\begin{equation}
 \frac{d\Delta E}{ds}=\frac{eV\omega_0\cos\phi_s}{2\pi}\Delta\phi-\frac{\omega_0}{2\pi}\frac{dU}{dE}\Delta E
 \end{equation}</p>
-<p>Together with the phase change equation:
-\begin{equation}
+<p>Together with the phase change equation:</p>
+<p>\begin{equation}
 \frac{d\Delta\phi}{dt}=h\omega_0\eta\frac{dE}{E_0}
 \end{equation}</p>
-<p>The we reach a second order differential equation of the beam energy deviation with damping terms.
-\begin{equation}
+<p>The we reach a second order differential equation of the beam energy deviation with damping terms.</p>
+<p>\begin{equation}
 \frac{d^2\Delta E}{dt^2}+\frac{\omega_0}{2\pi}\frac{dU}{dE}\frac{\Delta E}{dt}+\frac{eV\omega_0^2h\left(-\eta\cos\phi_s\right)}{2\pi E_0}\Delta E=0
 \end{equation}</p>
 
@@ -11892,19 +11942,19 @@ N=\frac{5\pi}{\sqrt{3}}\alpha\gamma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If we define the synchrotron frequency $\omega_s$ and damping coefficient of energy $\alpha_E$ as:
-\begin{align}
+<p>If we define the synchrotron frequency $\omega_s$ and damping coefficient of energy $\alpha_E$ as:</p>
+<p>\begin{align}
 \omega_s=\sqrt{-\frac{eVh\eta\cos\phi_s}{2\pi E_0}}\omega_0
 \end{align}</p>
 <p>\begin{align}
 \alpha_E=\frac{1}{2T_0}\frac{dU}{dE}
 \end{align}</p>
-<p>The equation becomes:
-\begin{equation}
+<p>The equation becomes:</p>
+<p>\begin{equation}
 \frac{d^2\Delta E}{dt^2}+2\alpha_E\frac{\Delta E}{dt}+\omega_s^2\Delta E=0
 \end{equation}</p>
-<p>And the solution is approximately: 
-\begin{equation}
+<p>And the solution is approximately:</p>
+<p>\begin{equation}
 \Delta E = A \exp{\left(-\alpha_E t\right)} \cos\left(\omega_s t + \phi_0\right)
 \end{equation}</p>
 <p>Where $A$ and $\phi_0$ is determined by the initial condition.</p>
@@ -11935,8 +11985,8 @@ U&amp;=\oint Pdt\nonumber\\
 \frac{dP}{dE}
 &amp;=2P\left(\frac{1}{E_0}+\frac{D}{B_0 E_0}\frac{dB}{dx}\right)
 \end{align}</p>
-<p>After ignoring the second order term:
-\begin{align}
+<p>After ignoring the second order term:</p>
+<p>\begin{align}
 \frac{dU}{dE}
 &amp;=\frac{1}{c}\oint \left[\frac{2P}{E_0}+\frac{2PD}{B_0E_0}\frac{dB}{dx}+\frac{PD}{E_0\rho}\right]\Bigg|_{E=E_0} ds\\
 &amp;=\frac{2U_0}{E_0}+\frac{1}{cE_0}\oint PD\left[\frac{2}{B_0}\frac{dB}{dx}+\frac{1}{\rho}\right]\Bigg|_{E=E_0} ds
@@ -11955,18 +12005,18 @@ Here, every term should be evaluated for particle with energy $E_0$.  Then plug 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Therefore the damping coefficient $\alpha_E$ becomes:
-\begin{align}
+<p>Therefore the damping coefficient $\alpha_E$ becomes:</p>
+<p>\begin{align}
 \alpha_E&amp;=\frac{1}{2T_0}\frac{dU}{dE} \nonumber\\
 &amp;=\frac{U_0}{2T_0E_0}\left(2+\frac{1}{ I_2}\oint \frac{D(s)}{\rho}\left[{2}K_x(s)+\frac{1}{\rho^2}\right]\right) ds\\
 &amp;\equiv\frac{U_0}{2T_0E_0}\left(2+\mathcal{D}\right)
 \end{align}</p>
-<p>Here we define <strong><em>damping partition number</em></strong> $\mathcal{D}$ and the fourth radiation integral $I_4$ 
-\begin{align}
+<p>Here we define <strong><em>damping partition number</em></strong> $\mathcal{D}$ and the fourth radiation integral $I_4$</p>
+<p>\begin{align}
 \mathcal{D}=\frac{I_4}{I_2}=\frac{\oint \frac{D(s)}{\rho}\left[{2}K_x(s)+\frac{1}{\rho^2}\right] ds}{\oint ds/\rho^2 }
 \end{align}</p>
-<p>When the accelerator uses separate function magnets with identical dipoles, viz $K=0$ in dipoles and $\rho$ are piecewise constant, the damping partition simply:
-\begin{align}
+<p>When the accelerator uses separate function magnets with identical dipoles, viz $K=0$ in dipoles and $\rho$ are piecewise constant, the damping partition simply:</p>
+<p>\begin{align}
 \mathcal{D}=\frac{I_4}{I_2}=\frac{1}{\rho}\oint \frac{D(s)}{\rho}ds =\frac{\alpha_c C}{2\pi \rho} \ll 1
 \end{align}</p>
 
@@ -12061,10 +12111,10 @@ Here, every term should be evaluated for particle with energy $E_0$.  Then plug 
 
 
 
-<div id="b4cd9657-9a4b-4939-afc7-08c8cc42207a"></div>
+<div id="3ad0528b-8f21-488e-9bb2-c084afbdaf3d"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#b4cd9657-9a4b-4939-afc7-08c8cc42207a');
+var element = $('#3ad0528b-8f21-488e-9bb2-c084afbdaf3d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -12891,36 +12941,36 @@ if (IPython.notebook.kernel != null) {
 <p>\begin{align}
 J_y = \beta y'^2 + 2\alpha y y' + \gamma y^2
 \end{align}</p>
-<p>In the process of SR, the momentum change is along the particle 's trajectory, therefore:
-\begin{align}
+<p>In the process of SR, the momentum change is along the particle 's trajectory, therefore:</p>
+<p>\begin{align}
 y_\text{after SR}&amp;=y_\text{before}\\
 y'_\text{after SR}&amp;=y'_\text{before}
 \end{align}</p>
-<p>The lost energy will be replenished by the RF cavity and the momentum change $\delta p$ will along the longitudinal direction: 
-\begin{align}
+<p>The lost energy will be replenished by the RF cavity and the momentum change $\delta p$ will along the longitudinal direction:</p>
+<p>\begin{align}
 y'_n=\frac{p_y}{p+\delta p}=y'\left(1-\frac{\delta p}{p}\right)
 \end{align}</p>
-<p>The change of angle gives
-\begin{align}
+<p>The change of angle gives</p>
+<p>\begin{align}
 \delta y'=-y'\frac{\delta p}{p}=-y'\frac{U}{E}
 \end{align}</p>
-<p>The amplitude of the betatron motion gives:
-\begin{align}
+<p>The amplitude of the betatron motion gives:</p>
+<p>\begin{align}
 A_y\sim\sqrt{\beta J}
 \end{align}</p>
-<p>Therefore:
-\begin{align}
+<p>Therefore:</p>
+<p>\begin{align}
 A_y\delta A_y=2\alpha\beta yy'+\beta^2 y'\delta y'
 \end{align}</p>
 <p>After taking time average over the ring, and by averaging in one betatron oscillation $\left&lt;yy'\right&gt;=0$:</p>
 <p>\begin{align}
 \frac{\delta A_y}{A_y}=-\frac{\beta^2 y'^2}{\beta J}\frac{U}{E}
-\end{align}
-\begin{align}
+\end{align}</p>
+<p>\begin{align}
 \frac{1}{A_y}\frac{dA_y}{dt}=-\frac{U}{2ET_0}
 \end{align}</p>
-<p>Therefore the damping coefficient of vertical direction becomes:
-\begin{align}
+<p>Therefore the damping coefficient of vertical direction becomes:</p>
+<p>\begin{align}
 \alpha_y=\frac{U}{2ET_0}
 \end{align}</p>
 
@@ -12940,39 +12990,39 @@ A_y\delta A_y=2\alpha\beta yy'+\beta^2 y'\delta y'
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=damping_x.png width=300>
-For horizontal direction, we still have
-\begin{align}
+For horizontal direction, we still have</p>
+<p>\begin{align}
 x_\text{after SR}&amp;=x_\text{before}\\
 x'_\text{after SR}&amp;=x'_\text{before}
 \end{align}</p>
-<p>The orbit has extra contribution from the dispersion:
-\begin{align}
+<p>The orbit has extra contribution from the dispersion:</p>
+<p>\begin{align}
 x=x_\beta + x_d
 \end{align}</p>
-<p>As we see from the vertical plane, both the position and angle does not change therefore: 
-\begin{align}
+<p>As we see from the vertical plane, both the position and angle does not change therefore:</p>
+<p>\begin{align}
 \delta x_\beta &amp;=-\delta x_d= D \frac{u}{E} \\
 \delta x'_\beta &amp;=-\delta x'_d= D' \frac{u}{E}
 \end{align}
 where $u$ is the SR energy loss in short distance $dl$</p>
-<p>Therefore the amplitude change becomes:
-\begin{align}
+<p>Therefore the amplitude change becomes:</p>
+<p>\begin{align}
 A_x\delta A_x=\beta\gamma x_\beta \delta x_\beta+ \beta\alpha\left(x_\beta\delta x'_\beta+x'_\beta \delta x_\beta\right) + \beta^2 x'_\beta \delta x'_\beta
 \end{align}</p>
-<p>Taking the average over on betatron oscillation $\left&lt;\alpha\right&gt;=0$ and $\left&lt;x'_\beta\right&gt;=0$: 
-\begin{align}
+<p>Taking the average over on betatron oscillation $\left&lt;\alpha\right&gt;=0$ and $\left&lt;x'_\beta\right&gt;=0$:</p>
+<p>\begin{align}
 A_x\delta A_x&amp;=\beta\gamma x_\beta \delta x_\beta+ \beta\alpha\left(x_\beta\delta x'_\beta+x'_\beta \delta x_\beta\right) + \beta^2 x'_\beta \delta x'_\beta \\
 &amp;=x_\beta \delta x_\beta \\
 &amp;=x_\beta D \frac{u}{E}
 \end{align}</p>
-<p>$u$ is calculated as:
-\begin{align}
+<p>$u$ is calculated as:</p>
+<p>\begin{align}
 u&amp;=\frac{P\left(x_\beta\right)}{c}dl \\
 &amp;=\left(P\left(0\right)+2 x_\beta \frac{P(0)}{B}\frac{dB}{dx} \right)\left(1+\frac{x_\beta}{\rho}\right)\frac{ds}{c}\\
 &amp;=\frac{P}{c}\left(1+x_\beta \frac{2}{B}\frac{dB}{dx} +\frac{x_\beta}{\rho}\right)ds
 \end{align}</p>
-<p>Then the amplitude change over the ring with averaging $\left&lt;x_\beta\right&gt;=0$ and $\left&lt;x_\beta^2\right&gt;=A_x^2/2$:
-\begin{align}
+<p>Then the amplitude change over the ring with averaging $\left&lt;x_\beta\right&gt;=0$ and $\left&lt;x_\beta^2\right&gt;=A_x^2/2$:</p>
+<p>\begin{align}
 \frac{\delta A_x}{A_x}&amp;= \frac{1}{2cE}\oint DP\left(\frac{2}{B}\frac{dB}{dx} +\frac{1}{\rho}\right)ds \\
 &amp;=\frac{U_0}{2E}\frac{\oint \frac{D}{\rho}\left(2K(s) +\frac{1}{\rho^2}\right)ds}{\oint ds/\rho^2} \\
 &amp;=\frac{I_4}{I_2}\frac{U_0}{2E} =\mathcal{D}\frac{U_0}{2E}
@@ -12985,12 +13035,12 @@ u&amp;=\frac{P\left(x_\beta\right)}{c}dl \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The above result is before the considering the RF acceleration, which is same for both transverse direction.  Combine these two factors (RF and dispersion):
-\begin{align}
+<p>The above result is before the considering the RF acceleration, which is same for both transverse direction.  Combine these two factors (RF and dispersion):</p>
+<p>\begin{align}
 \frac{\delta A_x}{A_x}=-(1-\mathcal{D})\frac{U_0}{2E}
 \end{align}</p>
-<p>Or the horizontal damping coefficient reads
-\begin{align}
+<p>Or the horizontal damping coefficient reads</p>
+<p>\begin{align}
 \alpha_x=(1-\mathcal{D})\frac{U_0}{2ET_0}
 \end{align}</p>
 
@@ -13009,26 +13059,26 @@ u&amp;=\frac{P\left(x_\beta\right)}{c}dl \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If we define:
-\begin{align}
+<p>If we define:</p>
+<p>\begin{align}
 \alpha_0=\frac{U_0}{2ET_0}
 \end{align}</p>
-<p>Then the damping coefficients are:
-\begin{align}
+<p>Then the damping coefficients are:</p>
+<p>\begin{align}
 \alpha_x&amp;=(1-\mathcal{D})\alpha_0 \equiv \mathcal{J}_x\alpha_0\\
 \alpha_y&amp;=\alpha_0 \equiv \mathcal{J}_y\alpha_0\\
 \alpha_E&amp;=(2+\mathcal{D})\alpha_0 \equiv \mathcal{J}_E\alpha_0
 \end{align}</p>
-<p>And the <strong><em>Robinson theorem</em></strong> states:
-\begin{align}
+<p>And the <strong><em>Robinson theorem</em></strong> states:</p>
+<p>\begin{align}
 \mathcal{J}_x+\mathcal{J}_y+\mathcal{J}_E=4
 \end{align}</p>
-<p>And the <strong><em>damping time constant</em></strong>:
-\begin{align}
+<p>And the <strong><em>damping time constant</em></strong>:</p>
+<p>\begin{align}
 \tau_{x/y/E}=\frac{2E}{\mathcal{J}_{x/y/E}U_0} T_0
 \end{align}</p>
-<p>And the <strong><em>damping decrements</em></strong>:
-\begin{align}
+<p>And the <strong><em>damping decrements</em></strong>:</p>
+<p>\begin{align}
 \lambda_{x/y/E}=\frac{\mathcal{J}_{x/y/E}U_0}{2E}
 \end{align}</p>
 <p>The damping effect can be 'redistributed' by adjusting the damping partition $\mathcal{D}$.  Besides the lattice design, the insertion device also can change the damping partition.</p>
@@ -13070,8 +13120,8 @@ u&amp;=\frac{P\left(x_\beta\right)}{c}dl \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The longitudinal oscillation, without radiation damping, gives:
-\begin{align}
+<p>The longitudinal oscillation, without radiation damping, gives:</p>
+<p>\begin{align}
 \Delta E = A \cos\left(\omega_s t + \phi_0\right)
 \end{align}</p>
 <p>We are interested in the time average of the amplitude square of the longitudinal oscillation, $A^2$.  The damping effect for $A^2$ has half of the damping time:</p>
@@ -13082,8 +13132,8 @@ u&amp;=\frac{P\left(x_\beta\right)}{c}dl \\
 <p>\begin{align}
 \Delta E = A \cos\left(\omega_s t + \phi_0\right) - u \cos\left(\omega_s t -\omega_s t_1\right)
 \end{align}</p>
-<p>Since $t_1$ is random, in time average, we have the amplitude change in $\Delta t$:
-\begin{align}
+<p>Since $t_1$ is random, in time average, we have the amplitude change in $\Delta t$:</p>
+<p>\begin{align}
 \Delta \left&lt;A^2\right&gt;=\left&lt;\int n(u) u^2 du \right&gt;_{\Delta t} \Delta t
 \end{align}
 where $n(u)$ is the number of photon of energy $u$.</p>
@@ -13091,8 +13141,8 @@ where $n(u)$ is the number of photon of energy $u$.</p>
 <p>\begin{align}
 \frac{d\left&lt;A^2\right&gt;}{dt}=-2\frac{\left&lt;A^2\right&gt;}{\tau_E} +\int n(u) u^2 du
 \end{align}</p>
-<p>And the equilibrium energy spread is given by $\frac{d\left&lt;A^2\right&gt;}{dt}=0$ and averaged over one turn
-\begin{align}
+<p>And the equilibrium energy spread is given by $\frac{d\left&lt;A^2\right&gt;}{dt}=0$ and averaged over one turn</p>
+<p>\begin{align}
 \sigma_E^2&amp;=\frac{\left&lt;A^2\right&gt;}{2}=\frac{1}{4}\tau_E \left&lt;\int n(u) u^2 du\right&gt; \nonumber\\
 &amp;=\frac{1}{4}\tau_E \left&lt;\frac{15\sqrt{3}}{8}\frac{U_{SR}}{u_c} \frac{11}{27}u_c^2\right&gt; \nonumber\\
 &amp;=\frac{1}{4}\frac{55\sqrt{3}}{72}\frac{2E}{\mathcal{J}_{E}U_0} T_0 \left&lt;\frac{C_\gamma E^4}{2\pi} \frac{3\hbar\gamma^3c}{2\rho^3}\right&gt; \nonumber\\
@@ -13108,18 +13158,18 @@ where $n(u)$ is the number of photon of energy $u$.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Therefore the relative energy spread gives:
-\begin{align}
+<p>Therefore the relative energy spread gives:</p>
+<p>\begin{align}
 \frac{\sigma_E^2}{E^2}
 &amp;=\frac{55\sqrt{3}}{96}\frac{\hbar}{mc}\frac{\gamma^2}{\mathcal{J}_{E}} \frac{ I_3}{I_2} \\
 &amp;\equiv C_q\frac{\gamma^2}{\mathcal{J}_{E}} \frac{ I_3}{I_2}
 \end{align}</p>
-<p>For electron, $C_q$ is a constant, which is $3.83\times10^{-10}$m. Surprisingly, the energy spread <strong><em>does not depend on RF parameters</em></strong>.  But the bunch length does.  From the longitudinal dynamics section, we know that:
-\begin{equation}
+<p>For electron, $C_q$ is a constant, which is $3.83\times10^{-10}$m. Surprisingly, the energy spread <strong><em>does not depend on RF parameters</em></strong>.  But the bunch length does.  From the longitudinal dynamics section, we know that:</p>
+<p>\begin{equation}
 \frac{\left&lt;\delta\right&gt;}{\left&lt;\Delta\phi\right&gt;}=\frac{Q_s}{h\left|\eta\right|}
 \end{equation}</p>
-<p>It converts to:
-\begin{equation}
+<p>It converts to:</p>
+<p>\begin{equation}
 \sigma_t=\frac{\alpha_c}{\omega_s}\frac{\sigma_E}{E}
 \end{equation}</p>
 
@@ -13138,26 +13188,26 @@ where $n(u)$ is the number of photon of energy $u$.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First, we look at the horizontal direction, we know that the action $J$ of the horizontal direction is damped by SR as:
-\begin{align}
+<p>First, we look at the horizontal direction, we know that the action $J$ of the horizontal direction is damped by SR as:</p>
+<p>\begin{align}
 \frac{dJ}{dt}=-2\frac{J}{\tau_x}
 \end{align}</p>
-<p>But the instantaneous emission of a energy quanta $u$ gives an prompt kick of 
-\begin{align}
+<p>But the instantaneous emission of a energy quanta $u$ gives an prompt kick of</p>
+<p>\begin{align}
 \delta x_\beta&amp;=-D\frac{u}{E} \\
 \delta x'_\beta&amp;=-D'\frac{u}{E}
 \end{align}</p>
-<p>The change of action gives:
-\begin{align}
+<p>The change of action gives:</p>
+<p>\begin{align}
 \Delta J=\beta\left(x'_\beta+\delta x'_\beta\right)^2+2\alpha\left(x_\beta+\delta x_\beta\right)\left(x'_\beta+\delta x'_\beta\right)+\gamma\left(x_\beta+\delta x_\beta\right)^2 -\left(\beta {x'}_\beta^2 +2\alpha x_\beta x'_\beta+\gamma x_\beta^2 \right)
 \end{align}</p>
-<p>Taking average of one turn, we have 
-\begin{align}
+<p>Taking average of one turn, we have</p>
+<p>\begin{align}
 \left&lt;\Delta J\right&gt;&amp;=\left&lt;\left(\beta D'^2 + 2\alpha D D' + \gamma D^2\right)\left(\frac{u}{E}\right)^2 \right&gt; \\
 &amp;=\left&lt;\frac{\mathcal{H}}{E^2}\left({\int n(u)u^2du}\right)^2 \right&gt;
 \end{align}</p>
-<p>Therefore the equilibrium betatron emittance gives:
-\begin{align}
+<p>Therefore the equilibrium betatron emittance gives:</p>
+<p>\begin{align}
 \epsilon_x&amp;=\frac{\left&lt;J\right&gt;}{2} \\
 &amp;=\frac{1}{4}\tau_x\left&lt;\frac{\mathcal{H}}{E^2}\left({\int n(u)u^2du}\right)^2 \right&gt; \\
 &amp;=\frac{1}{4}\frac{55\sqrt{3}}{72}\frac{2}{\mathcal{J}_{x}EI_2}  \left&lt; \mathcal{H}\frac{3\hbar\gamma^3c}{2\rho^3}\right&gt;\\
@@ -13174,8 +13224,8 @@ where $n(u)$ is the number of photon of energy $u$.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The transverse beam size, therefore, has contribution from both the equilibrium betatron motion and the energy spread/dispersion:
-\begin{align}
+<p>The transverse beam size, therefore, has contribution from both the equilibrium betatron motion and the energy spread/dispersion:</p>
+<p>\begin{align}
 \sigma_x ^2 &amp;= \beta_x \epsilon_x + D_x^2 \frac{\sigma_E^2}{E^2} \\
 &amp;=\frac{C_q\gamma^2}{I_2}\left(\beta_x \frac{I_5}{\mathcal{J}_x}+D_x^2\frac{I_3}{\mathcal{J}_E}\right)
 \end{align}</p>
@@ -13187,12 +13237,12 @@ where $n(u)$ is the number of photon of energy $u$.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For vertical direction, follow the above treatment will give the equilibrium emittance is zero!  Therefore, we have to consider higher order effect: the SR cone angle is about $\theta \sim 1/\gamma$ the random vertical betatron angle change is:
-\begin{align}
+<p>For vertical direction, follow the above treatment will give the equilibrium emittance is zero!  Therefore, we have to consider higher order effect: the SR cone angle is about $\theta \sim 1/\gamma$ the random vertical betatron angle change is:</p>
+<p>\begin{align}
 \delta y'\sim \frac{1}{\gamma}\frac{u}{E}
 \end{align}</p>
-<p>Follow the similar treatment: we can easily find:
-\begin{align}
+<p>Follow the similar treatment: we can easily find:</p>
+<p>\begin{align}
 \epsilon_y = C_q\frac{ I_3}{\mathcal{J}_{y}I_2} = C_q\frac{I_3}{I_2}
 \end{align}
 which is an extremely small number.</p>
@@ -13261,14 +13311,14 @@ which is an extremely small number.</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Consider the dipole with length $L$ and bending angle $\theta\ll 1$.  The optical function on both side of the dipole can be arbitrary.  Let's assume the optics at entrance of the dipole reads: $\beta=\beta_0$, $\alpha=\alpha_0$ and $\gamma_0=\left(1+\alpha_0^2\right)/\beta_0$.  The dispersion function at the same location is $D_0$ and $D'_0$.</p>
-<p>At location $s$, the twiss parameters read:
-\begin{align}
+<p>At location $s$, the twiss parameters read:</p>
+<p>\begin{align}
 \beta(s)&amp;=\frac{1}{\gamma_0}+\gamma_0\left(s-\frac{\alpha_0}{\gamma_0}\right)^2\\
 \alpha(s)&amp;=\alpha_0-\gamma_0 s \\
 \gamma(s)&amp;=\gamma_0
 \end{align}</p>
-<p>From the dipole's $3\times 3$ matrix $\mathcal{M}$
-\begin{align}
+<p>From the dipole's $3\times 3$ matrix $\mathcal{M}$</p>
+<p>\begin{align}
 \mathcal{M}(s)=
 \left(\begin{array}{cc}
 1 &amp; s &amp; \frac{s^2}{2\rho} \\
@@ -13276,8 +13326,8 @@ which is an extremely small number.</p>
 0 &amp; 0 &amp; 1
 \end{array}\right)
 \end{align}</p>
-<p>At arbitrary location, the dispersion function gives:
-\begin{align}
+<p>At arbitrary location, the dispersion function gives:</p>
+<p>\begin{align}
 D(s)&amp;=\frac{s^2}{2\rho}+D_0+D'_0 s\\
 D'(s)&amp;=\frac{s}{\rho}+D'_0
 \end{align}</p>
@@ -13355,8 +13405,8 @@ $$\frac{\sqrt{15} \rho^{2} \theta^{2}}{180 L^{2}}$$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>By defining ${\tilde{\beta}}=\beta_0/L$, ${\tilde{\gamma}}=\gamma_0 L$, ${\tilde{d}}=D_0/(L\theta)$ and ${\tilde{d_p}}=D'_0/\theta$, we found 
-\begin{align}
+<p>By defining ${\tilde{\beta}}=\beta_0/L$, ${\tilde{\gamma}}=\gamma_0 L$, ${\tilde{d}}=D_0/(L\theta)$ and ${\tilde{d_p}}=D'_0/\theta$, we found</p>
+<p>\begin{align}
 \rho\frac{I_5}{I_2} &amp;= \left&lt;\mathcal{H}\right&gt; \\
 &amp;=\rho\theta^3\left(
 \tilde{\beta}\tilde{d_p}^2+2\alpha_0\tilde{d}\tilde{d_p}+\tilde{\gamma}\tilde{d}^2
@@ -13365,8 +13415,8 @@ $$\frac{\sqrt{15} \rho^{2} \theta^{2}}{180 L^{2}}$$
 +\frac{\tilde{\beta}}{3}-\frac{\alpha}{4}+\frac{\tilde{\gamma}}{20}
 \right)
 \end{align}</p>
-<p>First we can solve for the optimum dispersion function:
-\begin{align}
+<p>First we can solve for the optimum dispersion function:</p>
+<p>\begin{align}
 2\left(\begin{array}{cc}
 \alpha_0 &amp; \tilde{\beta}  \\
 \tilde{\gamma} &amp; \alpha_0 \\
@@ -13386,13 +13436,13 @@ $$\frac{\sqrt{15} \rho^{2} \theta^{2}}{180 L^{2}}$$
 \tilde{\beta}-\alpha_0+\frac{4\tilde{\gamma}}{15}
 \right)
 \end{align}</p>
-<p>After taking derivative, we have:
-\begin{align}
+<p>After taking derivative, we have:</p>
+<p>\begin{align}
 15\tilde{\beta}&amp;=8\alpha_0\\
 15\tilde{\beta}&amp;=4\tilde{\gamma}
 \end{align}</p>
-<p>Then we have 
-\begin{align}
+<p>Then we have</p>
+<p>\begin{align}
 \beta&amp;=\frac{8}{\sqrt{15}} L \\
 \alpha&amp;=\sqrt{15} \\
 s^*&amp;=\frac{\alpha_0}{\tilde\gamma}L=\frac{L}{2}\\
@@ -13489,8 +13539,4 @@ s^*&amp;=\frac{\alpha_0}{\tilde\gamma}L=\frac{L}{2}\\
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

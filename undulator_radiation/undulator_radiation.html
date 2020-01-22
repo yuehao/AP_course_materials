@@ -1,7 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>undulator radiation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
+<title>undulator_radiation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': true,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "False"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": false};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11851,26 +11901,26 @@ B_y = B_0 \cos \frac{2\pi z}{\lambda_u}
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let 's use planar undulator as an example to show the resonance condition between the undulator and the relativistic charged particle.</p>
-<p>The equation of motion gives:
-\begin{align}
+<p>The equation of motion gives:</p>
+<p>\begin{align}
 m\gamma \frac{dv_x}{dt} =- q c B_0 \cos \frac{2\pi z}{\lambda_u}
 \end{align}</p>
-<p>Using the relativistic approximation $z=ct$
-\begin{align}
+<p>Using the relativistic approximation $z=ct$</p>
+<p>\begin{align}
 \frac{dv_x}{dt} =- \frac {q c B_0}{m\gamma} \cos \frac{2\pi ct}{\lambda_u}
 \end{align}</p>
-<p>Therefore:
-\begin{align}
+<p>Therefore:</p>
+<p>\begin{align}
 v_x &amp;= -\frac {q  cB_0 \lambda_u}{2\pi m c\gamma} \sin \frac{2\pi ct}{\lambda_u} \\
 &amp;\equiv-\frac{cK}{\gamma}\sin\frac{2\pi ct}{\lambda_u} = - \frac{cK}{\gamma} \sin\left(k_u z\right) \label{vx_in_undulator}
 \end{align}</p>
-<p>Here we define <strong><em>undulator parameter</em></strong> $K$:
-\begin{align}
+<p>Here we define <strong><em>undulator parameter</em></strong> $K$:</p>
+<p>\begin{align}
 K =\frac {q  B_0 \lambda_u}{2\pi m c}=0.934 B_0 \text{[Tesla]} \lambda_u \text{[cm]} 
 \end{align}</p>
 <p>When $K \ll 1$, we call this undulator; while it is called wiggler when $K \ge 1$.</p>
-<p>And the trajectory of the charged particle in the undulator is:
-\begin{align}
+<p>And the trajectory of the charged particle in the undulator is:</p>
+<p>\begin{align}
 x&amp;=\int v_x dt \\
 &amp;=\frac{K\lambda_u}{2\pi c \gamma}\cos\frac{2\pi t}{\lambda_u}\\
 &amp;=\frac{K}{k_u  \gamma}\cos \left(k_u z\right)
@@ -11883,8 +11933,8 @@ x&amp;=\int v_x dt \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the magnetic field does not change the energy of the particle, the $z$ component of the velocity is simply:
-\begin{align}
+<p>Since the magnetic field does not change the energy of the particle, the $z$ component of the velocity is simply:</p>
+<p>\begin{align}
 v_z&amp;=\sqrt{v^2-v_x^2} \\
 &amp;=c\sqrt{1-\frac{1}{\gamma^2}-\left(\frac{K}{\gamma}\right)^2 \sin^2\left(k_u z\right)}\\
 &amp;=c\sqrt{1-\frac{1+K^2/2}{\gamma^2}+\frac{K^2}{2\gamma^2} \cos\left(2k_u z\right)} \\
@@ -11898,13 +11948,13 @@ v_z&amp;=\sqrt{v^2-v_x^2} \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Ignoring the oscillating term, we get the average longitudinal velocity:
-\begin{align}
+<p>Ignoring the oscillating term, we get the average longitudinal velocity:</p>
+<p>\begin{align}
 \bar{v}_z&amp;=c\left( 1-\frac{1+K^2/2}{2\gamma^2} \right)\\
 &amp;=c\left( 1-\frac{1}{2\gamma^{*2}} \right)
 \end{align}</p>
-<p>if we define 
-\begin{align}
+<p>if we define</p>
+<p>\begin{align}
 \gamma^*=\frac{\gamma}{\sqrt{1+K^2/2}}
 \end{align}</p>
 
@@ -11915,8 +11965,8 @@ v_z&amp;=\sqrt{v^2-v_x^2} \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then we can study the frequency by Lorentz transformation to the electron rest frame.  In this frame, the undulator is 'flying' towards the electrons with relativistic factor $\gamma^*$.  Then the radiation becomes dipole radiation with frequency $\lambda'=\lambda_u/\gamma^*$.  The frequency spread is $\sim\frac{1}{N_u}$, due to the effect of truncated sinusoidal motion.  Then the observer in the lab frame will see this radiation with Doppler frequency shift:
-\begin{align}
+<p>Then we can study the frequency by Lorentz transformation to the electron rest frame.  In this frame, the undulator is 'flying' towards the electrons with relativistic factor $\gamma^*$.  Then the radiation becomes dipole radiation with frequency $\lambda'=\lambda_u/\gamma^*$.  The frequency spread is $\sim\frac{1}{N_u}$, due to the effect of truncated sinusoidal motion.  Then the observer in the lab frame will see this radiation with Doppler frequency shift:</p>
+<p>\begin{align}
 \lambda&amp;=\lambda'\gamma^*\left(1-\beta^*\cos\theta\right)\\
 &amp;=\lambda_u\left(1-\left(1-\frac{1}{2\gamma^{*2}}\right)\left(1-\frac{\theta^2}{2}\right)\right)\\
 &amp;=\frac{\lambda_u}{2\gamma^{*2}}\left(1+\gamma^{*2}\theta^2\right)\\
@@ -11939,32 +11989,32 @@ v_z&amp;=\sqrt{v^2-v_x^2} \\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We start with equation of the horizontal velocity
-\begin{align}
+<p>We start with equation of the horizontal velocity</p>
+<p>\begin{align}
 v_x  = - \frac{cK}{\gamma} \sin\left(k_u z\right) 
 \end{align}</p>
-<p>Suppose we have a planar E-M Wave, which has its electric field expressed as:
-\begin{align}
+<p>Suppose we have a planar E-M Wave, which has its electric field expressed as:</p>
+<p>\begin{align}
 E_x  &amp;= E_0\exp i{\left(\mathbf{k}_r\cdot\mathbf{r}-\omega_r t\right)}
 \end{align}</p>
-<p>The energy exchange between the electron and the E-M wave gives:
-\begin{align}
+<p>The energy exchange between the electron and the E-M wave gives:</p>
+<p>\begin{align}
 \Delta E&amp;= E_x v_x \\ 
 &amp;=\frac{cE_0K}{2\gamma}\exp i{\left(\left(k_r\cos\theta+k_u\right)z-\omega_r t\right)}+
 \frac{cE_0K}{2\gamma}\exp i{\left(\left(k_r\cos\theta-k_u\right)z-\omega_r t\right)}
 \end{align}</p>
-<p>Ignore the fast oscillating term and the phase of the energy exchange, aka, <strong><em>Ponderomotive phase</em></strong> is:
-\begin{align}
+<p>Ignore the fast oscillating term and the phase of the energy exchange, aka, <strong><em>Ponderomotive phase</em></strong> is:</p>
+<p>\begin{align}
 \phi=\left(k_r\cos\theta+k_u\right)z-\omega_r t
 \end{align}</p>
-<p>We specify the <strong><em>resonance condition</em></strong> as: the time derivative of ponderomotive phase vanishes.  This condition is written as:
-\begin{align}
+<p>We specify the <strong><em>resonance condition</em></strong> as: the time derivative of ponderomotive phase vanishes.  This condition is written as:</p>
+<p>\begin{align}
 \left(k_r\cos\theta+k_u\right)\frac{dz}{dt}&amp;=\omega_r\\
 \left(k_r\cos\theta+k_u\right)\left( 1-\frac{1+K^2/2}{2\gamma^2} \right) &amp;= k_r\\
 k_u\left( 1-\frac{1+K^2/2}{2\gamma^2} \right) &amp;= \frac{1+K^2/2+\gamma^2\theta^2}{2\gamma^2}k_r
 \end{align}</p>
-<p>Ignore the second order term, we have:
-\begin{align}
+<p>Ignore the second order term, we have:</p>
+<p>\begin{align}
 \lambda_r=\frac{\lambda_u}{2\gamma^2}\left(1+\frac{K^2}{2}+\gamma^2\theta^2\right)
 \end{align}</p>
 
@@ -11974,8 +12024,4 @@ k_u\left( 1-\frac{1+K^2/2}{2\gamma^2} \right) &amp;= \frac{1+K^2/2+\gamma^2\thet
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>fringe_effect</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': true,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "True"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": true};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11838,15 +11888,15 @@ $( document ).ready(function(){
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=edge_angle.png width=400>
-Let's consider this simple hard edge model with entrance angle $\theta$.  When the pole face is perpendicular to the reference orbit.  The dipole is a sector dipole.  The transfer matrix is given as 
-\begin{equation}
+Let's consider this simple hard edge model with entrance angle $\theta$.  When the pole face is perpendicular to the reference orbit.  The dipole is a sector dipole.  The transfer matrix is given as</p>
+<p>\begin{equation}
 M_{sector}=\left(\begin{array}{cc}
 \cos\theta &amp; \rho\sin\theta\\
 -\frac{1}{\rho}\sin\theta &amp; \cos\theta
 \end{array}\right)
 \end{equation}</p>
-<p>If the edge effect can be also represented by a matrix, then the matrix for a non-sector dipole can be written as:
-\begin{equation}
+<p>If the edge effect can be also represented by a matrix, then the matrix for a non-sector dipole can be written as:</p>
+<p>\begin{equation}
 M=M_{exit}M_{sector}M_{entrance}
 \end{equation}</p>
 <p>The effect in the horizontal plane is straight forward from the above figure.  For positive $E_1$, as shown in the figure, a particle with positive $x$ will hit the edge slower than the reference particle.  At the time of arrival, the reference already start to rotate.  The rotate angle is:
@@ -11854,8 +11904,8 @@ $$
 \Delta\theta=\frac{x \tan E_1}{\rho+x}\approx \frac{x \tan E_1}{\rho}
 $$
 Here we only keep the linear term.</p>
-<p>Equivalently, the particle with horizontal offset at a kick of $\Delta x'=\Delta\theta$.  Therefore, the edge effect is similar to a quad:
-\begin{align}
+<p>Equivalently, the particle with horizontal offset at a kick of $\Delta x'=\Delta\theta$.  Therefore, the edge effect is similar to a quad:</p>
+<p>\begin{align}
 M_{x,entrance}&amp;=\left(\begin{array}{cc}
 1 &amp; 0\\
 \frac{\tan{E_1}}{\rho} &amp; 1
@@ -11863,7 +11913,7 @@ M_{x,entrance}&amp;=\left(\begin{array}{cc}
 M_{x,exit}&amp;=\left(\begin{array}{cc}
 1 &amp; 0\\
 \frac{\tan{E_2}}{\rho} &amp; 1
-\end{array}\right)
+\end{array}\right) \label{eq:edge_focusing}
 \end{align}</p>
 
 </div>
@@ -11873,8 +11923,8 @@ M_{x,exit}&amp;=\left(\begin{array}{cc}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The vertical edge effect is related to the horizontal one since:
-\begin{align}
+<p>The vertical edge effect is related to the horizontal one since:</p>
+<p>\begin{align}
 \Delta x'&amp;=-\frac{1}{p_0}\int_{-\Delta t}^{\Delta t} v_zB_y dt\\
 \Delta y'&amp;=\frac{1}{p_0}\int_{-\Delta t}^{\Delta t} v_zB_x dt
 \end{align}
@@ -11886,8 +11936,8 @@ Then
 $$
 \frac{\partial x'}{\partial x}=-\frac{\partial y'}{\partial y}
 $$</p>
-<p>We get edge focusing matrix for vertical direction as:
-\begin{align}
+<p>We get edge focusing matrix for vertical direction as:</p>
+<p>\begin{align}
 M_{y,entrance}&amp;=\left(\begin{array}{cc}
 1 &amp; 0\\
 -\frac{\tan{E_1}}{\rho} &amp; 1
@@ -11896,7 +11946,8 @@ M_{y,exit}&amp;=\left(\begin{array}{cc}
 1 &amp; 0\\
 -\frac{\tan{E_2}}{\rho} &amp; 1
 \end{array}\right)
-\end{align}</p>
+\end{align}
+which provides an opposite focusing effect as the horizontal one as in Eq.$\ref{eq:edge_focusing}$</p>
 
 </div>
 </div>
@@ -11904,8 +11955,4 @@ M_{y,exit}&amp;=\left(\begin{array}{cc}
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

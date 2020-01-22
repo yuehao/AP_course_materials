@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>symplecticity</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,51 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
 
-<style type="text/css">
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot');
-    src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff') format('woff'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf') format('truetype'),
-         url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
 
 <script>
 $( document ).ready(function(){
 
-            var cfg={'threshold':3,     // depth of toc (number of levels)
-             'number_sections': true,  // sections numbering
-             'toc_cell': false,          // useless here
-             'toc_window_display': true, // display the toc window
-             "toc_section_display": "block", // display toc contents in the window
-             'markTocItemOnScroll': false, 
-             'sideBar':true,             // sidebar or floating window
-             'navigate_menu':false       // navigation menu (only in liveNotebook -- do not change)
-            }
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
 
-            var st={};                  // some variables used in the script
-            st.oldTocHeight = undefined
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
 
-            // fire the main function with these parameters
-            require(['nbextensions/toc2/toc2'], function (toc2) {
-                toc2.table_of_contents(cfg, st);
-            });
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "True"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": true};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
     });
-</script>
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11835,13 +11885,13 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For a N-dimensional Hamiltonian system ($\mathbf{x}^N, \mathbf{p}^N$), the N sets of Hamiltonian equation reads:
-\begin{align}
+<p>For a N-dimensional Hamiltonian system ($\mathbf{x}^N, \mathbf{p}^N$), the N sets of Hamiltonian equation reads:</p>
+<p>\begin{align}
 \frac{dx_i}{dt}&amp;=\frac{\partial H}{\partial p_i}\\
 \frac{dp_i}{dt}&amp;=-\frac{\partial H}{\partial x_i}
 \end{align}</p>
-<p>Let's write a column vector $X=(x_1, p_1, x_2,p_2,\cdots,x_N,p_n)$, the Hamiltonian can be written as:
-\begin{align}
+<p>Let's write a column vector $X=(x_1, p_1, x_2,p_2,\cdots,x_N,p_n)$, the Hamiltonian can be written as:</p>
+<p>\begin{align}
 \frac{d}{dt}X &amp; \equiv S_N \frac{\partial H}{\partial X}
 = \left(\begin{array}{cccc}
 S_{1} &amp; 0 &amp; \cdots &amp; 0\\
@@ -11851,8 +11901,8 @@ S_{1} &amp; 0 &amp; \cdots &amp; 0\\
 \end{array}\right)
 \frac{\partial H}{\partial X}
 \end{align}</p>
-<p>where $S_1$ is the matrix for one dimension space:
-\begin{align}
+<p>where $S_1$ is the matrix for one dimension space:</p>
+<p>\begin{align}
  S_1
 = \left(\begin{array}{cc}
 0 &amp; 1\\
@@ -11861,10 +11911,14 @@ S_{1} &amp; 0 &amp; \cdots &amp; 0\\
 \end{align}</p>
 <p>Later on lets ignore the subscript.  We found that the following facts about S</p>
 <ul>
-<li>Determinant of S: 
-\begin{equation}\left|S\right|=1\end{equation}</li>
-<li>Inverse of $S$: \begin{equation} S^{-1}=1 \text{ or } S^2 = -I\end{equation}</li>
-<li>The transpose of $S$: \begin{equation}S^T=-S\end{equation}</li>
+<li>Determinant of S: </li>
+</ul>
+<p>\begin{equation}\left|S\right|=1\end{equation}</p>
+<ul>
+<li>Inverse of $S$: 
+\begin{equation} S^{-1}=1 \text{ or } S^2 = -I\end{equation}</li>
+<li>The transpose of $S$: 
+\begin{equation}S^T=-S\end{equation}</li>
 </ul>
 
 </div>
@@ -11874,20 +11928,20 @@ S_{1} &amp; 0 &amp; \cdots &amp; 0\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For a map from location $s_0$ to $s_1=s_0+s$, we have: 
-\begin{align}
+<p>For a map from location $s_0$ to $s_1=s_0+s$, we have:</p>
+<p>\begin{align}
 X\left(s_1\right)=M X\left(s_0\right)
 \end{align}</p>
-<p>M is a matrix and the components is defined as:
-\begin{align}
+<p>M is a matrix and the components is defined as:</p>
+<p>\begin{align}
 M_{ij}=\frac{\partial X_i\left(s_1\right)}{ \partial X_j\left(s_0\right)}
 \end{align}</p>
 <p>If $M_{ij}$ are not functions of $X$, the map represents a linear map.  Otherwise $M$ is a non-linear map.  Regardless of the linearity, the condition that map $M$ need to follow due to the system is a Hamiltonian system is called <strong>symplectic condition</strong>.  We just explored the condition in 1-D case.  In N-D system, from the Map definition:</p>
 <p>\begin{align}
 X\left(s_1\right)=M X\left(s_0\right)
 \end{align}</p>
-<p>We take the derivative of the $i^{th}$ row of $X(s_1)$ with respect to $s$:
-\begin{align}
+<p>We take the derivative of the $i^{th}$ row of $X(s_1)$ with respect to $s$:</p>
+<p>\begin{align}
 \frac{dX_i\left(s_1\right)}{ds}
 &amp;=\frac{\partial X_i\left(s_1\right)}{\partial X_j\left(s_0\right)}\frac{dX_j\left(s_0\right)}{ds}\nonumber\\
 &amp;=M_{ij}S_{jk}\frac{\partial H}{\partial X_k\left(s_0\right)}\nonumber\\
@@ -11898,14 +11952,15 @@ X\left(s_1\right)=M X\left(s_0\right)
 <p>\begin{equation}
 \frac{dX_i\left(s_1\right)}{ds}=S_{il}\frac{\partial H}{\partial X_l\left(s_1\right)}
 \end{equation}</p>
-<p>Therefore we have 
-\begin{align}
+<p>Therefore we have</p>
+<p>\begin{align}
 MSM^T=S
 \end{align}
-Using the property of $S$, we have the usual form:
-\begin{align}
-M^TSM=S
+Using the property of $S$, we have the usual form:</p>
+<p>\begin{align}
+M^TSM=S \label{eq:symplectic_form}
 \end{align}</p>
+<p>The equation $\ref{eq:symplectic_form}$ is referred as <strong><em>symplectic condition of a transfer map</em></strong> (not limited to matrix).</p>
 
 </div>
 </div>
@@ -11945,8 +12000,8 @@ M^TSM=S
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Consider a 4-D phase space transfer map:
-\begin{equation}
+<p>Consider a 4-D phase space transfer map:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 x\\
 p_{x}\\
@@ -11962,8 +12017,8 @@ z\\
 \delta
 \end{array}\right)_{1}
 \end{equation}</p>
-<p>The transfer map has to satisfy the symplectic condition, both $M^TSM=S$ and $MSM^T=S$:
-\begin{align}
+<p>The transfer map has to satisfy the symplectic condition, both $M^TSM=S$ and $MSM^T=S$:</p>
+<p>\begin{align}
 \left(\begin{array}{cc}
 M_{1} &amp; U\\
 V &amp; M_{2}
@@ -11989,13 +12044,13 @@ S_2 &amp; 0\\
 0 &amp; S_2
 \end{array}\right)
 \end{align}</p>
-<p>Therefore the following relation satisfy:
-\begin{align}
+<p>Therefore the following relation satisfy:</p>
+<p>\begin{align}
 M_1^TS_2M_1+V^T S_2 V&amp;=M_2^TS_2M_2+U^TS_2 U=S_2\\
 M_1^T S_2 U+V^T S_2 M_2&amp;=U^T S_2 M_1 + M_2^T S_2 V=0 
 \end{align}</p>
-<p>Change $M$ to $M^T$, we have
-\begin{align}
+<p>Change $M$ to $M^T$, we have</p>
+<p>\begin{align}
 M_1 S_2 M_1^T+U S_2 U^T&amp;=M_2 S_2 M_2^T+VS_2 V^T=S_2\\
 M_2 S_2 U^T+V S_2 M_1^T&amp;=U S_2 M_2^T + M_1 S_2 V^T=0 
 \end{align}</p>
@@ -12058,21 +12113,21 @@ $$\left[\begin{matrix}M_{1} S_{2} M_{1}^T + U S_{2} U^T & M_{1} S_{2} V^T + U S_
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From the general property of 2-by-2 matrix $A$:
-\begin{align}
+<p>From the general property of 2-by-2 matrix $A$:</p>
+<p>\begin{align}
 A^TS_2A=AS_2A^T=
 \left(\begin{array}{cc}
 0 &amp; \det A\\
 -\det A &amp; 0
 \end{array}\right)
 \end{align}</p>
-<p>We know that:
-\begin{align}
+<p>We know that:</p>
+<p>\begin{align}
 \det M_1 + \det V=\det M_2 + \det U &amp;=1\\
 \det M_2 + \det V=\det M_1 + \det U &amp;=1
 \end{align}</p>
-<p>Therefore, we always have:
-\begin{align}
+<p>Therefore, we always have:</p>
+<p>\begin{align}
 \det M_1  = \det M_2 &amp;\equiv a\\
 \det U = \det V &amp;\equiv b\\
 a+b&amp;=1
@@ -12085,8 +12140,8 @@ a+b&amp;=1
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If we are exploring $x$-$z$ or $y$-$z$ phase space, the matrix $U$ usually has the form below for DC magnets:
-\begin{align}
+<p>If we are exploring $x$-$z$ or $y$-$z$ phase space, the matrix $U$ usually has the form below for DC magnets:</p>
+<p>\begin{align}
 U=
 \left(\begin{array}{cc}
 \begin{array}{c}
@@ -12097,17 +12152,17 @@ d_{1}\\
 d_{2}
 \end{array}\right)\end{array}\right)
 \end{align}</p>
-<p>Then 
-\begin{align}
+<p>Then</p>
+<p>\begin{align}
 \det M_1  = \det M_2 &amp;=1\\
 \det U = \det V &amp;=0
 \end{align}</p>
-<p>And from
-\begin{align}
+<p>And from</p>
+<p>\begin{align}
 M_1^T S_2 U+V^T S_2 M_2=0
 \end{align}</p>
-<p>We have
-\begin{align}
+<p>We have</p>
+<p>\begin{align}
 V=M_2 S_2 U^T S_2 M_1
 \end{align}</p>
 
@@ -12126,8 +12181,8 @@ V=M_2 S_2 U^T S_2 M_1
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Consider a 6-D phase space transfer map:
-\begin{equation}
+<p>Consider a 6-D phase space transfer map:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 x\\
 p_{x}\\
@@ -12206,14 +12261,14 @@ $$\left[\begin{matrix}C_{2}^T S_{2} C_{2} + M_{1}^T S_{2} M_{1} + V_{1}^T S_{2} 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Therefore, we can get the relation of the determinant of each block:
-\begin{align} 
+<p>Therefore, we can get the relation of the determinant of each block:</p>
+<p>\begin{align} 
 \det M_1 + \det C_1 + \det U_1 =1 \\
 \det C_2 + \det M_2 + \det U_2 =1 \\
 \det M_3 + \det V_1 + \det V_2 =1 \\
 \end{align}
-and
-\begin{align} 
+and</p>
+<p>\begin{align} 
 \det M_1 + \det C_2 + \det V_1 =1 \\
 \det C_1 + \det M_2 + \det V_2 =1 \\
 \det U_1 + \det U_2 + \det M_3 =1 \\
@@ -12222,82 +12277,7 @@ and
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s_2</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
-<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b c d&#39;</span><span class="p">)</span>
-<span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u v x y&#39;</span><span class="p">)</span>
-<span class="n">ma</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]])</span>
-<span class="n">mb</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="n">u</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">v</span><span class="p">]])</span>
-<span class="n">s_2</span><span class="o">*</span><span class="n">mb</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">s_2</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[18]:</div>
-
-
-
-
-<div class="output_latex output_subarea output_execute_result">
-$$\left[\begin{matrix}- v & u\\0 & 0\end{matrix}\right]$$
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s_2</span><span class="o">*</span><span class="n">mb</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[22]:</div>
-
-
-
-
-<div class="output_latex output_subarea output_execute_result">
-$$\left[\begin{matrix}0 & v\\0 & - u\end{matrix}\right]$$
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
     </div>
   </div>
 </body>
-
- 
-
-
 </html>
