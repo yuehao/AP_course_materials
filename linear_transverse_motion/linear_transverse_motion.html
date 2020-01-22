@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
+<head><meta charset="utf-8"/>
+
+<!-- javascript from CDN for conversion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
+
+    
+
+
+<script type="text/x-mathjax-config">
+// make sure that equations numbers are enabled
+MathJax.Hub.Config({ TeX: { equationNumbers: {
+    autoNumber: "AMS", // All AMS equations are numbered
+    useLabelIds: true, // labels as ids
+    // format the equation number - uses an offset eqNumInitial (default 0)
+    formatNumber: function (n) {return String(Number(n)+Number(1)-1)} 
+    } } 
+});
+</script>
+
+
+
+<meta charset="utf-8" />
 <title>linear_transverse_motion</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -11766,7 +11787,80 @@ div#notebook {
         }
     });
     </script>
-    <!-- End of mathjax configuration --></head>
+    <!-- End of mathjax configuration -->
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+
+<!-- stylesheet from CDN -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/latex_envs.css">
+
+<!-- Custom stylesheet, it must be in the same directory as the html file -->
+<link rel="stylesheet" href="custom.css"> 
+
+<!-- Load mathjax 
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/latex_envs/thmsInNb4.js"></script>
+-->
+<script type="text/javascript"  src="https://rawgit.com/jfbercher/jupyter_latex_envs/master/src/latex_envs/static/thmsInNb4.js"> </script>
+
+<!-- for toc2 -->
+<link rel="stylesheet" type="text/css" href="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/main.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://rawgit.com/ipython-contrib/jupyter_contrib_nbextensions/master/src/jupyter_contrib_nbextensions/nbextensions/toc2/toc2.js"></script>
+
+<script>
+$( document ).ready(function(){
+
+        //Value of configuration variables, some taken from the notebook's metada. 
+        eqNum = 0; // begins equation numbering at eqNum+1
+        eqLabelWithNumbers = "True"=="True" ? true : false; //if true, label equations with equation numbers; 
+                                       //otherwise using the tag specified by \label
+        conversion_to_html = false;
+        current_cit=1;
+        cite_by='key';  //only number and key are supported
+        //var document={}
+        document.bibliography={};
+
+        // Read environment map config
+        initmap();
+        // Read user envs config, if specified
+        
+                environmentMap = $.extend(true,{}, environmentInitialMap)        
+        
+
+        // fire the main function with these parameters
+        var html_to_analyse = $('body').html()
+        var html_converted = thmsInNbConv(marked,html_to_analyse);
+        html_converted = html_converted.replace(/%[\S\t ]*<\/p>/gm,"</p>")
+        $('body').html(html_converted)
+        // Show/hide anchors
+        var labels_anchors = "False"=="True" ? true : false;
+        $('.latex_label_anchor').toggle(labels_anchors)
+        // Number all environments
+        report_style_numbering = "True"=="True" ? true : false;
+        reset_counters();
+        renumberAllEnvs();
+
+  
+        // toc2
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "413px", "left": "0px", "right": "904.8px", "top": "112px", "width": "247px"}, "toc_section_display": "block", "toc_window_display": true};
+        // fire the main function with these parameters
+        require(['nbextensions/toc2/toc2'], function (toc2) {
+            toc2.table_of_contents(cfg);
+        });
+    });
+
+</script></head>
+
+
+
+
 <body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
@@ -11783,8 +11877,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this chapter,we will discuss the particle motion in perpendicular to the  particle ideal trajectory in linear magnets.  Linear magnets refer to the dipole and quadrupole magnets that produce linear magnetic field.  The force of the particle is given by the Lorentz force:
-\begin{equation}
+<p>In this chapter,we will discuss the particle motion in perpendicular to the  particle ideal trajectory in linear magnets.  Linear magnets refer to the dipole and quadrupole magnets that produce linear magnetic field.  The force of the particle is given by the Lorentz force:</p>
+<p>\begin{equation}
 \mathbf{F}=q\mathbf{v}\times \mathbf{B}
 \end{equation}
 The force is always perpendicular to its velocity, therefore the particle can not be accelerated by the magnetic field.</p>
@@ -11806,20 +11900,20 @@ The force is always perpendicular to its velocity, therefore the particle can no
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The geometry of the accelerator is determined by the dipole magnet.  Let us assume that the magnetic field is constant in certain region and along the vertical direction $\mathbf{B}=B\hat{y}$.  The particle travels through this region initially in $\hat{s}$ direction in the $x$-$s$ plane, as shown below.
 <img src=reference_orbit.png width=400></p>
-<p>The equation of motion is
-\begin{equation}
+<p>The equation of motion is</p>
+<p>\begin{equation}
 \frac{d\mathbf{P}}{dt}=q\mathbf{v}\times\mathbf{B}
 \end{equation}
-The momentum change will be only in the $x$-$s$ plane, the velocity is always perpendicular to the magnetic field and the energy of the beam does not change, therefore:
-\begin{equation}
+The momentum change will be only in the $x$-$s$ plane, the velocity is always perpendicular to the magnetic field and the energy of the beam does not change, therefore:</p>
+<p>\begin{equation}
 m\gamma \frac{d\mathbf{v}}{dt}=qB\mathbf{v}\times\hat{y}
 \end{equation}</p>
-<p>Using the fact that the amplitude of the velocity will not change therefore:
-\begin{equation}
+<p>Using the fact that the amplitude of the velocity will not change therefore:</p>
+<p>\begin{equation}
 m\gamma \frac{v^2}{\rho}=qvB
 \end{equation}
-The bending radius is given by:
-\begin{equation}
+The bending radius is given by:</p>
+<p>\begin{equation}
 \rho=\frac{\left|\mathbf{P}\right|}{qB}
 \end{equation}</p>
 <p>Here, we define the term 'rigidity' $B\rho=P/q$, to quantify 'how hard to bend the beam'.  And naturally it is only function of the particle momentum amplitude.  It is a very important normalization factor of the transverse motion, as will shown later.  After normalization, most our calculation becomes particle energy independent.</p>
@@ -11840,12 +11934,13 @@ The bending radius is given by:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The quadrupole field, from the previous section, has
-\begin{align}
+<p>The quadrupole field, from the previous section, has</p>
+<p>\begin{align}
 B_x&amp;=Gy\\
 B_y&amp;=Gx
-\end{align}</p>
-<p>And the gradient $G=B_0 b_1$.  Quadrupole is usually positioned so that the zero field axis is located on the ideal trajectory.  The ideal particle will not experience any field from the Quadrupole.</p>
+\end{align}
+where the gradient is $G=B_0 b_1$.</p>
+<p>Quadrupole is usually positioned so that the zero field axis is located on the ideal trajectory.  The ideal particle will not experience any field from the Quadrupole.</p>
 <p>From the Lorentz force, we have
 $$\gamma m \frac{d\mathbf{v}}{dt} = q \mathbf{v}\times \mathbf{B}$$</p>
 <p>Expand the vector production and get</p>
@@ -11856,50 +11951,52 @@ $$\gamma m \frac{d\mathbf{v}}{dt} = q \mathbf{v}\times \mathbf{B}$$</p>
 <p>Here we need to make following approximation:</p>
 <ul>
 <li><strong>paraxial approximation</strong>, indicate that the particle will only deviate the design direction by small angles, i.e. if z is the forward direction, the two transverse velocity satisfy: $v_x,v_y \ll \left|\mathbf{v}\right|$</li>
-<li>In such approximation, 
-\begin{align}
+<li>In such approximation, </li>
+</ul>
+<p>\begin{align}
 v_z&amp;=\sqrt{v^2-v_x^2-v_y^2}\nonumber\\
 &amp;=v\left(1-\frac{v_x^2+v_y^2}{2v^2}\right)\sim v
-\end{align}</li>
+\end{align}</p>
+<ul>
 <li>Using such approximation, we have 
 $$\frac{d}{dt}=v_s\frac{d}{ds}\sim v\frac{d}{ds}\;\frac{d^2}{dt^2}\sim v^2\frac{d^2}{ds^2}$$</li>
 </ul>
-<p>Then the equation of motion in quadrupole is simplified as 
-\begin{align}
+<p>Then the equation of motion in quadrupole is simplified as</p>
+<p>\begin{align}
 \gamma m v\frac{d^{2}x}{ds^{2}}&amp;=qGx\\
 \gamma m v\frac{d^{2}y}{ds^{2}}&amp;=-qGy
 \end{align}</p>
-<p>Using the definition of the rigidity $B\rho$, the EOM can be rewritten as :
-\begin{align}
+<p>Using the definition of the rigidity $B\rho$, the EOM can be rewritten as :</p>
+<p>\begin{align}
 \frac{d^{2}x}{ds^{2}}&amp;=-\frac{G}{B\rho}x\\
 \frac{d^{2}y}{ds^{2}}&amp;=\frac{G}{B\rho}y
 \end{align}</p>
-<p>Then, we define the normalized quadrupole strength $k=G/(B\rho)$, the EOM is simply:
-\begin{align}
+<p>Then, we define the normalized quadrupole strength $k=G/(B\rho)$, the EOM is simply:</p>
+<p>\begin{align}
 \frac{d^{2}x}{ds^{2}}+kx&amp;=0\\
 \frac{d^{2}y}{ds^{2}}-ky&amp;=0
 \end{align}</p>
-<p>;Depend on the sign of $k$, it is easy to solve the differential equation:
-\begin{equation}
+<p>Depend on the sign of $k$, it is easy to solve the differential equation:</p>
+<p>\begin{equation}
 x\left(s\right)=
 \begin{cases}
-a \cos \left(\sqrt{k}s+\phi_0\right)&amp;k&gt;0\\
+a \cos \left(\sqrt{k}s\right)+b \sin \left(\sqrt{k}s\right)&amp;k&gt;0\\
 a s + b &amp;k=0\\
-a \cosh \left(\sqrt{-k}s+\phi_0\right)&amp;k&lt;0
+a \cosh \left(\sqrt{-k}s\right)+b\sinh \left(\sqrt{-k}s\right)&amp;k&lt;0
 \end{cases}
 \end{equation}</p>
-<p>The three cases corresponds to a focusing quadrupole, drift space and a defocusing quadrupole respectively. The parameter $a$, $b$ or $\phi_0$ are determined by the initial particle position and transverse velocities. We also learn that the quadrupole will always focus the particles in one transverse direction and defocus in the other.</p>
-<p>In general, the focusing strength can be also function of the longitudinal direction and the EOM of transverse motion (using horizontal direction $\hat{x}$ as an example) gives:
-\begin{equation}
+<p>The three cases corresponds to a focusing quadrupole, drift space and a defocusing quadrupole respectively. The parameter $a$, $b$ are determined by the initial particle position $x$ and its derivative $x'$. We also learn that the quadrupole will always focus the particles in one transverse direction and defocus in the other.</p>
+<p>In general, the focusing strength can be also function of the longitudinal direction and the EOM of transverse motion (using horizontal direction $\hat{x}$ as an example) gives:</p>
+<p>\begin{equation}
 \frac{d^{2}x}{ds^{2}}+k\left(s\right)x=0
 \end{equation}</p>
-<p>This ODE is named Hill's equation.  It can be rewritten as:
-\begin{align}
+<p>This ODE is named Hill's equation.  It can be rewritten as:</p>
+<p>\begin{align}
 \frac{dx}{ds}&amp;=x'\\
 \frac{dx'}{ds}&amp;=-k(s)x
 \end{align}</p>
-<p>They are just the form of Hamiltonian equations of the Hamiltonian:
-\begin{align}
+<p>They are just the form of Hamiltonian equations of the Hamiltonian:</p>
+<p>\begin{align}
 H=\frac{1}{2}x'^2+\frac{1}{2}k(s)x^2
 \end{align}
 Latter we will use alternative method to rederive this equation and try to solve it in general.</p>
@@ -11919,21 +12016,21 @@ Latter we will use alternative method to rederive this equation and try to solve
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The ideal trajectory is usually used as reference for the dynamics of the charged particles. This trajectory can be determined from a vector $\mathbf{r_0}\left(t\right)$. The length along the curve is given by 
-\begin{align}
+<p>The ideal trajectory is usually used as reference for the dynamics of the charged particles. This trajectory can be determined from a vector $\mathbf{r_0}\left(t\right)$. The length along the curve is given by</p>
+<p>\begin{align}
 s(t)=\int_0^t \left|\mathbf{r'_0}\left(t^\prime\right)\right| dt^\prime
 \end{align}
 Therefore our study is usually performed in the curvilinear coordinate system, named Frenet-Serret coordinate system, as illustrated in the figure:
 <img src=curvilinear_frame.png width=300></p>
-<p>In this representation, the independent variable is the location on the reference orbit $s$.  The reference point on the reference orbit is defined by the vector $\mathbf{r_0}\left(s\right)$.  The unit vector of the tangent direction is given by:
-\begin{equation}
+<p>In this representation, the independent variable is the location on the reference orbit $s$.  The reference point on the reference orbit is defined by the vector $\mathbf{r_0}\left(s\right)$.  The unit vector of the tangent direction is given by:</p>
+<p>\begin{equation}
 \hat{s}\left(s\right)=\frac{d\mathbf{r_0}\left(s\right)}{ds}
 \end{equation}</p>
-<p>The unit vector of the tangent plane and the normal plane is:
-\begin{equation}\hat{x}\left(s\right)=-\rho\left(s\right)\frac{d\hat{s}\left(s\right)}{ds}
+<p>The unit vector of the tangent plane and the normal plane is:</p>
+<p>\begin{equation}\hat{x}\left(s\right)=-\rho\left(s\right)\frac{d\hat{s}\left(s\right)}{ds}
 \end{equation}</p>
-<p>Here $\rho$ denotes the local radius, which is the recipocal of the curvature $\kappa$. At last, the binormal vector is simply defined by:
-\begin{equation}
+<p>Here $\rho$ denotes the local radius, which is the recipocal of the curvature $\kappa$. At last, the binormal vector is simply defined by:</p>
+<p>\begin{equation}
 \hat{y}\left(s\right)=\hat{s}\left(s\right)\times\hat{x}\left(s\right)
 \end{equation}</p>
 
@@ -11944,15 +12041,15 @@ Therefore our study is usually performed in the curvilinear coordinate system, n
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We defining The derivative of the unit vectors are:
-\begin{align}
+<p>We defining The derivative of the unit vectors are:</p>
+<p>\begin{align}
 \frac{d\hat{s}\left(s\right)}{ds} &amp;= -\kappa\left(s\right) \hat{x}\left(s\right)\\
 \frac{d\hat{x}\left(s\right)}{ds} &amp;= \kappa\left(s\right) \hat{s}\left(s\right)+\tau\left(s\right)\hat{y}\left(s\right)\\
 \frac{d\hat{y}\left(s\right)}{ds} &amp;= -\tau\left(s\right)\hat{x}\left(s\right)
 \end{align}</p>
 <p>Here, $\tau$ is the local torsion of the curve.
-In matrix form, the relation can be expressed as:
-\begin{equation}
+In matrix form, the relation can be expressed as:</p>
+<p>\begin{equation}
 \frac{{d}}{ds}\left(\begin{array}{c}
 \hat{{s}}\\
 \hat{{x}}\\
@@ -11976,12 +12073,12 @@ In matrix form, the relation can be expressed as:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then, the coordinate of particle can be expressed as:
-\begin{equation}
+<p>Then, the coordinate of particle can be expressed as:</p>
+<p>\begin{equation}
 \mathbf{r}=\mathbf{r_0}\left(s\right)+x\hat{x}\left(s\right)+y\hat{y}\left(s\right)
 \end{equation}</p>
-<p>Compared with the Cartesian coordinate system, $\mathbf{r}=x \hat{x}+y \hat{y}+z \hat{z} $, the differentials give: $\partial \mathbf{r}/\partial x = \hat{x}$, $\partial \mathbf{r}/\partial y = \hat{y}$, $\partial \mathbf{r}/\partial z = \hat{z}$; the differentials of the Frenet-Serret Coordinate yields:
-\begin{align}
+<p>Compared with the Cartesian coordinate system, $\mathbf{r}=x \hat{x}+y \hat{y}+z \hat{z} $, the differentials give: $\partial \mathbf{r}/\partial x = \hat{x}$, $\partial \mathbf{r}/\partial y = \hat{y}$, $\partial \mathbf{r}/\partial z = \hat{z}$; the differentials of the Frenet-Serret Coordinate yields:</p>
+<p>\begin{align}
 \frac{\partial \mathbf{r}}{\partial s} &amp;= \hat{s}\left(1+ \kappa x\right) \\
 \frac{\partial \mathbf{r}}{\partial x} &amp;= \hat{x} \\
 \frac{\partial \mathbf{r}}{\partial y} &amp;= \hat{y}
@@ -11995,12 +12092,12 @@ In matrix form, the relation can be expressed as:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this coordinate system, the vector operation has different form, for example:
-\begin{equation}
+<p>In this coordinate system, the vector operation has different form, for example:</p>
+<p>\begin{equation}
 \nabla \phi = \frac{1}{1+\kappa x}\frac{\partial \phi}{\partial s}\hat{s}+\frac{\partial \phi}{\partial x}\hat{x}+\frac{\partial \phi}{\partial y}\hat{y}
 \end{equation}
-And the curl of the vector gives:
-\begin{equation}
+And the curl of the vector gives:</p>
+<p>\begin{equation}
 \nabla\times A=\frac{1}{1+\kappa x}\left|\begin{array}{ccc}
 \left(1+\kappa x\right)\hat{{s}} &amp; \hat{{x}} &amp; \hat{y}\\
 \frac{\partial}{\partial s} &amp; \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y}\\
@@ -12031,15 +12128,15 @@ And the curl of the vector gives:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We consider the approach from Lagrangian of a relativistic charged particle in a E-M field.
-\begin{equation}
+<p>We consider the approach from Lagrangian of a relativistic charged particle in a E-M field.</p>
+<p>\begin{equation}
 L\left(\mathbf{x}, \mathbf{v}, t\right)=
 -mc^2\sqrt{1-\frac{v^2}{c^2}}
 +e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
 -e\phi \left(\mathbf{x},t\right)
 \end{equation}</p>
-<p>Here, $\mathbf{x}$ is the position and the velocity is $\mathbf{v}=\dot{\mathbf{x}} =d\mathbf{x}/dt$. The vector potential $\mathbf{A}$ and scalar potential $\phi$ is the function of the position and time.  The fields is calculated as:
-\begin{align}
+<p>Here, $\mathbf{x}$ is the position and the velocity is $\mathbf{v}=\dot{\mathbf{x}} =d\mathbf{x}/dt$. The vector potential $\mathbf{A}$ and scalar potential $\phi$ is the function of the position and time.  The fields is calculated as:</p>
+<p>\begin{align}
 \mathbf{E}&amp;=-\nabla\phi-\frac{\partial\mathbf{A}}{\partial t}\\
 \mathbf{B}&amp;=\nabla\times\mathbf{A}
 \end{align}</p>
@@ -12051,8 +12148,8 @@ L\left(\mathbf{x}, \mathbf{v}, t\right)=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The equation of motion can be derived from the equation
-\begin{equation}
+<p>The equation of motion can be derived from the equation</p>
+<p>\begin{equation}
 \frac{\partial L}{x_i}=\frac{d}{dt}\frac{\partial L}{\dot{x}_i}
 \end{equation}</p>
 <p>Using the Lagrangian above will get the EOM with Lorentz force.</p>
@@ -12064,8 +12161,8 @@ L\left(\mathbf{x}, \mathbf{v}, t\right)=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We are interested in the generalized momentum $P_i$ of the $i^{th}$ coordinate $x_i$ which is given by:
-\begin{align}
+<p>We are interested in the generalized momentum $P_i$ of the $i^{th}$ coordinate $x_i$ which is given by:</p>
+<p>\begin{align}
 P_i&amp;=\frac{\partial L}{\partial \dot{x}_i} \nonumber\\
    &amp;=\frac{m\dot{x}_i}{\sqrt{1-\frac{v^2}{c^2}}}+eA_i \nonumber\\
    &amp;=p_i+eA_i
@@ -12079,8 +12176,8 @@ P_i&amp;=\frac{\partial L}{\partial \dot{x}_i} \nonumber\\
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Then the Hamiltonian is calculated as:
-\begin{align}
+<p>Then the Hamiltonian is calculated as:</p>
+<p>\begin{align}
 H&amp;=\mathbf{v}\cdot\mathbf{P}-L \nonumber\\
 &amp;=\mathbf{v}\cdot\mathbf{p}+e\mathbf{v}\cdot\mathbf{A}+mc^2\sqrt{1-\frac{v^2}{c^2}}
     -e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
@@ -12089,12 +12186,25 @@ H&amp;=\mathbf{v}\cdot\mathbf{P}-L \nonumber\\
 &amp;=(\gamma\beta^2+1/\gamma)mc^2+e\phi \left(\mathbf{x},t\right) \nonumber\\
 &amp;=\gamma mc^2 +e\phi \left(\mathbf{x},t\right)
 \end{align}</p>
-<p>With no surprise, the Hamiltonian reflects the total energy of the particle and the potential energy in the E-M field. For further analysis, we express the Hamiltonian as function of the conjugate variable pair:
-\begin{equation}
-H\left(x_1,\cdots,x_n, P_1,\cdots,P_n, t\right)=\sqrt{\left(m c^2\right)^2
+<p>With no surprise, the Hamiltonian reflects the total energy of the particle and the potential energy in the E-M field. For further analysis, we express the Hamiltonian as function of the conjugate variable pair:</p>
+<p>\begin{align}
+H(\mathbf{x},\mathbf{p})&amp;=H\left(x_1,\cdots,x_n, P_1,\cdots,P_n, t\right)\\
+&amp;=\sqrt{\left(m c^2\right)^2
 +\left(\mathbf{P}-e\mathbf{A}\left(\mathbf{x},t\right)\right)^2c^2}
 +e\phi\left(\mathbf{x},t\right)
-\end{equation}</p>
+\end{align}</p>
+<p>Later we will use a series of canonical transformations to change the coordinates and independent variable.  A generating function is handy to create the canonical transformations from old coordinate $(q,p)$ to a new set (Q,P). There are four types of generating functions:
+<img src=generating_function.png width=220 style="float: right;margin: 20px 20px 20px 20px;" ></p>
+<p>\begin{align}
+F_1=F_1(\mathbf{q},\mathbf{Q},t)\quad &amp;  \mathbf{p}=\frac{\partial F_1}{\partial \mathbf{q}}; \mathbf{P}=-\frac{\partial F_1}{\partial \mathbf{Q}}\\
+F_2=F_2(\mathbf{q},\mathbf{P},t)\quad &amp; \mathbf{p}=\frac{\partial F_2}{\partial \mathbf{q}}; \mathbf{Q}=\frac{\partial F_2}{\partial \mathbf{P}}\\
+F_3=F_3(\mathbf{p},\mathbf{Q},t)\quad &amp; \mathbf{q}=-\frac{\partial F_3}{\partial \mathbf{p}}; \mathbf{P}=-\frac{\partial F_3}{\partial \mathbf{Q}}\\
+F_4=F_4(\mathbf{p},\mathbf{P},t)\quad &amp; \mathbf{q}=-\frac{\partial F_4}{\partial \mathbf{P}}; \mathbf{Q}=\frac{\partial F_4}{\partial \mathbf{P}}
+\end{align}</p>
+<p>The right figure shows a way to remember the relative relations of the generating functions.  The new Hamiltonian $K(Q,P,t)$ is calculated by:</p>
+<p>\begin{align}
+K(\mathbf{Q},\mathbf{P},t)=H\left(\mathbf{q}(\mathbf{Q},\mathbf{P}),\mathbf{p}(\mathbf{Q},\mathbf{P})\right)+\frac{\partial F}{\partial t}
+\end{align}</p>
 
 </div>
 </div>
@@ -12112,18 +12222,18 @@ H\left(x_1,\cdots,x_n, P_1,\cdots,P_n, t\right)=\sqrt{\left(m c^2\right)^2
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first necessary transformation that we need to make is to change the coordinate system to the Frenet-Serret coordinate system, i.e. from Cartesian coordinate $\mathbf{r}=x\hat{x}+y\hat{y}+z\hat{z}$ to $\mathbf{r}=\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)$.<br>
-We use the generating function of the $3^{rd}$ type to perform this transformation:
-\begin{equation}
+We use the generating function of the $3^{rd}$ type to perform this transformation:</p>
+<p>\begin{equation}
 F_3=-\mathbf{P}\cdot\left(\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)\right)
 \end{equation}</p>
-<p>The new conjugate momentum, $\boldsymbol{\Pi}$ can be calculated as:
-\begin{align}
+<p>The new conjugate momentum, $\boldsymbol{\Pi}$ can be calculated as:</p>
+<p>\begin{align}
 \Pi_x&amp;=-\frac{\partial F_3}{\partial x}=\mathbf{P}\cdot\hat{x}\\
 \Pi_y&amp;=-\frac{\partial F_3}{\partial y}=\mathbf{P}\cdot\hat{y}\\
 \Pi_s&amp;=-\frac{\partial F_3}{\partial s}=\mathbf{P}\cdot\hat{s}\left(1+\frac{x}{\rho}\right)\\
 \end{align}</p>
-<p>Therefore, in the Frenet-Serret coordinate system:
-\begin{equation}
+<p>Therefore, in the Frenet-Serret coordinate system:</p>
+<p>\begin{equation}
 H=c\sqrt{
 \left(m c\right)^2
 +\left(\Pi_x-eA_x\right)^2+\left(\Pi_y-eA_y\right)^2
@@ -12147,14 +12257,14 @@ H=c\sqrt{
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, we need charge the independent coordinate from time to '$s$', the position on the reference orbit. The Hamiltonian above is function of $(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)$ and the Hamiltonian equation are:
-\begin{align}
+<p>Next, we need charge the independent coordinate from time to '$s$', the position on the reference orbit. The Hamiltonian above is function of $(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)$ and the Hamiltonian equation are:</p>
+<p>\begin{align}
 \frac{\partial H}{\partial x}&amp;=-\dot{\Pi}_x &amp; \frac{\partial H}{\partial \Pi_x}&amp;=\dot{x} \\
 \frac{\partial H}{\partial y}&amp;=-\dot{\Pi}_y &amp; \frac{\partial H}{\partial \Pi_y}&amp;=\dot{y} \\
 \frac{\partial H}{\partial s}&amp;=-\dot{\Pi}_s &amp; \frac{\partial H}{\partial \Pi_s}&amp;=\dot{s}
 \end{align}</p>
-<p>To change the independent coordinate to $s$, we first look at the derivative:
-\begin{equation}
+<p>To change the independent coordinate to $s$, we first look at the derivative:</p>
+<p>\begin{equation}
 x^\prime\equiv\frac{dx}{ds}=\frac{dx}{dt}\left(\frac{ds}{dt}\right)^{-1}
 =\frac{\partial H}{\partial \Pi_x}\left(\frac{\partial H}{\partial \Pi_s}\right)^{-1}
 \end{equation}</p>
@@ -12162,21 +12272,21 @@ x^\prime\equiv\frac{dx}{ds}=\frac{dx}{dt}\left(\frac{ds}{dt}\right)^{-1}
 <p>\begin{equation}
 x^\prime\equiv\frac{dx}{ds}=-\frac{\partial \Pi_s}{\partial \Pi_x}
 \end{equation}</p>
-<p>Use the similar trick, we will find that 
-\begin{align}
+<p>Use the similar trick, we will find that</p>
+<p>\begin{align}
 {\Pi_x}^\prime&amp;\equiv\frac{d\Pi_x}{ds}=\frac{\partial \Pi_s}{\partial x}\\
 y^\prime&amp;\equiv\frac{dy}{ds}=-\frac{\partial \Pi_s}{\partial \Pi_y}\\
 {\Pi_y}^\prime&amp;\equiv\frac{d\Pi_y}{ds}=\frac{\partial \Pi_s}{\partial y}\\
 \end{align}</p>
-<p>We also find the other two relationship easily:
-\begin{equation}
+<p>We also find the other two relationship easily:</p>
+<p>\begin{equation}
 t^\prime\equiv\frac{dt}{ds}=\left(\frac{\partial H}{\partial \Pi_s}\right)^{-1}=\frac{\partial \Pi_s}{\partial H}
 \end{equation}</p>
 <p>\begin{equation}
 H^\prime\equiv\frac{dH}{ds}=-\frac{\partial \Pi_s}{\partial t}
 \end{equation}</p>
-<p>Therefore we can choose the new Hamiltonian $K=-\Pi_s(x,\Pi_x, y, \Pi_y, H, t,s)$, which will satisfy the Hamiltonian relation.  However, it is awkward to set $H$ as the 'coordinate' and $t$ as 'general momentum'.  To fix this, we can set the conjugate pair as $(t,-H)$.  Therefore the new Hamiltonian reads:
-\begin{align}
+<p>Therefore we can choose the new Hamiltonian $K=-\Pi_s(x,\Pi_x, y, \Pi_y, H, t,s)$, which will satisfy the Hamiltonian relation.  However, it is awkward to set $H$ as the 'coordinate' and $t$ as 'general momentum'.  To fix this, we can set the conjugate pair as $(t,-H)$.  Therefore the new Hamiltonian reads:</p>
+<p>\begin{align}
 K\left(x,\Pi_x, y, \Pi_y, t, -H,s\right) = -\Pi_s \nonumber\\
 =-\left(1+\frac{x}{\rho}\right)\sqrt{\left(\frac{H-e\phi}{c}\right)^2-(mc)^2-\left(\Pi_x-eA_x\right)^2-\left(\Pi_y-eA_y\right)^2}\nonumber\\-eA_s\left(1+\frac{x}{\rho}\right)
 \end{align}</p>
@@ -12201,36 +12311,36 @@ K\left(x,\Pi_x, y, \Pi_y, t, -H,s\right) = -\Pi_s \nonumber\\
 <li>First, we have seen that for 2-D magnetic field, only the longitudinal vector potential is needed. We can set the both transverse potential to be zero: $A_x=A_y=0$. Then, the generalized momentum reduce to the particle's momentum $\Pi_{x/y}=p_{x/y}$.</li>
 <li><p>Second, let us assume the potential $\phi$ is not time dependent, then we can make canonical transformation $(t, -H)$ to $(t, -h)$ with $h=H-e\phi$.  $h$ is just the total energy of the particle and the first two terms give the momentum of the particle  $p^2=\left(h/c\right)^2-(mc)^2$.</p>
 </li>
-<li><p>Third, Let's define a reference momentum of the particle $p_0$, and each particle will have a deviation from the reference, $p=p_0(1+\delta)$.  $\delta$ is called fractional momentum deviation. We scale the Hamiltonian $K$ by factor of $p_0$ and get new $\tilde{K}$.
-\begin{equation}
+<li><p>Third, Let's define a reference momentum of the particle $p_0$, and each particle will have a deviation from the reference, $p=p_0(1+\delta)$.  $\delta$ is called fractional momentum deviation. We scale the Hamiltonian $K$ by factor of $p_0$ and get new $\tilde{K}$.</p>
+</li>
+</ul>
+<p>\begin{equation}
 \frac{K}{p_0}
 \equiv\tilde{K}\left(x, \tilde{p_x}=\frac{p_x}{p_0}, y, \tilde{p_y}=\frac{p_y}{p_0}, t,-h=\frac{-H}{p_0}\right)=\\
 -\left(1+\frac{x}{\rho}\right)
 \sqrt{\left(\frac{h}{c}\right)^2-\left(\frac{mc^2}{p_0}\right)^2-\tilde{p_x}^2-\tilde{p_y}^2}
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
 \end{equation}</p>
-</li>
-</ul>
 <ul>
-<li>Last, we will make a canonical transformation from the pair $(t, -h)$ to $(z,\delta)$ with generating function $F_2=f(\delta)t$ and 
-\begin{equation}
+<li>Last, we will make a canonical transformation from the pair $(t, -h)$ to $(z,\delta)$ with generating function $F_2=f(\delta)t$ and </li>
+</ul>
+<p>\begin{equation}
 -h=\frac{\partial F_2}{\partial t}=f(\delta)
 \end{equation}
-The new coordinate $z$ is calculated as
-\begin{align}
+The new coordinate $z$ is calculated as</p>
+<p>\begin{align}
 z&amp;=\frac{\partial F_2}{\partial \delta} \nonumber \\
 &amp;=\left(-\sqrt{c^2(1+\delta)^2+m^2c^4}\right)'t\nonumber \\
 &amp;=-\beta ct
 \end{align}
-the Hamiltonian becomes:</li>
-</ul>
+the Hamiltonian becomes:</p>
 <p>\begin{equation}
 \tilde{K}\left(x, \tilde{p_x}, y, \tilde{p_y}, z=-\beta ct, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-\tilde{p_x}^2-\tilde{p_y}^2} 
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
 \end{equation}</p>
 <p>The new longitudinal coordinate $z$ has the meaning: the distance of the particle travels at current speed.</p>
-<p>For later convenience, we remove the tilde of the above Hamiltonian and it looks like:
-\begin{equation}
+<p>For later convenience, we remove the tilde of the above Hamiltonian and it looks like:</p>
+<p>\begin{equation}
 K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-p_x^2-p_y^2} 
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
 \end{equation}</p>
@@ -12255,8 +12365,8 @@ K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1
 <li>Momentum spread is very small. For any particle, $\delta \ll 1$</li>
 <li>Paraxial approximation, the longitudinal momentum is close to the reference momentum and $p_x,p_y \ll 1$</li>
 </ul>
-<p>Then we can expand the Hamiltonian up to 2nd order in $p_x$ and $p_y$ and have:
-\begin{align}
+<p>Then we can expand the Hamiltonian up to 2nd order in $p_x$ and $p_y$ and have:</p>
+<p>\begin{align}
 K\left(x, p_x, y, p_y, z, \delta,s\right)&amp;=-(1+\delta)\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2(1+\delta)^2}-\frac{p_y^2}{2(1+\delta)^2}\right)
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)   \nonumber\\
 &amp;=-\left(1+\frac{x}{\rho}\right)\left(1+\delta-\frac{p_x^2}{2(1+\delta)}-\frac{p_y^2}{2(1+\delta)}\right)
@@ -12264,8 +12374,8 @@ K\left(x, p_x, y, p_y, z, \delta,s\right)&amp;=-(1+\delta)\left(1+\frac{x}{\rho}
 \end{align}</p>
 <p>Recall that 
 $$p_x=\frac{\mathbf{p}\cdot\hat{x}}{p_0} \;;\; p_y=\frac{\mathbf{p}\cdot\hat{y}}{p_0}$$</p>
-<p>is different from the orbit slope:
-\begin{equation}
+<p>is different from the orbit slope:</p>
+<p>\begin{equation}
 x^\prime\equiv\frac{dx}{ds}=\frac{\mathbf{p}\cdot\hat{x}}{p_s}\sim\frac{\mathbf{p}\cdot\hat{x}}{p_0(1+\delta)}=\frac{p_x}{1+\delta}
 \end{equation}</p>
 <p>\begin{equation}
@@ -12302,8 +12412,8 @@ K\left(x, p_x, y, p_y,s\right)=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, its time to consider the real form for the vector potential $A_s$.  We will limit our discussion within linear regime.</p>
-<p>For a main dipole, where the reference orbit bend inside with radius $\rho$ or its reciprocal, curvature $\kappa=1/\rho$, we need to find $A_s$ to get vertical magnetic field $\mathbf{B}=B_0(s)\hat{y}$ in the Frenet-Serret coordinate system:
-\begin{equation}
+<p>For a main dipole, where the reference orbit bend inside with radius $\rho$ or its reciprocal, curvature $\kappa=1/\rho$, we need to find $A_s$ to get vertical magnetic field $\mathbf{B}=B_0(s)\hat{y}$ in the Frenet-Serret coordinate system:</p>
+<p>\begin{equation}
 B_0(s)=-\frac{1}{1+\kappa x}\frac{\partial\left((1+\kappa x)A_s\right)}{\partial x}
 \end{equation}</p>
 
@@ -12314,12 +12424,12 @@ B_0(s)=-\frac{1}{1+\kappa x}\frac{\partial\left((1+\kappa x)A_s\right)}{\partial
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>It seems exact solution for this differential equation doesnot exist.  However, with the assumption of $\left|x\right|\kappa \ll 1$, we can get approximation of $A_s$ up to second order.  Let's assume $A_s=-B_0(s)(a x + bx^2)$.  Then we get:
-\begin{equation}
+<p>It seems exact solution for this differential equation doesnot exist.  However, with the assumption of $\left|x\right|\kappa \ll 1$, we can get approximation of $A_s$ up to second order.  Let's assume $A_s=-B_0(s)(a x + bx^2)$.  Then we get:</p>
+<p>\begin{equation}
 1+\kappa x=\frac{\partial\left((1+\kappa x)(ax+bx^2)\right)}{\partial x}
 \end{equation}</p>
-<p>By solve the index of the $0^{th}$ and $1^{th}$ terms, we get $a=1$ and $b=-\kappa/2$.   Therefore in a constant field main dipole:
-\begin{equation}
+<p>By solve the index of the $0^{th}$ and $1^{th}$ terms, we get $a=1$ and $b=-\kappa/2$.   Therefore in a constant field main dipole:</p>
+<p>\begin{equation}
 A_{s,d}\approx-B_0\left(x - \frac{x^2}{2\rho}\right)
 \end{equation}</p>
 
@@ -12330,8 +12440,8 @@ A_{s,d}\approx-B_0\left(x - \frac{x^2}{2\rho}\right)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For quadrupole, the radius is infinity.  The vector potential will be the same as its form in a Cartesian coordinate.  From the Beth's representation:
-\begin{equation}
+<p>For quadrupole, the radius is infinity.  The vector potential will be the same as its form in a Cartesian coordinate.  From the Beth's representation:</p>
+<p>\begin{equation}
 A_{s,q}=-B_0 b_1(s) \left(x^2-y^2\right)/2=-G(s)\left(x^2-y^2\right)/2
 \end{equation}</p>
 <p>Here $G(s)$ is the field gradient in unit of [Tesla/m].</p>
@@ -12343,8 +12453,8 @@ A_{s,q}=-B_0 b_1(s) \left(x^2-y^2\right)/2=-G(s)\left(x^2-y^2\right)/2
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We get the Hamiltonian and truncate down to second order, and recall that the rigidity $B_0 \rho=p_0/e$:
-\begin{align}
+<p>We get the Hamiltonian and truncate down to second order, and recall that the rigidity $B_0 \rho=p_0/e$:</p>
+<p>\begin{align}
 K\left(x, p_x, y, p_y,s\right)&amp;=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
 +\frac{eB_0}{p_0}\left(1+\frac{x}{\rho}\right)\left(x-\frac{x^2}{2\rho}\right)\nonumber\\
 +\frac{eB_0b_1}{2p_0}\left(x^2-y^2\right) \nonumber\\
@@ -12363,15 +12473,15 @@ K\left(x, p_x, y, p_y,s\right)&amp;=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the approximate Hamiltonian of dipole and normal quadrupole, we can first ignore the constant, then split it in to two separate Hamiltonian, one for each transverse direction.
 $$K\left(x, p_x, y, p_y,s\right)=K_x\left(x, p_x,s\right)+K_y\left( y, p_y,s\right)$$
-This indicate that the motion of two directions are de-coupled and can be treat separately.
-\begin{align}
+This indicate that the motion of two directions are de-coupled and can be treat separately.</p>
+<p>\begin{align}
 K_x\left(x,p_x,s\right)&amp;=\frac{p_x^2}{2}+\frac{x^2}{2\rho^2}+\frac{k(s)x^2}{2} \\
 K_y\left(y,p_y,s\right)&amp;=\frac{p_y^2}{2}-\frac{k(s)y^2}{2}
 \end{align}</p>
-<p>The equations of motion can be found from Hamiltonian equation:
-\begin{align}
-x''+\left(\frac{1}{\rho^2}+k(s)\right)x&amp;=0 \\
-y''-k(s)y&amp;=0
+<p>The equations of motion can be found from Hamiltonian equation:</p>
+<p>\begin{align}
+&amp; x''+\left(\frac{1}{\rho^2}+k(s)\right)x=0 \\
+&amp; y''-k(s)y=0
 \end{align}</p>
 <p>We returned to the Hill's equation including both the main dipole and quadrupole in the Frenet-Serret coordinate system.</p>
 
@@ -12382,8 +12492,8 @@ y''-k(s)y&amp;=0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Combine the effect of dipole and quad, there is an chance to have focusing effect in both plane:
-\begin{align}
+<p>Combine the effect of dipole and quad, there is an chance to have focusing effect in both plane:</p>
+<p>\begin{align}
 -\frac{1}{\rho^2}&lt;k(s)&lt;0
 \end{align}</p>
 <p>If a machine can have this condition through out, the motion of both transverse plane will be stable.  This is called <strong>weak focusing</strong>.</p>
@@ -12412,12 +12522,12 @@ y''-k(s)y&amp;=0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The EOM for drift space is simply $x''=0$ and $y''=0$.  Using horizontal direction as instance, if the initial condition at the starting point $s_0$ are $x(s=s_0)=x_0$ and $x'(s=s_0)={x_0'}$.  The solution is:
-\begin{equation}
+<p>The EOM for drift space is simply $x''=0$ and $y''=0$.  Using horizontal direction as instance, if the initial condition at the starting point $s_0$ are $x(s=s_0)=x_0$ and $x'(s=s_0)={x_0'}$.  The solution is:</p>
+<p>\begin{equation}
 x(s=s_0+l)=x_0+x'_0l
 \end{equation}
-Or in matrix form
-\begin{equation}
+Or in matrix form</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 x\\
 x'
@@ -12429,8 +12539,8 @@ x\\
 x
 \end{array}\right)_{s=s_0}
 \end{equation}</p>
-<p>We write the transfer matrix for drift space as:
-\begin{equation}M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
+<p>We write the transfer matrix for drift space as:</p>
+<p>\begin{equation}M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
 1 &amp; s\\
 0 &amp; 1
 \end{array}\right)
@@ -12452,8 +12562,8 @@ x
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For the dipole that bend the beam with the radius $\rho$ in horizontal plane, the $x$ direction follows an EOM as a harmonic oscillator, while in $y$ direction, the motion is just as in a drift space.</p>
-<p>The matrix form in the dipole can be easily get as:
-\begin{equation}
+<p>The matrix form in the dipole can be easily get as:</p>
+<p>\begin{equation}
 \left(\begin{array}{c}
 x\\
 x'
@@ -12465,16 +12575,16 @@ x\\
 x
 \end{array}\right)_{s=s_0}
 \end{equation}</p>
-<p>The transfer matrix for dipole in horizontal space is:
-\begin{equation}
-M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
+<p>The transfer matrix for dipole in horizontal space is:</p>
+<p>\begin{equation}
+M\left(s_0+l,s_0\right)=\left(\begin{array}{cc}
 \cos\left(\frac{l}{\rho}\right) &amp; \rho\sin\left(\frac{l}{\rho}\right)\\
 -\frac{1}{\rho}\sin\left(\frac{l}{\rho}\right) &amp; \cos\left(\frac{l}{\rho}\right)
 \end{array}\right)
 \end{equation}</p>
-<p>In a small angle approximation $l/\rho \ll1$, we can expand the matrix up to first order of $l/\rho$.  The matrix reduce to a drift space:
-\begin{equation}
-M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
+<p>In a small angle approximation $l/\rho \ll1$, we can expand the matrix up to first order of $l/\rho$.  The matrix reduce to a drift space:</p>
+<p>\begin{equation}
+M\left(s_0+l,s_0\right)=\left(\begin{array}{cc}
 1 &amp; l\\
 0 &amp; 1
 \end{array}\right)
@@ -12495,8 +12605,8 @@ M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the example before, we already derived the solution for particle in the quadrupole.  It can be rewritten in the matrix form as 
-\begin{equation}
+<p>In the example before, we already derived the solution for particle in the quadrupole.  It can be rewritten in the matrix form as</p>
+<p>\begin{equation}
 M\left(s_0+s,s_0\right)=
 \begin{cases}
 \left(\begin{array}{cc}
@@ -12518,8 +12628,8 @@ M\left(s_0+s,s_0\right)=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Usually, the quadrupole has short length and strong field gradient. We may model such short quad as a 'lens with zero length', and define the focal length $f$ as: 
-\begin{equation}
+<p>Usually, the quadrupole has short length and strong field gradient. We may model such short quad as a 'lens with zero length', and define the focal length $f$ as:</p>
+<p>\begin{equation}
 f=\lim_{l\to 0}\frac{1}{|k|l}
 \end{equation}</p>
 <p>In such limit the transfer map for a thin-length quad is</p>
@@ -12554,8 +12664,8 @@ M_{\text{quad}}=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=chain_of_elements.png width=400>
-In accelerators, we have chain of magnets, as illustrated above.  Each magnet has a transfer matrix, the transfer matrix for the chain can be found by matrix multiplications:
-\begin{equation}
+In accelerators, we have chain of magnets, as illustrated above.  Each magnet has a transfer matrix, the transfer matrix for the chain can be found by matrix multiplications:</p>
+<p>\begin{equation}
 M\left(s_n,s_0\right)=M\left(s_n,s_{n-1}\right)\cdots M\left(s_2,s_1\right)M\left(s_1,s_0\right)
 \end{equation}</p>
 <p>Note that the order of the multiplication is the reverse order of the placement of the magnet.</p>
@@ -12583,40 +12693,40 @@ M\left(s_n,s_0\right)=M\left(s_n,s_{n-1}\right)\cdots M\left(s_2,s_1\right)M\lef
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's return to the most general form of the matrix $M$:
-\begin{equation}
+<p>Let's return to the most general form of the matrix $M$:</p>
+<p>\begin{equation}
 M(s)=\left(\begin{array}{cc}
 a(s) &amp; b(s)\\
 c(s) &amp; d(s)
 \end{array}\right)
 \end{equation}</p>
-<p>The matrix represent the solution:
-\begin{align}
+<p>The matrix represent the solution:</p>
+<p>\begin{align}
 x(s)&amp;=x_0a(s)+x'_0b(s)\\
 x'(s)&amp;=x_0c(s)+x'_0d(s)
 \end{align}</p>
-<p>that satisfy the Hill's equation with general focusing term $K(s)$:
-\begin{equation}
+<p>that satisfy the Hill's equation with general focusing term $K(s)$:</p>
+<p>\begin{equation}
 x''+K(s)x=0
 \end{equation}</p>
-<p>It can be constructed from the Hamiltonian, which reads:
-\begin{equation}
+<p>It can be constructed from the Hamiltonian, which reads:</p>
+<p>\begin{equation}
 H(x,x')=x'^2+K(s)x^2
 \end{equation}</p>
 <p>The implicit requirement raised from fact that the system is described by a Hamiltonian is called <strong><em>symplecticity</em></strong>.  The symplectic property for a 1-D system is the simplest case.
 To review this property, we use the concept of Wronskian of differential equation.  For 1-D second order ODE, there aways exist 2 independent solution.  We name it $x_1(s)$ and $x_2(s)$. 
-Wronskian is defined as:
-\begin{equation}
+Wronskian is defined as:</p>
+<p>\begin{equation}
 W\equiv x_1x'_2-x_2x'_1
 \end{equation}
-And 
-\begin{align}
+And</p>
+<p>\begin{align}
 \frac{dW}{ds}&amp;=x'_1x'_2+x_1x''_2-x'_2x'_1-x_2x''_1  \nonumber\\
 &amp;=-K(s)x_1x_2+K(s)x_2x_1 \nonumber\\
 &amp;=0
 \end{align}</p>
-<p>Therefore Wronskian is the constant of motion and not zero(the two solution are indepedent).  Then from the map:
-\begin{equation}
+<p>Therefore Wronskian is the constant of motion and not zero(the two solution are indepedent).  Then from the map:</p>
+<p>\begin{equation}
 \left(\begin{array}{cc}
 x_{1} &amp; x_{2}\\
 x'_{1} &amp; x'_{2}
@@ -12651,19 +12761,19 @@ $$W(s_0+s)=det(M(s_0+s,s_0))W(s)$$</p>
 <p>In accelerator, the beam usually will pass through a chain of elements (called cell) many times.  A long lattice usually consist of repeating cells.  In a ring accelerator, the particle will travels through the lattice billions of turns.  If the transfer matrix for one cell is $M$, we are interested in the behavior of repeating $k$ cells
 $$M_{total}=M\cdot M\cdots M\cdot M=M^k$$
 where k is a very large integer or infinity.</p>
-<p>To avoid the either $x$ or $x'$ to be very large (or infinity) after k cells. We required that the absolute value of the eigenvalues of $M$ is no larger than 1.  The eigenvalue is found by:
-\begin{equation}
+<p>To avoid the either $x$ or $x'$ to be very large (or infinity) after k cells. We required that the absolute value of the eigenvalues of $M$ is no larger than 1.  The eigenvalue is found by:</p>
+<p>\begin{equation}
 \left|\begin{array}{cc}
 \lambda-a &amp; -b\\
 -c &amp; \lambda-d
 \end{array}\right|=0
 \end{equation}</p>
-<p>or 
-\begin{equation}
+<p>or</p>
+<p>\begin{equation}
 \lambda^2-(a+d)\lambda+1=0
 \end{equation}</p>
-<p>To satisfy $|\lambda|\le 1$, we require
-\begin{equation}
+<p>To satisfy $|\lambda|\le 1$, we require</p>
+<p>\begin{equation}
 \left|Tr(M)\right|=\left|a+d\right|\le 2
 \end{equation}
 This is the stable condition for one cell in periodical structure.</p>
@@ -12683,14 +12793,14 @@ This is the stable condition for one cell in periodical structure.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's write the matrix term for the weak focusing.  The weak focusing satisfy:
-\begin{align}
+<p>Let's write the matrix term for the weak focusing.  The weak focusing satisfy:</p>
+<p>\begin{align}
 x''+k_x(s)x&amp;=0 \\
 y''+k_y(s)y&amp;=0
 \end{align}</p>
 <p>Here, $k_x(s)$ and $k_y(s)$ are piece wise constant and always positive, and $k_x(s)+k_y(s)=1/\rho ^2$.</p>
-<p>Each constant focusing piece, we have:
-\begin{align}
+<p>Each constant focusing piece, we have:</p>
+<p>\begin{align}
 M_x\left(s_0+s,s_0\right)
 &amp;=\left(\begin{array}{cc}
 \cos\left(\sqrt{k_x}s\right) &amp; \sin\left(\sqrt{k_x}s\right)/\sqrt{k_x}\\
@@ -12712,8 +12822,8 @@ M_y\left(s_0+s,s_0\right)
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=weak_focusing.png width=200>
-If we have an entire ring, made of weak focusing structure as shown above, the matrix for entire ring gives:
-\begin{align}
+If we have an entire ring, made of weak focusing structure as shown above, the matrix for entire ring gives:</p>
+<p>\begin{align}
 M_x\left(s_0+C,s_0\right)
 &amp;=\left(\begin{array}{cc}
 \cos\left(\sqrt{k_x}2\pi\rho\right) &amp; \sin\left(\sqrt{k_x}2\pi\rho\right)/\sqrt{k_x}\\
@@ -12725,13 +12835,13 @@ M_y\left(s_0+C,s_0\right)
 -\sqrt{k_y}\sin\left(\sqrt{k_y}2\pi\rho\right) &amp; \cos\left(\sqrt{k_y}2\pi\rho\right)
 \end{array}\right)
 \end{align}</p>
-<p>It means, after one turn the phase advance of the two transverse plane is just $2\pi\sqrt{k_{x/y}}\rho$.  We define the transverse tune $\nu_{x/y}$ is the one turn phase advance in unit of $2\pi$.  Therefore:
-\begin{align}
+<p>It means, after one turn the phase advance of the two transverse plane is just $2\pi\sqrt{k_{x/y}}\rho$.  We define the transverse tune $\nu_{x/y}$ is the one turn phase advance in unit of $2\pi$.  Therefore:</p>
+<p>\begin{align}
 \nu_x&amp;=\sqrt{k_{x}}\rho=\sqrt{1+\rho^2 k}\\
 \nu_y&amp;=\sqrt{k_{y}}\rho=\sqrt{-k}\rho
 \end{align}</p>
-<p>Therefore for continuous weak-focusing ring, we always have:
-\begin{align}
+<p>Therefore for continuous weak-focusing ring, we always have:</p>
+<p>\begin{align}
 \nu_x^2+\nu_y^2=1
 \end{align}</p>
 
@@ -12743,8 +12853,8 @@ M_y\left(s_0+C,s_0\right)
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=weak_focusing_drift.png width=200>
-We may also look at the weak focusing ring is made of several sections with small drift space $L$ in between.  The segment matrix is represented as: 
-\begin{align}
+We may also look at the weak focusing ring is made of several sections with small drift space $L$ in between.  The segment matrix is represented as:</p>
+<p>\begin{align}
 M_{x,seg}
 &amp;=\left(\begin{array}{cc}
 1 &amp; L/2\\
@@ -12822,15 +12932,15 @@ $$\left[\begin{matrix}- \frac{L \sqrt{k_x}}{2} \sin{\left (\sqrt{k_x} s \right )
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>When $L\sqrt{k_x}\ll1$, the diagnal terms can be written as:
-\begin{align}
+<p>When $L\sqrt{k_x}\ll1$, the diagnal terms can be written as:</p>
+<p>\begin{align}
 M_{11}=M_{22}
 &amp;=\cos\left(\sqrt{k_x}s + \Delta\phi\right)\nonumber\\
 &amp;\approx\cos\left(\sqrt{k_x}\rho\theta +L\sqrt{k_x}/2\right)
 \end{align}</p>
 <p>where $\Delta \phi=\arcsin(L\sqrt{k_x}/2)$.  Here we ignore any terms beyond $L^2 k(x)$.  And we know that $L^2 k(x) \le L^2/\rho^2$</p>
-<p>Therefore for one turn, which has $N$ such segments, the phase advance is :
-\begin{align}
+<p>Therefore for one turn, which has $N$ such segments, the phase advance is :</p>
+<p>\begin{align}
 \phi(L)&amp;=N\left(\sqrt{k_x}\rho \frac{2\pi}{N} +L\sqrt{k_x}/2\right)\nonumber\\
 &amp;\approx 2\pi\rho\sqrt{k_x}\left(1+\frac{NL}{4\pi\rho}\right)\nonumber\\
 &amp;=\phi(L=0)\left(1+\frac{NL}{4\pi\rho}\right)
@@ -12860,8 +12970,4 @@ M_{11}=M_{22}
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

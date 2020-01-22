@@ -1,0 +1,10 @@
+# ignore all ipython check points
+**/.ipynb_checkpoints
+
+# ignore __pycache__
+
+**/__pycache__
+
+# ignore system files
+
+**/.DS_Store
