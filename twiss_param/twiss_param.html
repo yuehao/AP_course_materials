@@ -11892,7 +11892,7 @@ $( document ).ready(function(){
 \end{align}</p>
 <p>In general, we need solve:</p>
 <p>\begin{align}
-&amp;x''\left(s\right) + K\left(s\right)x\left(s\right)=0
+&amp;x''\left(s\right) + K\left(s\right)x\left(s\right)=0 \label{eq:Hillseq}
 \end{align}</p>
 <p>For a ring accelerator or a linac with periodical structure, we have $K(s)=K(s+C)$. To have a stable motion, we try to express the solution of the Hill's equation as:</p>
 <p>\begin{align}
@@ -11901,9 +11901,9 @@ x\left(s\right)=aw\left(s\right)e^{i\psi\left(s\right)}
 where $a$ is a constant, $w(s)$ is the envelope function and $\psi(s)$ is the phase function. Then the derivatives are:</p>
 <p>\begin{align}
 x'\left(s\right)&amp;=aw'e^{i\psi}+iawe^{i\psi}\psi'\\
-x''\left(s\right)&amp;=aw''e^{i\psi}+2iaw'e^{i\psi}\psi'-awe^{i\psi}\psi'^2+iawe^{i\psi}\psi''
+x''\left(s\right)&amp;=aw''e^{i\psi}+2iaw'e^{i\psi}\psi'-awe^{i\psi}\psi'^2+iawe^{i\psi}\psi'' \label{eq:x2prime}
 \end{align}</p>
-<p>The real and imaginary part gives:</p>
+<p>Combine Equation $\ref{eq:x2prime}$ and $\ref{eq:Hillseq}$, then the real and imaginary part gives:</p>
 <p>\begin{align}
 &amp;2aw'\psi'+aw\psi''=a\frac{\left(w^2\psi'\right)'}{w}=0\label{eq:wpsi1}\\
 &amp;aw''+Kw-w\psi'^2=0
@@ -12137,7 +12137,15 @@ x\\
 x'
 \end{array}\right)_1
 \end{align}</p>
-<p>Therefore we rederived the transfer map of two arbitrary location. When the two locations have same optical functions, the one turn map is rederived:</p>
+<p>Therefore we rederived the transfer map of two arbitrary location in usual form:</p>
+<p>\begin{equation}
+M\left(s_{2}\mid s_{1}\right)
+=\left(\begin{array}{cc}
+\sqrt{{\frac{\beta_{2}}{\beta_{1}}}}\left(\cos\psi+\alpha_{1}\sin\psi\right) &amp; \sqrt{\beta_{1}\beta_{2}}\sin\psi\\
+-\frac{1+\alpha_{1}\alpha_{2}}{\sqrt{\beta_{1}\beta_{2}}}\sin\psi+\frac{\alpha_{1}-\alpha_{2}}{\sqrt{\beta_{1}\beta_{2}}}\cos\psi &amp; \sqrt{{\frac{\beta_{1}}{\beta_{2}}}}\left(\cos\psi-\alpha_{2}\sin\psi\right)
+\end{array}\right) \label{eq:tmatrix_s1s2}
+\end{equation}</p>
+<p>When the two locations have same optical functions, the one turn map is rederived:</p>
 <p>\begin{align}
 \left(\begin{array}{c}
 \mathcal{x}\\
