@@ -22,8 +22,13 @@ MathJax.Hub.Config({ TeX: { equationNumbers: {
 
 
 <meta charset="utf-8" />
-<title>linear_transverse_motion</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+
+<title>linear_transverse_motion</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
 
 <style type="text/css">
     /*!
@@ -220,7 +225,6 @@ th {
   *:before,
   *:after {
     background: transparent !important;
-    color: #000 !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -6765,15 +6769,15 @@ button.close {
 *
 */
 /*!
- *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?v=4.2.0');
-  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0') format('embedded-opentype'), url('../components/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0') format('woff'), url('../components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.2.0') format('truetype'), url('../components/font-awesome/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular') format('svg');
+  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+  src: url('../components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../components/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../components/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../components/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -6830,6 +6834,19 @@ button.close {
   border: solid 0.08em #eee;
   border-radius: .1em;
 }
+.fa-pull-left {
+  float: left;
+}
+.fa-pull-right {
+  float: right;
+}
+.fa.fa-pull-left {
+  margin-right: .3em;
+}
+.fa.fa-pull-right {
+  margin-left: .3em;
+}
+/* Deprecated as of 4.4.0 */
 .pull-right {
   float: right;
 }
@@ -6845,6 +6862,10 @@ button.close {
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
+}
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+  animation: fa-spin 1s infinite steps(8);
 }
 @-webkit-keyframes fa-spin {
   0% {
@@ -6867,31 +6888,31 @@ button.close {
   }
 }
 .fa-rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .fa-rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 .fa-rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 .fa-flip-horizontal {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 .fa-flip-vertical {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
   transform: scale(1, -1);
@@ -7376,6 +7397,7 @@ button.close {
 .fa-twitter:before {
   content: "\f099";
 }
+.fa-facebook-f:before,
 .fa-facebook:before {
   content: "\f09a";
 }
@@ -7388,6 +7410,7 @@ button.close {
 .fa-credit-card:before {
   content: "\f09d";
 }
+.fa-feed:before,
 .fa-rss:before {
   content: "\f09e";
 }
@@ -8025,7 +8048,8 @@ button.close {
 .fa-male:before {
   content: "\f183";
 }
-.fa-gittip:before {
+.fa-gittip:before,
+.fa-gratipay:before {
   content: "\f184";
 }
 .fa-sun-o:before {
@@ -8129,7 +8153,7 @@ button.close {
 .fa-digg:before {
   content: "\f1a6";
 }
-.fa-pied-piper:before {
+.fa-pied-piper-pp:before {
   content: "\f1a7";
 }
 .fa-pied-piper-alt:before {
@@ -8255,6 +8279,7 @@ button.close {
   content: "\f1ce";
 }
 .fa-ra:before,
+.fa-resistance:before,
 .fa-rebel:before {
   content: "\f1d0";
 }
@@ -8268,6 +8293,8 @@ button.close {
 .fa-git:before {
   content: "\f1d3";
 }
+.fa-y-combinator-square:before,
+.fa-yc-square:before,
 .fa-hacker-news:before {
   content: "\f1d4";
 }
@@ -8435,6 +8462,657 @@ button.close {
 }
 .fa-meanpath:before {
   content: "\f20c";
+}
+.fa-buysellads:before {
+  content: "\f20d";
+}
+.fa-connectdevelop:before {
+  content: "\f20e";
+}
+.fa-dashcube:before {
+  content: "\f210";
+}
+.fa-forumbee:before {
+  content: "\f211";
+}
+.fa-leanpub:before {
+  content: "\f212";
+}
+.fa-sellsy:before {
+  content: "\f213";
+}
+.fa-shirtsinbulk:before {
+  content: "\f214";
+}
+.fa-simplybuilt:before {
+  content: "\f215";
+}
+.fa-skyatlas:before {
+  content: "\f216";
+}
+.fa-cart-plus:before {
+  content: "\f217";
+}
+.fa-cart-arrow-down:before {
+  content: "\f218";
+}
+.fa-diamond:before {
+  content: "\f219";
+}
+.fa-ship:before {
+  content: "\f21a";
+}
+.fa-user-secret:before {
+  content: "\f21b";
+}
+.fa-motorcycle:before {
+  content: "\f21c";
+}
+.fa-street-view:before {
+  content: "\f21d";
+}
+.fa-heartbeat:before {
+  content: "\f21e";
+}
+.fa-venus:before {
+  content: "\f221";
+}
+.fa-mars:before {
+  content: "\f222";
+}
+.fa-mercury:before {
+  content: "\f223";
+}
+.fa-intersex:before,
+.fa-transgender:before {
+  content: "\f224";
+}
+.fa-transgender-alt:before {
+  content: "\f225";
+}
+.fa-venus-double:before {
+  content: "\f226";
+}
+.fa-mars-double:before {
+  content: "\f227";
+}
+.fa-venus-mars:before {
+  content: "\f228";
+}
+.fa-mars-stroke:before {
+  content: "\f229";
+}
+.fa-mars-stroke-v:before {
+  content: "\f22a";
+}
+.fa-mars-stroke-h:before {
+  content: "\f22b";
+}
+.fa-neuter:before {
+  content: "\f22c";
+}
+.fa-genderless:before {
+  content: "\f22d";
+}
+.fa-facebook-official:before {
+  content: "\f230";
+}
+.fa-pinterest-p:before {
+  content: "\f231";
+}
+.fa-whatsapp:before {
+  content: "\f232";
+}
+.fa-server:before {
+  content: "\f233";
+}
+.fa-user-plus:before {
+  content: "\f234";
+}
+.fa-user-times:before {
+  content: "\f235";
+}
+.fa-hotel:before,
+.fa-bed:before {
+  content: "\f236";
+}
+.fa-viacoin:before {
+  content: "\f237";
+}
+.fa-train:before {
+  content: "\f238";
+}
+.fa-subway:before {
+  content: "\f239";
+}
+.fa-medium:before {
+  content: "\f23a";
+}
+.fa-yc:before,
+.fa-y-combinator:before {
+  content: "\f23b";
+}
+.fa-optin-monster:before {
+  content: "\f23c";
+}
+.fa-opencart:before {
+  content: "\f23d";
+}
+.fa-expeditedssl:before {
+  content: "\f23e";
+}
+.fa-battery-4:before,
+.fa-battery:before,
+.fa-battery-full:before {
+  content: "\f240";
+}
+.fa-battery-3:before,
+.fa-battery-three-quarters:before {
+  content: "\f241";
+}
+.fa-battery-2:before,
+.fa-battery-half:before {
+  content: "\f242";
+}
+.fa-battery-1:before,
+.fa-battery-quarter:before {
+  content: "\f243";
+}
+.fa-battery-0:before,
+.fa-battery-empty:before {
+  content: "\f244";
+}
+.fa-mouse-pointer:before {
+  content: "\f245";
+}
+.fa-i-cursor:before {
+  content: "\f246";
+}
+.fa-object-group:before {
+  content: "\f247";
+}
+.fa-object-ungroup:before {
+  content: "\f248";
+}
+.fa-sticky-note:before {
+  content: "\f249";
+}
+.fa-sticky-note-o:before {
+  content: "\f24a";
+}
+.fa-cc-jcb:before {
+  content: "\f24b";
+}
+.fa-cc-diners-club:before {
+  content: "\f24c";
+}
+.fa-clone:before {
+  content: "\f24d";
+}
+.fa-balance-scale:before {
+  content: "\f24e";
+}
+.fa-hourglass-o:before {
+  content: "\f250";
+}
+.fa-hourglass-1:before,
+.fa-hourglass-start:before {
+  content: "\f251";
+}
+.fa-hourglass-2:before,
+.fa-hourglass-half:before {
+  content: "\f252";
+}
+.fa-hourglass-3:before,
+.fa-hourglass-end:before {
+  content: "\f253";
+}
+.fa-hourglass:before {
+  content: "\f254";
+}
+.fa-hand-grab-o:before,
+.fa-hand-rock-o:before {
+  content: "\f255";
+}
+.fa-hand-stop-o:before,
+.fa-hand-paper-o:before {
+  content: "\f256";
+}
+.fa-hand-scissors-o:before {
+  content: "\f257";
+}
+.fa-hand-lizard-o:before {
+  content: "\f258";
+}
+.fa-hand-spock-o:before {
+  content: "\f259";
+}
+.fa-hand-pointer-o:before {
+  content: "\f25a";
+}
+.fa-hand-peace-o:before {
+  content: "\f25b";
+}
+.fa-trademark:before {
+  content: "\f25c";
+}
+.fa-registered:before {
+  content: "\f25d";
+}
+.fa-creative-commons:before {
+  content: "\f25e";
+}
+.fa-gg:before {
+  content: "\f260";
+}
+.fa-gg-circle:before {
+  content: "\f261";
+}
+.fa-tripadvisor:before {
+  content: "\f262";
+}
+.fa-odnoklassniki:before {
+  content: "\f263";
+}
+.fa-odnoklassniki-square:before {
+  content: "\f264";
+}
+.fa-get-pocket:before {
+  content: "\f265";
+}
+.fa-wikipedia-w:before {
+  content: "\f266";
+}
+.fa-safari:before {
+  content: "\f267";
+}
+.fa-chrome:before {
+  content: "\f268";
+}
+.fa-firefox:before {
+  content: "\f269";
+}
+.fa-opera:before {
+  content: "\f26a";
+}
+.fa-internet-explorer:before {
+  content: "\f26b";
+}
+.fa-tv:before,
+.fa-television:before {
+  content: "\f26c";
+}
+.fa-contao:before {
+  content: "\f26d";
+}
+.fa-500px:before {
+  content: "\f26e";
+}
+.fa-amazon:before {
+  content: "\f270";
+}
+.fa-calendar-plus-o:before {
+  content: "\f271";
+}
+.fa-calendar-minus-o:before {
+  content: "\f272";
+}
+.fa-calendar-times-o:before {
+  content: "\f273";
+}
+.fa-calendar-check-o:before {
+  content: "\f274";
+}
+.fa-industry:before {
+  content: "\f275";
+}
+.fa-map-pin:before {
+  content: "\f276";
+}
+.fa-map-signs:before {
+  content: "\f277";
+}
+.fa-map-o:before {
+  content: "\f278";
+}
+.fa-map:before {
+  content: "\f279";
+}
+.fa-commenting:before {
+  content: "\f27a";
+}
+.fa-commenting-o:before {
+  content: "\f27b";
+}
+.fa-houzz:before {
+  content: "\f27c";
+}
+.fa-vimeo:before {
+  content: "\f27d";
+}
+.fa-black-tie:before {
+  content: "\f27e";
+}
+.fa-fonticons:before {
+  content: "\f280";
+}
+.fa-reddit-alien:before {
+  content: "\f281";
+}
+.fa-edge:before {
+  content: "\f282";
+}
+.fa-credit-card-alt:before {
+  content: "\f283";
+}
+.fa-codiepie:before {
+  content: "\f284";
+}
+.fa-modx:before {
+  content: "\f285";
+}
+.fa-fort-awesome:before {
+  content: "\f286";
+}
+.fa-usb:before {
+  content: "\f287";
+}
+.fa-product-hunt:before {
+  content: "\f288";
+}
+.fa-mixcloud:before {
+  content: "\f289";
+}
+.fa-scribd:before {
+  content: "\f28a";
+}
+.fa-pause-circle:before {
+  content: "\f28b";
+}
+.fa-pause-circle-o:before {
+  content: "\f28c";
+}
+.fa-stop-circle:before {
+  content: "\f28d";
+}
+.fa-stop-circle-o:before {
+  content: "\f28e";
+}
+.fa-shopping-bag:before {
+  content: "\f290";
+}
+.fa-shopping-basket:before {
+  content: "\f291";
+}
+.fa-hashtag:before {
+  content: "\f292";
+}
+.fa-bluetooth:before {
+  content: "\f293";
+}
+.fa-bluetooth-b:before {
+  content: "\f294";
+}
+.fa-percent:before {
+  content: "\f295";
+}
+.fa-gitlab:before {
+  content: "\f296";
+}
+.fa-wpbeginner:before {
+  content: "\f297";
+}
+.fa-wpforms:before {
+  content: "\f298";
+}
+.fa-envira:before {
+  content: "\f299";
+}
+.fa-universal-access:before {
+  content: "\f29a";
+}
+.fa-wheelchair-alt:before {
+  content: "\f29b";
+}
+.fa-question-circle-o:before {
+  content: "\f29c";
+}
+.fa-blind:before {
+  content: "\f29d";
+}
+.fa-audio-description:before {
+  content: "\f29e";
+}
+.fa-volume-control-phone:before {
+  content: "\f2a0";
+}
+.fa-braille:before {
+  content: "\f2a1";
+}
+.fa-assistive-listening-systems:before {
+  content: "\f2a2";
+}
+.fa-asl-interpreting:before,
+.fa-american-sign-language-interpreting:before {
+  content: "\f2a3";
+}
+.fa-deafness:before,
+.fa-hard-of-hearing:before,
+.fa-deaf:before {
+  content: "\f2a4";
+}
+.fa-glide:before {
+  content: "\f2a5";
+}
+.fa-glide-g:before {
+  content: "\f2a6";
+}
+.fa-signing:before,
+.fa-sign-language:before {
+  content: "\f2a7";
+}
+.fa-low-vision:before {
+  content: "\f2a8";
+}
+.fa-viadeo:before {
+  content: "\f2a9";
+}
+.fa-viadeo-square:before {
+  content: "\f2aa";
+}
+.fa-snapchat:before {
+  content: "\f2ab";
+}
+.fa-snapchat-ghost:before {
+  content: "\f2ac";
+}
+.fa-snapchat-square:before {
+  content: "\f2ad";
+}
+.fa-pied-piper:before {
+  content: "\f2ae";
+}
+.fa-first-order:before {
+  content: "\f2b0";
+}
+.fa-yoast:before {
+  content: "\f2b1";
+}
+.fa-themeisle:before {
+  content: "\f2b2";
+}
+.fa-google-plus-circle:before,
+.fa-google-plus-official:before {
+  content: "\f2b3";
+}
+.fa-fa:before,
+.fa-font-awesome:before {
+  content: "\f2b4";
+}
+.fa-handshake-o:before {
+  content: "\f2b5";
+}
+.fa-envelope-open:before {
+  content: "\f2b6";
+}
+.fa-envelope-open-o:before {
+  content: "\f2b7";
+}
+.fa-linode:before {
+  content: "\f2b8";
+}
+.fa-address-book:before {
+  content: "\f2b9";
+}
+.fa-address-book-o:before {
+  content: "\f2ba";
+}
+.fa-vcard:before,
+.fa-address-card:before {
+  content: "\f2bb";
+}
+.fa-vcard-o:before,
+.fa-address-card-o:before {
+  content: "\f2bc";
+}
+.fa-user-circle:before {
+  content: "\f2bd";
+}
+.fa-user-circle-o:before {
+  content: "\f2be";
+}
+.fa-user-o:before {
+  content: "\f2c0";
+}
+.fa-id-badge:before {
+  content: "\f2c1";
+}
+.fa-drivers-license:before,
+.fa-id-card:before {
+  content: "\f2c2";
+}
+.fa-drivers-license-o:before,
+.fa-id-card-o:before {
+  content: "\f2c3";
+}
+.fa-quora:before {
+  content: "\f2c4";
+}
+.fa-free-code-camp:before {
+  content: "\f2c5";
+}
+.fa-telegram:before {
+  content: "\f2c6";
+}
+.fa-thermometer-4:before,
+.fa-thermometer:before,
+.fa-thermometer-full:before {
+  content: "\f2c7";
+}
+.fa-thermometer-3:before,
+.fa-thermometer-three-quarters:before {
+  content: "\f2c8";
+}
+.fa-thermometer-2:before,
+.fa-thermometer-half:before {
+  content: "\f2c9";
+}
+.fa-thermometer-1:before,
+.fa-thermometer-quarter:before {
+  content: "\f2ca";
+}
+.fa-thermometer-0:before,
+.fa-thermometer-empty:before {
+  content: "\f2cb";
+}
+.fa-shower:before {
+  content: "\f2cc";
+}
+.fa-bathtub:before,
+.fa-s15:before,
+.fa-bath:before {
+  content: "\f2cd";
+}
+.fa-podcast:before {
+  content: "\f2ce";
+}
+.fa-window-maximize:before {
+  content: "\f2d0";
+}
+.fa-window-minimize:before {
+  content: "\f2d1";
+}
+.fa-window-restore:before {
+  content: "\f2d2";
+}
+.fa-times-rectangle:before,
+.fa-window-close:before {
+  content: "\f2d3";
+}
+.fa-times-rectangle-o:before,
+.fa-window-close-o:before {
+  content: "\f2d4";
+}
+.fa-bandcamp:before {
+  content: "\f2d5";
+}
+.fa-grav:before {
+  content: "\f2d6";
+}
+.fa-etsy:before {
+  content: "\f2d7";
+}
+.fa-imdb:before {
+  content: "\f2d8";
+}
+.fa-ravelry:before {
+  content: "\f2d9";
+}
+.fa-eercast:before {
+  content: "\f2da";
+}
+.fa-microchip:before {
+  content: "\f2db";
+}
+.fa-snowflake-o:before {
+  content: "\f2dc";
+}
+.fa-superpowers:before {
+  content: "\f2dd";
+}
+.fa-wpexplorer:before {
+  content: "\f2de";
+}
+.fa-meetup:before {
+  content: "\f2e0";
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
 }
 /*!
 *
@@ -8715,6 +9393,10 @@ div.traceback-wrapper {
   max-width: 800px;
   margin: auto;
 }
+div.traceback-wrapper pre.traceback {
+  max-height: 600px;
+  overflow: auto;
+}
 /**
  * Primary styles
  *
@@ -8740,6 +9422,10 @@ body > #header {
   z-index: 100;
 }
 body > #header #header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
   padding-bottom: 5px;
   padding-top: 5px;
   box-sizing: border-box;
@@ -8771,13 +9457,16 @@ body > #header .header-bar {
   padding-top: 1px;
   padding-bottom: 1px;
 }
-@media (max-width: 991px) {
-  #ipython_notebook {
-    margin-left: 10px;
-  }
-}
 [dir="rtl"] #ipython_notebook {
+  margin-right: 10px;
+  margin-left: 0;
+}
+[dir="rtl"] #ipython_notebook.pull-left {
   float: right !important;
+  float: right;
+}
+.flex-spacer {
+  flex: 1;
 }
 #noscript {
   width: auto;
@@ -8812,8 +9501,14 @@ body > #header .header-bar {
 input.ui-button {
   padding: 0.3em 0.9em;
 }
+span#kernel_logo_widget {
+  margin: 0 10px;
+}
 span#login_widget {
   float: right;
+}
+[dir="rtl"] span#login_widget {
+  float: left;
 }
 span#login_widget > .button,
 #logout {
@@ -8929,6 +9624,9 @@ span#login_widget > .button .badge,
   overflow: auto;
   flex: 1;
 }
+.modal-header {
+  cursor: move;
+}
 @media (min-width: 768px) {
   .modal .modal-dialog {
     width: 700px;
@@ -8949,6 +9647,19 @@ span#login_widget > .button .badge,
   display: inline-block;
   margin-bottom: -4px;
 }
+[dir="rtl"] .center-nav form.pull-left {
+  float: right !important;
+  float: right;
+}
+[dir="rtl"] .center-nav .navbar-text {
+  float: right;
+}
+[dir="rtl"] .navbar-inner {
+  text-align: right;
+}
+[dir="rtl"] div.text-left {
+  text-align: right;
+}
 /*!
 *
 * IPython tree view
@@ -8965,34 +9676,42 @@ span#login_widget > .button .badge,
   margin: 0;
 }
 .alternate_upload input.fileinput {
-  text-align: center;
-  vertical-align: middle;
-  display: inline;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
   opacity: 0;
   z-index: 2;
-  width: 12ex;
-  margin-right: -12ex;
+}
+.alternate_upload .btn-xs > input.fileinput {
+  margin: -1px -5px;
 }
 .alternate_upload .btn-upload {
+  position: relative;
   height: 22px;
+}
+::-webkit-file-upload-button {
+  cursor: pointer;
 }
 /**
  * Primary styles
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
   padding-bottom: 4px;
+}
+[dir="rtl"] ul#tabs.nav-tabs > li {
+  float: right;
+}
+[dir="rtl"] ul#tabs.nav.nav-tabs {
+  padding-right: 0;
 }
 ul.breadcrumb a:focus,
 ul.breadcrumb a:hover {
@@ -9012,15 +9731,13 @@ ul.breadcrumb span {
 .list_toolbar .tree-buttons {
   padding-top: 1px;
 }
-[dir="rtl"] .list_toolbar .tree-buttons {
+[dir="rtl"] .list_toolbar .tree-buttons .pull-right {
   float: left !important;
+  float: left;
 }
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
+[dir="rtl"] .list_toolbar .col-sm-4,
+[dir="rtl"] .list_toolbar .col-sm-8 {
+  float: right;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9076,7 +9793,7 @@ ul.breadcrumb span {
 .list_item > div input {
   margin-right: 7px;
   margin-left: 14px;
-  vertical-align: baseline;
+  vertical-align: text-bottom;
   line-height: 22px;
   position: relative;
   top: -1px;
@@ -9086,6 +9803,9 @@ ul.breadcrumb span {
   margin-left: -1px;
   vertical-align: baseline;
   line-height: 22px;
+}
+[dir="rtl"] .list_item > div input {
+  margin-right: 0;
 }
 .new-file input[type=checkbox] {
   visibility: hidden;
@@ -9101,6 +9821,14 @@ ul.breadcrumb span {
   margin-left: 7px;
   line-height: 22px;
   vertical-align: baseline;
+}
+.item_modified {
+  margin-right: 7px;
+  margin-left: 7px;
+}
+[dir="rtl"] .item_modified.pull-right {
+  float: left !important;
+  float: left;
 }
 .item_buttons {
   line-height: 1em;
@@ -9129,6 +9857,14 @@ ul.breadcrumb span {
   margin-right: 7px;
   float: left;
 }
+[dir="rtl"] .item_buttons.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .item_buttons .kernel-name {
+  margin-left: 7px;
+  float: right;
+}
 .toolbar_info {
   height: 24px;
   line-height: 24px;
@@ -9154,18 +9890,32 @@ ul.breadcrumb span {
   background-color: transparent;
   font-weight: bold;
 }
+.sort_button {
+  display: inline-block;
+  padding-left: 7px;
+}
+[dir="rtl"] .sort_button.pull-right {
+  float: left !important;
+  float: left;
+}
 #tree-selector {
   padding-right: 0px;
-}
-[dir="rtl"] #tree-selector a {
-  float: right;
 }
 #button-select-all {
   min-width: 50px;
 }
+[dir="rtl"] #button-select-all.btn {
+  float: right ;
+}
 #select-all {
   margin-left: 7px;
   margin-right: 2px;
+  margin-top: 2px;
+  height: 16px;
+}
+[dir="rtl"] #select-all.pull-left {
+  float: right !important;
+  float: right;
 }
 .menu_icon {
   margin-right: 2px;
@@ -9183,6 +9933,12 @@ ul.breadcrumb span {
   -moz-osx-font-smoothing: grayscale;
   content: "\f114";
 }
+.folder_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.folder_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .folder_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9199,6 +9955,12 @@ ul.breadcrumb span {
   content: "\f02d";
   position: relative;
   top: -1px;
+}
+.notebook_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.notebook_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .notebook_icon:before.pull-left {
   margin-right: .3em;
@@ -9218,6 +9980,12 @@ ul.breadcrumb span {
   top: -1px;
   color: #5cb85c;
 }
+.running_notebook_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.running_notebook_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .running_notebook_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9235,6 +10003,12 @@ ul.breadcrumb span {
   position: relative;
   top: -2px;
 }
+.file_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.file_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .file_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -9249,8 +10023,11 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
+#new-menu .dropdown-header {
+  font-size: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 0 3px;
+  margin: -3px 20px 0;
 }
 .kernel-menu-icon {
   padding-right: 12px;
@@ -9297,9 +10074,6 @@ ul#new-menu {
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
 }
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
-}
 .delete-button {
   display: none;
 }
@@ -9307,6 +10081,12 @@ ul#new-menu {
   display: none;
 }
 .rename-button {
+  display: none;
+}
+.move-button {
+  display: none;
+}
+.download-button {
   display: none;
 }
 .shutdown-button {
@@ -9349,6 +10129,12 @@ ul#new-menu {
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
 }
+.dirty-indicator.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator.fa-pull-right {
+  margin-left: .3em;
+}
 .dirty-indicator.pull-left {
   margin-right: .3em;
 }
@@ -9363,6 +10149,12 @@ ul#new-menu {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
+}
+.dirty-indicator-dirty.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-dirty.fa-pull-right {
+  margin-left: .3em;
 }
 .dirty-indicator-dirty.pull-left {
   margin-right: .3em;
@@ -9379,6 +10171,12 @@ ul#new-menu {
   -moz-osx-font-smoothing: grayscale;
   width: 20px;
 }
+.dirty-indicator-clean.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-clean.fa-pull-right {
+  margin-left: .3em;
+}
 .dirty-indicator-clean.pull-left {
   margin-right: .3em;
 }
@@ -9393,6 +10191,12 @@ ul#new-menu {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f00c";
+}
+.dirty-indicator-clean:before.fa-pull-left {
+  margin-right: .3em;
+}
+.dirty-indicator-clean:before.fa-pull-right {
+  margin-left: .3em;
 }
 .dirty-indicator-clean:before.pull-left {
   margin-right: .3em;
@@ -9438,14 +10242,132 @@ ul#new-menu {
     box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
   }
 }
+.CodeMirror-dialog {
+  background-color: #fff;
+}
 /*!
 *
 * IPython notebook
 *
 */
-/* CSS font colors for translated ANSI colors. */
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
 .ansibold {
   font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
 }
 /* use dark versions for foreground, to improve visibility */
 .ansiblack {
@@ -9524,12 +10446,20 @@ div.cell {
   /* This acts as a spacer between cells, that is outside the border */
   margin: 0px;
   outline: none;
-  border-left-width: 1px;
-  padding-left: 5px;
-  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
 }
 div.cell.jupyter-soft-selected {
-  border-left-color: #90CAF9;
   border-left-color: #E3F2FD;
   border-left-width: 1px;
   padding-left: 5px;
@@ -9542,27 +10472,39 @@ div.cell.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected {
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
   border-color: #ababab;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
 }
 @media print {
-  div.cell.selected {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
     border-color: transparent;
   }
 }
-div.cell.selected.jupyter-soft-selected {
-  border-left-width: 0;
-  padding-left: 6px;
-  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
-}
 .edit_mode div.cell.selected {
   border-color: #66BB6A;
-  border-left-width: 0px;
-  padding-left: 6px;
-  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
 }
 @media print {
   .edit_mode div.cell.selected {
@@ -9758,7 +10700,9 @@ div.input_area > div.highlight > pre {
 .CodeMirror-lines {
   /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
   /* we have set a different line-height and want this to scale with that. */
-  padding: 0.4em;
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
 }
 .CodeMirror-linenumber {
   padding: 0 8px 0 4px;
@@ -9768,11 +10712,24 @@ div.input_area > div.highlight > pre {
   border-top-left-radius: 2px;
 }
 .CodeMirror pre {
-  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
-  /* .CodeMirror-lines */
-  padding: 0;
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
   border: 0;
   border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
 }
 /*
 
@@ -10026,6 +10983,9 @@ div.output_area img.unconfined,
 div.output_area svg.unconfined {
   max-width: none;
 }
+div.output_area .mglyph > img {
+  max-width: none;
+}
 /* This is needed to protect the pre formating from global settings such
    as that of bootstrap */
 .output {
@@ -10064,7 +11024,7 @@ div.output_area svg.unconfined {
 }
 div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 1px 0 1px 0;
   border: 0;
   vertical-align: baseline;
   color: black;
@@ -10224,39 +11184,35 @@ div.output_unrecognized a:hover {
 .rendered_html h6:first-child {
   margin-top: 1em;
 }
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
 .rendered_html ul {
   list-style: disc;
-  margin: 0em 2em;
-  padding-left: 0px;
 }
 .rendered_html ul ul {
   list-style: square;
-  margin: 0em 2em;
+  margin-top: 0;
 }
 .rendered_html ul ul ul {
   list-style: circle;
-  margin: 0em 2em;
 }
 .rendered_html ol {
   list-style: decimal;
-  margin: 0em 2em;
-  padding-left: 0px;
 }
 .rendered_html ol ol {
   list-style: upper-alpha;
-  margin: 0em 2em;
+  margin-top: 0;
 }
 .rendered_html ol ol ol {
   list-style: lower-alpha;
-  margin: 0em 2em;
 }
 .rendered_html ol ol ol ol {
   list-style: lower-roman;
-  margin: 0em 2em;
 }
 .rendered_html ol ol ol ol ol {
   list-style: decimal;
-  margin: 0em 2em;
 }
 .rendered_html * + ul {
   margin-top: 1em;
@@ -10270,14 +11226,23 @@ div.output_unrecognized a:hover {
 }
 .rendered_html pre {
   margin: 1em 2em;
+  padding: 0px;
+  background-color: #fff;
+}
+.rendered_html code {
+  background-color: #eff0f1;
+}
+.rendered_html p code {
+  padding: 1px 5px;
+}
+.rendered_html pre code {
+  background-color: #fff;
 }
 .rendered_html pre,
 .rendered_html code {
   border: 0;
-  background-color: #fff;
   color: #000;
   font-size: 100%;
-  padding: 0px;
 }
 .rendered_html blockquote {
   margin: 1em 2em;
@@ -10285,24 +11250,36 @@ div.output_unrecognized a:hover {
 .rendered_html table {
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid black;
+  border: none;
   border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
 }
 .rendered_html tr,
 .rendered_html th,
 .rendered_html td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin: 1em 2em;
-}
-.rendered_html td,
-.rendered_html th {
-  text-align: left;
+  text-align: right;
   vertical-align: middle;
-  padding: 4px;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
 }
 .rendered_html th {
   font-weight: bold;
+}
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
 }
 .rendered_html * + table {
   margin-top: 1em;
@@ -10329,6 +11306,15 @@ div.output_unrecognized a:hover {
 .rendered_html img.unconfined,
 .rendered_html svg.unconfined {
   max-width: none;
+}
+.rendered_html .alert {
+  margin-bottom: initial;
+}
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] .rendered_html p {
+  text-align: right;
 }
 div.text_cell {
   /* Old browsers */
@@ -10383,8 +11369,17 @@ h6:hover .anchor-link {
   overflow-x: auto;
   overflow-y: hidden;
 }
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered .rendered_html td {
+  max-width: none;
+}
 .text_cell.unrendered .text_cell_render {
   display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
 }
 .cm-header-1,
 .cm-header-2,
@@ -10521,6 +11516,28 @@ kbd {
   padding-top: 1px;
   padding-bottom: 1px;
 }
+.jupyter-keybindings {
+  padding: 1px;
+  line-height: 24px;
+  border-bottom: 1px solid gray;
+}
+.jupyter-keybindings input {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.jupyter-keybindings i {
+  padding: 6px;
+}
+.well code {
+  background-color: #ffffff;
+  border-color: #ababab;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 /* CSS for the cell toolbar */
 .celltoolbar {
   border: thin solid #CFCFCF;
@@ -10653,6 +11670,152 @@ select[multiple].celltoolbar select {
   margin-left: 5px;
   margin-right: 5px;
 }
+.tags_button_container {
+  width: 100%;
+  display: flex;
+}
+.tag-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+.tag-container > * {
+  margin: 0 4px;
+}
+.remove-tag-btn {
+  margin-left: 4px;
+}
+.tags-input {
+  display: flex;
+}
+.cell-tag:last-child:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  /* Fade to background color of cell toolbar */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #EEE);
+}
+.tags-input > * {
+  margin-left: 4px;
+}
+.cell-tag,
+.tags-input input,
+.tags-input button {
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 1px;
+  box-shadow: none;
+  width: inherit;
+  font-size: inherit;
+  height: 22px;
+  line-height: 22px;
+  padding: 0px 4px;
+  display: inline-block;
+}
+.cell-tag:focus,
+.tags-input input:focus,
+.tags-input button:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.cell-tag::-moz-placeholder,
+.tags-input input::-moz-placeholder,
+.tags-input button::-moz-placeholder {
+  color: #999;
+  opacity: 1;
+}
+.cell-tag:-ms-input-placeholder,
+.tags-input input:-ms-input-placeholder,
+.tags-input button:-ms-input-placeholder {
+  color: #999;
+}
+.cell-tag::-webkit-input-placeholder,
+.tags-input input::-webkit-input-placeholder,
+.tags-input button::-webkit-input-placeholder {
+  color: #999;
+}
+.cell-tag::-ms-expand,
+.tags-input input::-ms-expand,
+.tags-input button::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+.cell-tag[disabled],
+.tags-input input[disabled],
+.tags-input button[disabled],
+.cell-tag[readonly],
+.tags-input input[readonly],
+.tags-input button[readonly],
+fieldset[disabled] .cell-tag,
+fieldset[disabled] .tags-input input,
+fieldset[disabled] .tags-input button {
+  background-color: #eeeeee;
+  opacity: 1;
+}
+.cell-tag[disabled],
+.tags-input input[disabled],
+.tags-input button[disabled],
+fieldset[disabled] .cell-tag,
+fieldset[disabled] .tags-input input,
+fieldset[disabled] .tags-input button {
+  cursor: not-allowed;
+}
+textarea.cell-tag,
+textarea.tags-input input,
+textarea.tags-input button {
+  height: auto;
+}
+select.cell-tag,
+select.tags-input input,
+select.tags-input button {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.cell-tag,
+textarea.tags-input input,
+textarea.tags-input button,
+select[multiple].cell-tag,
+select[multiple].tags-input input,
+select[multiple].tags-input button {
+  height: auto;
+}
+.cell-tag,
+.tags-input button {
+  padding: 0px 4px;
+}
+.cell-tag {
+  background-color: #fff;
+  white-space: nowrap;
+}
+.tags-input input[type=text]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #ccc;
+}
 .completions {
   position: absolute;
   z-index: 110;
@@ -10678,16 +11841,28 @@ select[multiple].celltoolbar select {
 .completions select option.context {
   color: #286090;
 }
-#kernel_logo_widget {
-  float: right !important;
-  float: right;
-}
 #kernel_logo_widget .current_kernel_logo {
   display: none;
   margin-top: -1px;
   margin-bottom: -1px;
   width: 32px;
   height: 32px;
+}
+[dir="rtl"] #kernel_logo_widget {
+  float: left !important;
+  float: left;
+}
+.modal .modal-body .move-path {
+  display: flex;
+  flex-direction: row;
+  justify-content: space;
+  align-items: center;
+}
+.modal .modal-body .move-path .server-root {
+  padding-right: 20px;
+}
+.modal .modal-body .move-path .path-input {
+  flex: 1;
 }
 #menubar {
   box-sizing: border-box;
@@ -10709,11 +11884,41 @@ select[multiple].celltoolbar select {
 #menubar .navbar-collapse {
   clear: left;
 }
+[dir="rtl"] #menubar .navbar-toggle {
+  float: right;
+}
+[dir="rtl"] #menubar .navbar-collapse {
+  clear: right;
+}
+[dir="rtl"] #menubar .navbar-nav {
+  float: right;
+}
+[dir="rtl"] #menubar .nav {
+  padding-right: 0px;
+}
+[dir="rtl"] #menubar .navbar-nav > li {
+  float: right;
+}
+[dir="rtl"] #menubar .navbar-right {
+  float: left !important;
+}
+[dir="rtl"] ul.dropdown-menu {
+  text-align: right;
+  left: auto;
+}
+[dir="rtl"] ul#new-menu.dropdown-menu {
+  right: auto;
+  left: 0;
+}
 .nav-wrapper {
   border-bottom: 1px solid #e7e7e7;
 }
 i.menu-icon {
   padding-top: 4px;
+}
+[dir="rtl"] i.menu-icon.pull-right {
+  float: left !important;
+  float: left;
 }
 ul#help_menu li a {
   overflow: hidden;
@@ -10721,6 +11926,17 @@ ul#help_menu li a {
 }
 ul#help_menu li a i {
   margin-right: -1.2em;
+}
+[dir="rtl"] ul#help_menu li a {
+  padding-left: 2.2em;
+}
+[dir="rtl"] ul#help_menu li a i {
+  margin-right: 0;
+  margin-left: -1.2em;
+}
+[dir="rtl"] ul#help_menu li a i.pull-right {
+  float: left !important;
+  float: left;
 }
 .dropdown-submenu {
   position: relative;
@@ -10730,6 +11946,10 @@ ul#help_menu li a i {
   left: 100%;
   margin-top: -6px;
   margin-left: -1px;
+}
+[dir="rtl"] .dropdown-submenu > .dropdown-menu {
+  right: 100%;
+  margin-right: -1px;
 }
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
@@ -10748,11 +11968,23 @@ ul#help_menu li a i {
   margin-top: 2px;
   margin-right: -10px;
 }
+.dropdown-submenu > a:after.fa-pull-left {
+  margin-right: .3em;
+}
+.dropdown-submenu > a:after.fa-pull-right {
+  margin-left: .3em;
+}
 .dropdown-submenu > a:after.pull-left {
   margin-right: .3em;
 }
 .dropdown-submenu > a:after.pull-right {
   margin-left: .3em;
+}
+[dir="rtl"] .dropdown-submenu > a:after {
+  float: left;
+  content: "\f0d9";
+  margin-right: 0;
+  margin-left: -10px;
 }
 .dropdown-submenu:hover > a:after {
   color: #262626;
@@ -10769,6 +12001,10 @@ ul#help_menu li a i {
   float: right;
   z-index: 10;
 }
+[dir="rtl"] #notification_area {
+  float: left !important;
+  float: left;
+}
 .indicator_area {
   float: right !important;
   float: right;
@@ -10779,6 +12015,10 @@ ul#help_menu li a i {
   z-index: 10;
   text-align: center;
   width: auto;
+}
+[dir="rtl"] .indicator_area {
+  float: left !important;
+  float: left;
 }
 #kernel_indicator {
   float: right !important;
@@ -10796,6 +12036,12 @@ ul#help_menu li a i {
   padding-left: 5px;
   padding-right: 5px;
 }
+[dir="rtl"] #kernel_indicator {
+  float: left !important;
+  float: left;
+  border-left: 0;
+  border-right: 1px solid;
+}
 #modal_indicator {
   float: right !important;
   float: right;
@@ -10806,6 +12052,10 @@ ul#help_menu li a i {
   z-index: 10;
   text-align: center;
   width: auto;
+}
+[dir="rtl"] #modal_indicator {
+  float: left !important;
+  float: left;
 }
 #readonly-indicator {
   float: right !important;
@@ -10836,6 +12086,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f040";
 }
+.edit_mode .modal_indicator:before.fa-pull-left {
+  margin-right: .3em;
+}
+.edit_mode .modal_indicator:before.fa-pull-right {
+  margin-left: .3em;
+}
 .edit_mode .modal_indicator:before.pull-left {
   margin-right: .3em;
 }
@@ -10850,6 +12106,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: ' ';
+}
+.command_mode .modal_indicator:before.fa-pull-left {
+  margin-right: .3em;
+}
+.command_mode .modal_indicator:before.fa-pull-right {
+  margin-left: .3em;
 }
 .command_mode .modal_indicator:before.pull-left {
   margin-right: .3em;
@@ -10866,6 +12128,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f10c";
 }
+.kernel_idle_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_idle_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .kernel_idle_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -10880,6 +12148,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f111";
+}
+.kernel_busy_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_busy_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .kernel_busy_icon:before.pull-left {
   margin-right: .3em;
@@ -10896,6 +12170,12 @@ ul#help_menu li a i {
   -moz-osx-font-smoothing: grayscale;
   content: "\f1e2";
 }
+.kernel_dead_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_dead_icon:before.fa-pull-right {
+  margin-left: .3em;
+}
 .kernel_dead_icon:before.pull-left {
   margin-right: .3em;
 }
@@ -10910,6 +12190,12 @@ ul#help_menu li a i {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f127";
+}
+.kernel_disconnected_icon:before.fa-pull-left {
+  margin-right: .3em;
+}
+.kernel_disconnected_icon:before.fa-pull-right {
+  margin-left: .3em;
 }
 .kernel_disconnected_icon:before.pull-left {
   margin-right: .3em;
@@ -11300,27 +12586,46 @@ div#pager .ui-resizable-handle::after {
   flex: 1;
 }
 span.save_widget {
-  margin-top: 6px;
+  height: 30px;
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 50%;
+  flex: 1;
 }
 span.save_widget span.filename {
-  height: 1em;
+  height: 100%;
   line-height: 1em;
-  padding: 3px;
   margin-left: 16px;
   border: none;
   font-size: 146.5%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   border-radius: 2px;
 }
 span.save_widget span.filename:hover {
   background-color: #e6e6e6;
 }
+[dir="rtl"] span.save_widget.pull-left {
+  float: right !important;
+  float: right;
+}
+[dir="rtl"] span.save_widget span.filename {
+  margin-left: 0;
+  margin-right: 16px;
+}
 span.checkpoint_status,
 span.autosave_status {
   font-size: small;
+  white-space: nowrap;
+  padding: 0 5px;
 }
 @media (max-width: 767px) {
   span.save_widget {
     font-size: small;
+    padding: 0 0 0 5px;
   }
   span.checkpoint_status,
   span.autosave_status {
@@ -11364,6 +12669,9 @@ span.autosave_status {
   margin-top: 0px;
   margin-left: 5px;
 }
+.toolbar-btn-label {
+  margin-left: 6px;
+}
 #maintoolbar {
   margin-bottom: -3px;
   margin-top: -8px;
@@ -11383,6 +12691,10 @@ span.autosave_status {
 }
 .select-xs {
   height: 24px;
+}
+[dir="rtl"] .btn-group > .btn,
+.btn-group-vertical > .btn {
+  float: right;
 }
 .pulse,
 .dropdown-menu > li > a.pulse,
@@ -11533,6 +12845,10 @@ ul.typeahead-list i {
   margin-left: -10px;
   width: 18px;
 }
+[dir="rtl"] ul.typeahead-list i {
+  margin-left: 0;
+  margin-right: -10px;
+}
 ul.typeahead-list {
   max-height: 80vh;
   overflow: auto;
@@ -11541,6 +12857,13 @@ ul.typeahead-list > li > a {
   /** Firefox bug **/
   /* see https://github.com/jupyter/notebook/issues/559 */
   white-space: normal;
+}
+ul.typeahead-list  > li > a.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .typeahead-list {
+  text-align: right;
 }
 .cmd-palette .modal-body {
   padding: 7px;
@@ -11552,10 +12875,19 @@ ul.typeahead-list > li > a {
   outline: none;
 }
 .no-shortcut {
-  display: none;
+  min-width: 20px;
+  color: transparent;
+}
+[dir="rtl"] .no-shortcut.pull-right {
+  float: left !important;
+  float: left;
+}
+[dir="rtl"] .command-shortcut.pull-right {
+  float: left !important;
+  float: left;
 }
 .command-shortcut:before {
-  content: "(command)";
+  content: "(command mode)";
   padding-right: 3px;
   color: #777777;
 }
@@ -11564,6 +12896,10 @@ ul.typeahead-list > li > a {
   padding-right: 3px;
   color: #777777;
 }
+[dir="rtl"] .edit-shortcut.pull-right {
+  float: left !important;
+  float: left;
+}
 #find-and-replace #replace-preview .match,
 #find-and-replace #replace-preview .insert {
   background-color: #BBDEFB;
@@ -11571,6 +12907,12 @@ ul.typeahead-list > li > a {
   border-style: solid;
   border-width: 1px;
   border-radius: 0px;
+}
+[dir="ltr"] #find-and-replace .input-group-btn + .form-control {
+  border-left: none;
+}
+[dir="rtl"] #find-and-replace .input-group-btn + .form-control {
+  border-right: none;
 }
 #find-and-replace #replace-preview .replace .match {
   background-color: #FFCDD2;
@@ -11626,8 +12968,13 @@ ul.typeahead-list > li > a {
 /*# sourceMappingURL=style.min.css.map */
     </style>
 <style type="text/css">
-    .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
+    pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
@@ -11696,45 +13043,6 @@ ul.typeahead-list > li > a {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
 
 
 <style type="text/css">
@@ -11768,7 +13076,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11866,190 +13174,161 @@ $( document ).ready(function(){
     <div class="container" id="notebook-container">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Linear-Transverse-Motion">Linear Transverse Motion<a class="anchor-link" href="#Linear-Transverse-Motion">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this chapter,we will discuss the particle motion in perpendicular to the  particle ideal trajectory in linear magnets.  Linear magnets refer to the dipole and quadrupole magnets that produce linear magnetic field.  The force of the particle is given by the Lorentz force:</p>
-<p>\begin{equation}
+\begin{equation}
 \mathbf{F}=q\mathbf{v}\times \mathbf{B}
-\end{equation}
-The force is always perpendicular to its velocity, therefore the particle can not be accelerated by the magnetic field.</p>
+\end{equation}<p>The force is always perpendicular to its velocity, therefore the particle can not be accelerated by the magnetic field.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Design-Trajectory">Design Trajectory<a class="anchor-link" href="#Design-Trajectory">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The geometry of the accelerator is determined by the dipole magnet.  Let us assume that the magnetic field is constant in certain region and along the vertical direction $\mathbf{B}=B\hat{y}$.  The particle travels through this region initially in $\hat{s}$ direction in the $x$-$s$ plane, as shown below.
 <img src=reference_orbit.png width=400></p>
 <p>The equation of motion is</p>
-<p>\begin{equation}
+\begin{equation}
 \frac{d\mathbf{P}}{dt}=q\mathbf{v}\times\mathbf{B}
-\end{equation}
-The momentum change will be only in the $x$-$s$ plane, the velocity is always perpendicular to the magnetic field and the energy of the beam does not change, therefore:</p>
-<p>\begin{equation}
+\end{equation}<p>The momentum change will be only in the $x$-$s$ plane, the velocity is always perpendicular to the magnetic field and the energy of the beam does not change, therefore:</p>
+\begin{equation}
 m\gamma \frac{d\mathbf{v}}{dt}=qB\mathbf{v}\times\hat{y}
-\end{equation}</p>
-<p>Using the fact that the amplitude of the velocity will not change therefore:</p>
-<p>\begin{equation}
+\end{equation}<p>Using the fact that the amplitude of the velocity will not change therefore:</p>
+\begin{equation}
 m\gamma \frac{v^2}{\rho}=qvB
-\end{equation}
-The bending radius is given by:</p>
-<p>\begin{equation}
+\end{equation}<p>The bending radius is given by:</p>
+\begin{equation}
 \rho=\frac{\left|\mathbf{P}\right|}{qB}
-\end{equation}</p>
-<p>Here, we define the term 'rigidity' $B\rho=P/q$, to quantify 'how hard to bend the beam'.  And naturally it is only function of the particle momentum amplitude.  It is a very important normalization factor of the transverse motion, as will shown later.  After normalization, most our calculation becomes particle energy independent.</p>
+\end{equation}<p>Here, we define the term 'rigidity' $B\rho=P/q$, to quantify 'how hard to bend the beam'.  And naturally it is only function of the particle momentum amplitude.  It is a very important normalization factor of the transverse motion, as will shown later.  After normalization, most our calculation becomes particle energy independent.</p>
 <p>The dipoles that defines the geometry of the accelerator are sometimes called main dipoles.  They define a ideal trajectory.  A charge particle with correct energy, once inject with correct position and angle, will exactly follow the ideal trajectory.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="First-look:-Beam-motion-in-Quadrupole-field">First look: Beam motion in Quadrupole field<a class="anchor-link" href="#First-look:-Beam-motion-in-Quadrupole-field">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The quadrupole field, from the previous section, has</p>
-<p>\begin{align}
+\begin{align}
 B_x&amp;=Gy\\
 B_y&amp;=Gx
-\end{align}
-where the gradient is $G=B_0 b_1$.</p>
+\end{align}<p>where the gradient is $G=B_0 b_1$.</p>
 <p>Quadrupole is usually positioned so that the zero field axis is located on the ideal trajectory.  The ideal particle will not experience any field from the Quadrupole.</p>
 <p>From the Lorentz force, we have
 $$\gamma m \frac{d\mathbf{v}}{dt} = q \mathbf{v}\times \mathbf{B}$$</p>
 <p>Expand the vector production and get</p>
-<p>\begin{align}
+\begin{align}
 \gamma m\frac{d^{2}x}{dt^{2}}&amp;=-qGxv_{z}\\
 \gamma m\frac{d^{2}y}{dt^{2}}&amp;=qGyv_{z}
-\end{align}</p>
-<p>Here we need to make following approximation:</p>
+\end{align}<p>Here we need to make following approximation:</p>
 <ul>
 <li><strong>paraxial approximation</strong>, indicate that the particle will only deviate the design direction by small angles, i.e. if z is the forward direction, the two transverse velocity satisfy: $v_x,v_y \ll \left|\mathbf{v}\right|$</li>
 <li>In such approximation, </li>
 </ul>
-<p>\begin{align}
+\begin{align}
 v_z&amp;=\sqrt{v^2-v_x^2-v_y^2}\nonumber\\
 &amp;=v\left(1-\frac{v_x^2+v_y^2}{2v^2}\right)\sim v
-\end{align}</p>
-<ul>
+\end{align}<ul>
 <li>Using such approximation, we have 
 $$\frac{d}{dt}=v_s\frac{d}{ds}\sim v\frac{d}{ds}\;\frac{d^2}{dt^2}\sim v^2\frac{d^2}{ds^2}$$</li>
 </ul>
 <p>Then the equation of motion in quadrupole is simplified as</p>
-<p>\begin{align}
+\begin{align}
 \gamma m v\frac{d^{2}x}{ds^{2}}&amp;=qGx\\
 \gamma m v\frac{d^{2}y}{ds^{2}}&amp;=-qGy
-\end{align}</p>
-<p>Using the definition of the rigidity $B\rho$, the EOM can be rewritten as :</p>
-<p>\begin{align}
+\end{align}<p>Using the definition of the rigidity $B\rho$, the EOM can be rewritten as :</p>
+\begin{align}
 \frac{d^{2}x}{ds^{2}}&amp;=-\frac{G}{B\rho}x\\
 \frac{d^{2}y}{ds^{2}}&amp;=\frac{G}{B\rho}y
-\end{align}</p>
-<p>Then, we define the normalized quadrupole strength $k=G/(B\rho)$, the EOM is simply:</p>
-<p>\begin{align}
+\end{align}<p>Then, we define the normalized quadrupole strength $k=G/(B\rho)$, the EOM is simply:</p>
+\begin{align}
 \frac{d^{2}x}{ds^{2}}+kx&amp;=0\\
 \frac{d^{2}y}{ds^{2}}-ky&amp;=0
-\end{align}</p>
-<p>Depend on the sign of $k$, it is easy to solve the differential equation:</p>
-<p>\begin{equation}
+\end{align}<p>Depend on the sign of $k$, it is easy to solve the differential equation:</p>
+\begin{equation}
 x\left(s\right)=
 \begin{cases}
 a \cos \left(\sqrt{k}s\right)+b \sin \left(\sqrt{k}s\right)&amp;k&gt;0\\
 a s + b &amp;k=0\\
 a \cosh \left(\sqrt{-k}s\right)+b\sinh \left(\sqrt{-k}s\right)&amp;k&lt;0
 \end{cases}
-\end{equation}</p>
-<p>The three cases corresponds to a focusing quadrupole, drift space and a defocusing quadrupole respectively. The parameter $a$, $b$ are determined by the initial particle position $x$ and its derivative $x'$. We also learn that the quadrupole will always focus the particles in one transverse direction and defocus in the other.</p>
+\end{equation}<p>The three cases corresponds to a focusing quadrupole, drift space and a defocusing quadrupole respectively. The parameter $a$, $b$ are determined by the initial particle position $x$ and its derivative $x'$. We also learn that the quadrupole will always focus the particles in one transverse direction and defocus in the other.</p>
 <p>In general, the focusing strength can be also function of the longitudinal direction and the EOM of transverse motion (using horizontal direction $\hat{x}$ as an example) gives:</p>
-<p>\begin{equation}
+\begin{equation}
 \frac{d^{2}x}{ds^{2}}+k\left(s\right)x=0
-\end{equation}</p>
-<p>This ODE is named Hill's equation.  It can be rewritten as:</p>
-<p>\begin{align}
+\end{equation}<p>This ODE is named Hill's equation.  It can be rewritten as:</p>
+\begin{align}
 \frac{dx}{ds}&amp;=x'\\
 \frac{dx'}{ds}&amp;=-k(s)x
-\end{align}</p>
-<p>They are just the form of Hamiltonian equations of the Hamiltonian:</p>
-<p>\begin{align}
+\end{align}<p>They are just the form of Hamiltonian equations of the Hamiltonian:</p>
+\begin{align}
 H=\frac{1}{2}x'^2+\frac{1}{2}k(s)x^2
-\end{align}
-Latter we will use alternative method to rederive this equation and try to solve it in general.</p>
+\end{align}<p>Latter we will use alternative method to rederive this equation and try to solve it in general.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Curvilinear-Coordinate-System">Curvilinear Coordinate System<a class="anchor-link" href="#Curvilinear-Coordinate-System">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The ideal trajectory is usually used as reference for the dynamics of the charged particles. This trajectory can be determined from a vector $\mathbf{r_0}\left(t\right)$. The length along the curve is given by</p>
-<p>\begin{align}
+\begin{align}
 s(t)=\int_0^t \left|\mathbf{r'_0}\left(t^\prime\right)\right| dt^\prime
-\end{align}
-Therefore our study is usually performed in the curvilinear coordinate system, named Frenet-Serret coordinate system, as illustrated in the figure:
+\end{align}<p>Therefore our study is usually performed in the curvilinear coordinate system, named Frenet-Serret coordinate system, as illustrated in the figure:
 <img src=curvilinear_frame.png width=300></p>
 <p>In this representation, the independent variable is the location on the reference orbit $s$.  The reference point on the reference orbit is defined by the vector $\mathbf{r_0}\left(s\right)$.  The unit vector of the tangent direction is given by:</p>
-<p>\begin{equation}
+\begin{equation}
 \hat{s}\left(s\right)=\frac{d\mathbf{r_0}\left(s\right)}{ds}
-\end{equation}</p>
-<p>The unit vector of the tangent plane and the normal plane is:</p>
-<p>\begin{equation}\hat{x}\left(s\right)=-\rho\left(s\right)\frac{d\hat{s}\left(s\right)}{ds}
-\end{equation}</p>
-<p>Here $\rho$ denotes the local radius, which is the recipocal of the curvature $\kappa$. At last, the binormal vector is simply defined by:</p>
-<p>\begin{equation}
+\end{equation}<p>The unit vector of the tangent plane and the normal plane is:</p>
+\begin{equation}\hat{x}\left(s\right)=-\rho\left(s\right)\frac{d\hat{s}\left(s\right)}{ds}
+\end{equation}<p>Here $\rho$ denotes the local radius, which is the recipocal of the curvature $\kappa$. At last, the binormal vector is simply defined by:</p>
+\begin{equation}
 \hat{y}\left(s\right)=\hat{s}\left(s\right)\times\hat{x}\left(s\right)
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We defining The derivative of the unit vectors are:</p>
-<p>\begin{align}
+\begin{align}
 \frac{d\hat{s}\left(s\right)}{ds} &amp;= -\kappa\left(s\right) \hat{x}\left(s\right)\\
 \frac{d\hat{x}\left(s\right)}{ds} &amp;= \kappa\left(s\right) \hat{s}\left(s\right)+\tau\left(s\right)\hat{y}\left(s\right)\\
 \frac{d\hat{y}\left(s\right)}{ds} &amp;= -\tau\left(s\right)\hat{x}\left(s\right)
-\end{align}</p>
-<p>Here, $\tau$ is the local torsion of the curve.
+\end{align}<p>Here, $\tau$ is the local torsion of the curve.
 In matrix form, the relation can be expressed as:</p>
-<p>\begin{equation}
+\begin{equation}
 \frac{{d}}{ds}\left(\begin{array}{c}
 \hat{{s}}\\
 \hat{{x}}\\
@@ -12063,121 +13342,104 @@ In matrix form, the relation can be expressed as:</p>
 \hat{{x}}\\
 \hat{y}
 \end{array}\right)
-\end{equation}</p>
-<p>In most cases, we focus our discussion on the motion in plane geometry, therefore the torsion is zero.</p>
+\end{equation}<p>In most cases, we focus our discussion on the motion in plane geometry, therefore the torsion is zero.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then, the coordinate of particle can be expressed as:</p>
-<p>\begin{equation}
+\begin{equation}
 \mathbf{r}=\mathbf{r_0}\left(s\right)+x\hat{x}\left(s\right)+y\hat{y}\left(s\right)
-\end{equation}</p>
-<p>Compared with the Cartesian coordinate system, $\mathbf{r}=x \hat{x}+y \hat{y}+z \hat{z} $, the differentials give: $\partial \mathbf{r}/\partial x = \hat{x}$, $\partial \mathbf{r}/\partial y = \hat{y}$, $\partial \mathbf{r}/\partial z = \hat{z}$; the differentials of the Frenet-Serret Coordinate yields:</p>
-<p>\begin{align}
+\end{equation}<p>Compared with the Cartesian coordinate system, $\mathbf{r}=x \hat{x}+y \hat{y}+z \hat{z} $, the differentials give: $\partial \mathbf{r}/\partial x = \hat{x}$, $\partial \mathbf{r}/\partial y = \hat{y}$, $\partial \mathbf{r}/\partial z = \hat{z}$; the differentials of the Frenet-Serret Coordinate yields:</p>
+\begin{align}
 \frac{\partial \mathbf{r}}{\partial s} &amp;= \hat{s}\left(1+ \kappa x\right) \\
 \frac{\partial \mathbf{r}}{\partial x} &amp;= \hat{x} \\
 \frac{\partial \mathbf{r}}{\partial y} &amp;= \hat{y}
-\end{align}</p>
-<p>The Lame coefficient of the Frenet-Serret coordinate system is $h_s=1+\kappa x$ and $h_x=h_y=1$.</p>
+\end{align}<p>The Lame coefficient of the Frenet-Serret coordinate system is $h_s=1+\kappa x$ and $h_x=h_y=1$.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this coordinate system, the vector operation has different form, for example:</p>
-<p>\begin{equation}
+\begin{equation}
 \nabla \phi = \frac{1}{1+\kappa x}\frac{\partial \phi}{\partial s}\hat{s}+\frac{\partial \phi}{\partial x}\hat{x}+\frac{\partial \phi}{\partial y}\hat{y}
-\end{equation}
-And the curl of the vector gives:</p>
-<p>\begin{equation}
+\end{equation}<p>And the curl of the vector gives:</p>
+\begin{equation}
 \nabla\times A=\frac{1}{1+\kappa x}\left|\begin{array}{ccc}
 \left(1+\kappa x\right)\hat{{s}} &amp; \hat{{x}} &amp; \hat{y}\\
 \frac{\partial}{\partial s} &amp; \frac{\partial}{\partial x} &amp; \frac{\partial}{\partial y}\\
 \left(1+\kappa x\right)A_{s} &amp; A_{x} &amp; A_{y}
 \end{array}\right|
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Hamiltonian-Approach">Hamiltonian Approach<a class="anchor-link" href="#Hamiltonian-Approach">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Lagrangian-to-Hamiltonian">Lagrangian to Hamiltonian<a class="anchor-link" href="#Lagrangian-to-Hamiltonian">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We consider the approach from Lagrangian of a relativistic charged particle in a E-M field.</p>
-<p>\begin{equation}
+\begin{equation}
 L\left(\mathbf{x}, \mathbf{v}, t\right)=
 -mc^2\sqrt{1-\frac{v^2}{c^2}}
 +e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
 -e\phi \left(\mathbf{x},t\right)
-\end{equation}</p>
-<p>Here, $\mathbf{x}$ is the position and the velocity is $\mathbf{v}=\dot{\mathbf{x}} =d\mathbf{x}/dt$. The vector potential $\mathbf{A}$ and scalar potential $\phi$ is the function of the position and time.  The fields is calculated as:</p>
-<p>\begin{align}
+\end{equation}<p>Here, $\mathbf{x}$ is the position and the velocity is $\mathbf{v}=\dot{\mathbf{x}} =d\mathbf{x}/dt$. The vector potential $\mathbf{A}$ and scalar potential $\phi$ is the function of the position and time.  The fields is calculated as:</p>
+\begin{align}
 \mathbf{E}&amp;=-\nabla\phi-\frac{\partial\mathbf{A}}{\partial t}\\
 \mathbf{B}&amp;=\nabla\times\mathbf{A}
-\end{align}</p>
-
+\end{align}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The equation of motion can be derived from the equation</p>
-<p>\begin{equation}
+\begin{equation}
 \frac{\partial L}{x_i}=\frac{d}{dt}\frac{\partial L}{\dot{x}_i}
-\end{equation}</p>
-<p>Using the Lagrangian above will get the EOM with Lorentz force.</p>
+\end{equation}<p>Using the Lagrangian above will get the EOM with Lorentz force.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We are interested in the generalized momentum $P_i$ of the $i^{th}$ coordinate $x_i$ which is given by:</p>
-<p>\begin{align}
+\begin{align}
 P_i&amp;=\frac{\partial L}{\partial \dot{x}_i} \nonumber\\
    &amp;=\frac{m\dot{x}_i}{\sqrt{1-\frac{v^2}{c^2}}}+eA_i \nonumber\\
    &amp;=p_i+eA_i
-\end{align}</p>
-<p>Here $p_i$ is the momentum of the particle.  The above components can be combined to get a vector form, $\mathbf{P}=\mathbf{p}+e\mathbf{A}$, between the generalized (or conjugate) momentum $\mathbf{P}$, the momentum $\mathbf{p}$ and the vector potential $\mathbf{A}$.</p>
+\end{align}<p>Here $p_i$ is the momentum of the particle.  The above components can be combined to get a vector form, $\mathbf{P}=\mathbf{p}+e\mathbf{A}$, between the generalized (or conjugate) momentum $\mathbf{P}$, the momentum $\mathbf{p}$ and the vector potential $\mathbf{A}$.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then the Hamiltonian is calculated as:</p>
-<p>\begin{align}
+\begin{align}
 H&amp;=\mathbf{v}\cdot\mathbf{P}-L \nonumber\\
 &amp;=\mathbf{v}\cdot\mathbf{p}+e\mathbf{v}\cdot\mathbf{A}+mc^2\sqrt{1-\frac{v^2}{c^2}}
     -e\mathbf{v}\cdot \mathbf{A}\left(\mathbf{x},t\right)
@@ -12185,126 +13447,106 @@ H&amp;=\mathbf{v}\cdot\mathbf{P}-L \nonumber\\
 &amp;=\gamma m v^2 +mc^2\sqrt{1-\frac{v^2}{c^2}}+e\phi \left(\mathbf{x},t\right) \nonumber\\
 &amp;=(\gamma\beta^2+1/\gamma)mc^2+e\phi \left(\mathbf{x},t\right) \nonumber\\
 &amp;=\gamma mc^2 +e\phi \left(\mathbf{x},t\right)
-\end{align}</p>
-<p>With no surprise, the Hamiltonian reflects the total energy of the particle and the potential energy in the E-M field. For further analysis, we express the Hamiltonian as function of the conjugate variable pair:</p>
-<p>\begin{align}
+\end{align}<p>With no surprise, the Hamiltonian reflects the total energy of the particle and the potential energy in the E-M field. For further analysis, we express the Hamiltonian as function of the conjugate variable pair:</p>
+\begin{align}
 H(\mathbf{x},\mathbf{p})&amp;=H\left(x_1,\cdots,x_n, P_1,\cdots,P_n, t\right)\\
 &amp;=\sqrt{\left(m c^2\right)^2
 +\left(\mathbf{P}-e\mathbf{A}\left(\mathbf{x},t\right)\right)^2c^2}
 +e\phi\left(\mathbf{x},t\right)
-\end{align}</p>
-<p>Later we will use a series of canonical transformations to change the coordinates and independent variable.  A generating function is handy to create the canonical transformations from old coordinate $(q,p)$ to a new set (Q,P). There are four types of generating functions:
+\end{align}<p>Later we will use a series of canonical transformations to change the coordinates and independent variable.  A generating function is handy to create the canonical transformations from old coordinate $(q,p)$ to a new set (Q,P). There are four types of generating functions:
 <img src=generating_function.png width=220 style="float: right;margin: 20px 20px 20px 20px;" ></p>
-<p>\begin{align}
+\begin{align}
 F_1=F_1(\mathbf{q},\mathbf{Q},t)\quad &amp;  \mathbf{p}=\frac{\partial F_1}{\partial \mathbf{q}}; \mathbf{P}=-\frac{\partial F_1}{\partial \mathbf{Q}}\\
 F_2=F_2(\mathbf{q},\mathbf{P},t)\quad &amp; \mathbf{p}=\frac{\partial F_2}{\partial \mathbf{q}}; \mathbf{Q}=\frac{\partial F_2}{\partial \mathbf{P}}\\
 F_3=F_3(\mathbf{p},\mathbf{Q},t)\quad &amp; \mathbf{q}=-\frac{\partial F_3}{\partial \mathbf{p}}; \mathbf{P}=-\frac{\partial F_3}{\partial \mathbf{Q}}\\
 F_4=F_4(\mathbf{p},\mathbf{P},t)\quad &amp; \mathbf{q}=-\frac{\partial F_4}{\partial \mathbf{P}}; \mathbf{Q}=\frac{\partial F_4}{\partial \mathbf{P}}
-\end{align}</p>
-<p>The right figure shows a way to remember the relative relations of the generating functions.  The new Hamiltonian $K(Q,P,t)$ is calculated by:</p>
-<p>\begin{align}
+\end{align}<p>The right figure shows a way to remember the relative relations of the generating functions.  The new Hamiltonian $K(Q,P,t)$ is calculated by:</p>
+\begin{align}
 K(\mathbf{Q},\mathbf{P},t)=H\left(\mathbf{q}(\mathbf{Q},\mathbf{P}),\mathbf{p}(\mathbf{Q},\mathbf{P})\right)+\frac{\partial F}{\partial t}
-\end{align}</p>
-
+\end{align}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Transformation-to-Frenet-Serret-coordinate-system">Transformation to Frenet-Serret coordinate system<a class="anchor-link" href="#Transformation-to-Frenet-Serret-coordinate-system">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first necessary transformation that we need to make is to change the coordinate system to the Frenet-Serret coordinate system, i.e. from Cartesian coordinate $\mathbf{r}=x\hat{x}+y\hat{y}+z\hat{z}$ to $\mathbf{r}=\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)$.<br>
 We use the generating function of the $3^{rd}$ type to perform this transformation:</p>
-<p>\begin{equation}
+\begin{equation}
 F_3=-\mathbf{P}\cdot\left(\mathbf{r}_0(s)+x\hat{x}(s)+y\hat{y}(s)\right)
-\end{equation}</p>
-<p>The new conjugate momentum, $\boldsymbol{\Pi}$ can be calculated as:</p>
-<p>\begin{align}
+\end{equation}<p>The new conjugate momentum, $\boldsymbol{\Pi}$ can be calculated as:</p>
+\begin{align}
 \Pi_x&amp;=-\frac{\partial F_3}{\partial x}=\mathbf{P}\cdot\hat{x}\\
 \Pi_y&amp;=-\frac{\partial F_3}{\partial y}=\mathbf{P}\cdot\hat{y}\\
 \Pi_s&amp;=-\frac{\partial F_3}{\partial s}=\mathbf{P}\cdot\hat{s}\left(1+\frac{x}{\rho}\right)\\
-\end{align}</p>
-<p>Therefore, in the Frenet-Serret coordinate system:</p>
-<p>\begin{equation}
+\end{align}<p>Therefore, in the Frenet-Serret coordinate system:</p>
+\begin{equation}
 H=c\sqrt{
 \left(m c\right)^2
 +\left(\Pi_x-eA_x\right)^2+\left(\Pi_y-eA_y\right)^2
 +\left(\frac{\Pi_s}{1+x/\rho}-eA_s\right)^2
 } +e\phi
-\end{equation}</p>
-<p>The vector potential now also take its components from the Frenet-Serret coordinate system as $A_x=\mathbf{A}\cdot\hat{x}$, $A_y=\mathbf{A}\cdot\hat{y}$ and $A_s=\mathbf{A}\cdot\hat{s}$.  Sometimes, the longitudinal component of the vector potential also can be define as $A_s=\mathbf{A}\cdot \frac{\partial \mathbf{r}}{\partial s}= (1+x/\rho) \mathbf{A}\cdot\hat{s}$, which will <strong>NOT</strong> be used in the latter contents.</p>
+\end{equation}<p>The vector potential now also take its components from the Frenet-Serret coordinate system as $A_x=\mathbf{A}\cdot\hat{x}$, $A_y=\mathbf{A}\cdot\hat{y}$ and $A_s=\mathbf{A}\cdot\hat{s}$.  Sometimes, the longitudinal component of the vector potential also can be define as $A_s=\mathbf{A}\cdot \frac{\partial \mathbf{r}}{\partial s}= (1+x/\rho) \mathbf{A}\cdot\hat{s}$, which will <strong>NOT</strong> be used in the latter contents.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Use-$s$-as-independent-variable">Use $s$ as independent variable<a class="anchor-link" href="#Use-$s$-as-independent-variable">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, we need charge the independent coordinate from time to '$s$', the position on the reference orbit. The Hamiltonian above is function of $(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)$ and the Hamiltonian equation are:</p>
-<p>\begin{align}
+\begin{align}
 \frac{\partial H}{\partial x}&amp;=-\dot{\Pi}_x &amp; \frac{\partial H}{\partial \Pi_x}&amp;=\dot{x} \\
 \frac{\partial H}{\partial y}&amp;=-\dot{\Pi}_y &amp; \frac{\partial H}{\partial \Pi_y}&amp;=\dot{y} \\
 \frac{\partial H}{\partial s}&amp;=-\dot{\Pi}_s &amp; \frac{\partial H}{\partial \Pi_s}&amp;=\dot{s}
-\end{align}</p>
-<p>To change the independent coordinate to $s$, we first look at the derivative:</p>
-<p>\begin{equation}
+\end{align}<p>To change the independent coordinate to $s$, we first look at the derivative:</p>
+\begin{equation}
 x^\prime\equiv\frac{dx}{ds}=\frac{dx}{dt}\left(\frac{ds}{dt}\right)^{-1}
 =\frac{\partial H}{\partial \Pi_x}\left(\frac{\partial H}{\partial \Pi_s}\right)^{-1}
-\end{equation}</p>
-<p>Using the differential chain rule of the implicit equation $H(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)-f(t)=0$, we have:</p>
-<p>\begin{equation}
+\end{equation}<p>Using the differential chain rule of the implicit equation $H(x,\Pi_x, y, \Pi_y, s, \Pi_s,t)-f(t)=0$, we have:</p>
+\begin{equation}
 x^\prime\equiv\frac{dx}{ds}=-\frac{\partial \Pi_s}{\partial \Pi_x}
-\end{equation}</p>
-<p>Use the similar trick, we will find that</p>
-<p>\begin{align}
+\end{equation}<p>Use the similar trick, we will find that</p>
+\begin{align}
 {\Pi_x}^\prime&amp;\equiv\frac{d\Pi_x}{ds}=\frac{\partial \Pi_s}{\partial x}\\
 y^\prime&amp;\equiv\frac{dy}{ds}=-\frac{\partial \Pi_s}{\partial \Pi_y}\\
 {\Pi_y}^\prime&amp;\equiv\frac{d\Pi_y}{ds}=\frac{\partial \Pi_s}{\partial y}\\
-\end{align}</p>
-<p>We also find the other two relationship easily:</p>
-<p>\begin{equation}
+\end{align}<p>We also find the other two relationship easily:</p>
+\begin{equation}
 t^\prime\equiv\frac{dt}{ds}=\left(\frac{\partial H}{\partial \Pi_s}\right)^{-1}=\frac{\partial \Pi_s}{\partial H}
-\end{equation}</p>
-<p>\begin{equation}
+\end{equation}\begin{equation}
 H^\prime\equiv\frac{dH}{ds}=-\frac{\partial \Pi_s}{\partial t}
-\end{equation}</p>
-<p>Therefore we can choose the new Hamiltonian $K=-\Pi_s(x,\Pi_x, y, \Pi_y, H, t,s)$, which will satisfy the Hamiltonian relation.  However, it is awkward to set $H$ as the 'coordinate' and $t$ as 'general momentum'.  To fix this, we can set the conjugate pair as $(t,-H)$.  Therefore the new Hamiltonian reads:</p>
-<p>\begin{align}
+\end{equation}<p>Therefore we can choose the new Hamiltonian $K=-\Pi_s(x,\Pi_x, y, \Pi_y, H, t,s)$, which will satisfy the Hamiltonian relation.  However, it is awkward to set $H$ as the 'coordinate' and $t$ as 'general momentum'.  To fix this, we can set the conjugate pair as $(t,-H)$.  Therefore the new Hamiltonian reads:</p>
+\begin{align}
 K\left(x,\Pi_x, y, \Pi_y, t, -H,s\right) = -\Pi_s \nonumber\\
 =-\left(1+\frac{x}{\rho}\right)\sqrt{\left(\frac{H-e\phi}{c}\right)^2-(mc)^2-\left(\Pi_x-eA_x\right)^2-\left(\Pi_y-eA_y\right)^2}\nonumber\\-eA_s\left(1+\frac{x}{\rho}\right)
-\end{align}</p>
-
+\end{align}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Simplifications-of-Hamiltonian">Simplifications of Hamiltonian<a class="anchor-link" href="#Simplifications-of-Hamiltonian">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Since the new Hamiltonian has a very complicated form, we will use the following simplifications.</p>
 <ul>
@@ -12314,51 +13556,44 @@ K\left(x,\Pi_x, y, \Pi_y, t, -H,s\right) = -\Pi_s \nonumber\\
 <li><p>Third, Let's define a reference momentum of the particle $p_0$, and each particle will have a deviation from the reference, $p=p_0(1+\delta)$.  $\delta$ is called fractional momentum deviation. We scale the Hamiltonian $K$ by factor of $p_0$ and get new $\tilde{K}$.</p>
 </li>
 </ul>
-<p>\begin{equation}
+\begin{equation}
 \frac{K}{p_0}
 \equiv\tilde{K}\left(x, \tilde{p_x}=\frac{p_x}{p_0}, y, \tilde{p_y}=\frac{p_y}{p_0}, t,-h=\frac{-H}{p_0}\right)=\\
 -\left(1+\frac{x}{\rho}\right)
 \sqrt{\left(\frac{h}{c}\right)^2-\left(\frac{mc^2}{p_0}\right)^2-\tilde{p_x}^2-\tilde{p_y}^2}
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
-\end{equation}</p>
-<ul>
+\end{equation}<ul>
 <li>Last, we will make a canonical transformation from the pair $(t, -h)$ to $(z,\delta)$ with generating function $F_2=f(\delta)t$ and </li>
 </ul>
-<p>\begin{equation}
+\begin{equation}
 -h=\frac{\partial F_2}{\partial t}=f(\delta)
-\end{equation}
-The new coordinate $z$ is calculated as</p>
-<p>\begin{align}
+\end{equation}<p>The new coordinate $z$ is calculated as</p>
+\begin{align}
 z&amp;=\frac{\partial F_2}{\partial \delta} \nonumber \\
 &amp;=\left(-\sqrt{c^2(1+\delta)^2+m^2c^4}\right)'t\nonumber \\
 &amp;=-\beta ct
-\end{align}
-the Hamiltonian becomes:</p>
-<p>\begin{equation}
+\end{align}<p>the Hamiltonian becomes:</p>
+\begin{equation}
 \tilde{K}\left(x, \tilde{p_x}, y, \tilde{p_y}, z=-\beta ct, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-\tilde{p_x}^2-\tilde{p_y}^2} 
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
-\end{equation}</p>
-<p>The new longitudinal coordinate $z$ has the meaning: the distance of the particle travels at current speed.</p>
+\end{equation}<p>The new longitudinal coordinate $z$ has the meaning: the distance of the particle travels at current speed.</p>
 <p>For later convenience, we remove the tilde of the above Hamiltonian and it looks like:</p>
-<p>\begin{equation}
+\begin{equation}
 K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1+\delta)^2-p_x^2-p_y^2} 
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)\label{eq:Hamiltonian_popular_form}
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Further-assumptions">Further assumptions<a class="anchor-link" href="#Further-assumptions">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The above Hamiltonian can be consider as exact in most accelerator cases.  Next, we will make assumptions and expand the Hamiltonian up to 2nd order.  The assumptions includes:</p>
 <ul>
@@ -12366,144 +13601,123 @@ K\left(x, p_x, y, p_y, z, \delta,s\right)=-\left(1+\frac{x}{\rho}\right)\sqrt{(1
 <li>Paraxial approximation, the longitudinal momentum is close to the reference momentum and $p_x,p_y \ll 1$</li>
 </ul>
 <p>Then we can expand the Hamiltonian up to 2nd order in $p_x$ and $p_y$ and have:</p>
-<p>\begin{align}
+\begin{align}
 K\left(x, p_x, y, p_y, z, \delta,s\right)&amp;=-(1+\delta)\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2(1+\delta)^2}-\frac{p_y^2}{2(1+\delta)^2}\right)
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)   \nonumber\\
 &amp;=-\left(1+\frac{x}{\rho}\right)\left(1+\delta-\frac{p_x^2}{2(1+\delta)}-\frac{p_y^2}{2(1+\delta)}\right)
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)
-\end{align}</p>
-<p>Recall that 
+\end{align}<p>Recall that 
 $$p_x=\frac{\mathbf{p}\cdot\hat{x}}{p_0} \;;\; p_y=\frac{\mathbf{p}\cdot\hat{y}}{p_0}$$</p>
 <p>is different from the orbit slope:</p>
-<p>\begin{equation}
+\begin{equation}
 x^\prime\equiv\frac{dx}{ds}=\frac{\mathbf{p}\cdot\hat{x}}{p_s}\sim\frac{\mathbf{p}\cdot\hat{x}}{p_0(1+\delta)}=\frac{p_x}{1+\delta}
-\end{equation}</p>
-<p>\begin{equation}
+\end{equation}\begin{equation}
 y^\prime\equiv\frac{dy}{ds}=\frac{\mathbf{p}\cdot\hat{y}}{p_s}\sim\frac{\mathbf{p}\cdot\hat{y}}{p_0(1+\delta)}=\frac{p_y}{1+\delta}
-\end{equation}</p>
-<p>Therefore, we only consider the transverse motion without energy dependence, the slope $x^\prime$ and $y^\prime$ can be used as conjugate momentum in paraxial approximation.  Otherwise using the slope instead of $p_x$ and $p_y$ will violate Hamiltonian dynamics.</p>
+\end{equation}<p>Therefore, we only consider the transverse motion without energy dependence, the slope $x^\prime$ and $y^\prime$ can be used as conjugate momentum in paraxial approximation.  Otherwise using the slope instead of $p_x$ and $p_y$ will violate Hamiltonian dynamics.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In 4-Dimensional motion for particle with reference momentum, the Hamiltonian is</p>
-<p>\begin{equation}
+\begin{equation}
 K\left(x, p_x, y, p_y,s\right)=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
 -e\frac{A_s}{p_0}\left(1+\frac{x}{\rho}\right)   
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Vector-potentials-for-linear-elements">Vector potentials for linear elements<a class="anchor-link" href="#Vector-potentials-for-linear-elements">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, its time to consider the real form for the vector potential $A_s$.  We will limit our discussion within linear regime.</p>
 <p>For a main dipole, where the reference orbit bend inside with radius $\rho$ or its reciprocal, curvature $\kappa=1/\rho$, we need to find $A_s$ to get vertical magnetic field $\mathbf{B}=B_0(s)\hat{y}$ in the Frenet-Serret coordinate system:</p>
-<p>\begin{equation}
+\begin{equation}
 B_0(s)=-\frac{1}{1+\kappa x}\frac{\partial\left((1+\kappa x)A_s\right)}{\partial x}
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It seems exact solution for this differential equation doesnot exist.  However, with the assumption of $\left|x\right|\kappa \ll 1$, we can get approximation of $A_s$ up to second order.  Let's assume $A_s=-B_0(s)(a x + bx^2)$.  Then we get:</p>
-<p>\begin{equation}
+\begin{equation}
 1+\kappa x=\frac{\partial\left((1+\kappa x)(ax+bx^2)\right)}{\partial x}
-\end{equation}</p>
-<p>By solve the index of the $0^{th}$ and $1^{th}$ terms, we get $a=1$ and $b=-\kappa/2$.   Therefore in a constant field main dipole:</p>
-<p>\begin{equation}
+\end{equation}<p>By solve the index of the $0^{th}$ and $1^{th}$ terms, we get $a=1$ and $b=-\kappa/2$.   Therefore in a constant field main dipole:</p>
+\begin{equation}
 A_{s,d}\approx-B_0\left(x - \frac{x^2}{2\rho}\right)
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For quadrupole, the radius is infinity.  The vector potential will be the same as its form in a Cartesian coordinate.  From the Beth's representation:</p>
-<p>\begin{equation}
+\begin{equation}
 A_{s,q}=-B_0 b_1(s) \left(x^2-y^2\right)/2=-G(s)\left(x^2-y^2\right)/2
-\end{equation}</p>
-<p>Here $G(s)$ is the field gradient in unit of [Tesla/m].</p>
+\end{equation}<p>Here $G(s)$ is the field gradient in unit of [Tesla/m].</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We get the Hamiltonian and truncate down to second order, and recall that the rigidity $B_0 \rho=p_0/e$:</p>
-<p>\begin{align}
+\begin{align}
 K\left(x, p_x, y, p_y,s\right)&amp;=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
 +\frac{eB_0}{p_0}\left(1+\frac{x}{\rho}\right)\left(x-\frac{x^2}{2\rho}\right)\nonumber\\
 +\frac{eB_0b_1}{2p_0}\left(x^2-y^2\right) \nonumber\\
 &amp;=-\left(1+\frac{x}{\rho}\right)\left(1-\frac{p_x^2}{2}-\frac{p_y^2}{2}\right)
 +\frac{1}{\rho}\left(1+\frac{x}{\rho}\right)\left(x-\frac{x^2}{2\rho}\right)+\frac{G(s)}{2B_0\rho}\left(x^2-y^2\right) \nonumber\\
 &amp;\approx -1+\frac{p_x^2}{2}+\frac{p_y^2}{2}+\frac{x^2}{2\rho^2}+k(s)\left(x^2-y^2\right)/2
-\end{align}</p>
-<p>Here we use normalized quadrupole strength $k(s)=G(s)/B_0\rho$.  It is the most useful quantity in the simulation to characterize the strength of a quadrupole.</p>
+\end{align}<p>Here we use normalized quadrupole strength $k(s)=G(s)/B_0\rho$.  It is the most useful quantity in the simulation to characterize the strength of a quadrupole.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the approximate Hamiltonian of dipole and normal quadrupole, we can first ignore the constant, then split it in to two separate Hamiltonian, one for each transverse direction.
 $$K\left(x, p_x, y, p_y,s\right)=K_x\left(x, p_x,s\right)+K_y\left( y, p_y,s\right)$$
 This indicate that the motion of two directions are de-coupled and can be treat separately.</p>
-<p>\begin{align}
+\begin{align}
 K_x\left(x,p_x,s\right)&amp;=\frac{p_x^2}{2}+\frac{x^2}{2\rho^2}+\frac{k(s)x^2}{2} \\
 K_y\left(y,p_y,s\right)&amp;=\frac{p_y^2}{2}-\frac{k(s)y^2}{2}
-\end{align}</p>
-<p>The equations of motion can be found from Hamiltonian equation:</p>
-<p>\begin{align}
+\end{align}<p>The equations of motion can be found from Hamiltonian equation:</p>
+\begin{align}
 &amp; x''+\left(\frac{1}{\rho^2}+k(s)\right)x=0 \\
 &amp; y''-k(s)y=0
-\end{align}</p>
-<p>We returned to the Hill's equation including both the main dipole and quadrupole in the Frenet-Serret coordinate system.</p>
+\end{align}<p>We returned to the Hill's equation including both the main dipole and quadrupole in the Frenet-Serret coordinate system.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Combine the effect of dipole and quad, there is an chance to have focusing effect in both plane:</p>
-<p>\begin{align}
+\begin{align}
 -\frac{1}{\rho^2}&lt;k(s)&lt;0
-\end{align}</p>
-<p>If a machine can have this condition through out, the motion of both transverse plane will be stable.  This is called <strong>weak focusing</strong>.</p>
+\end{align}<p>If a machine can have this condition through out, the motion of both transverse plane will be stable.  This is called <strong>weak focusing</strong>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Transfer-Matrix-for-Linear-Elements">Transfer Matrix for Linear Elements<a class="anchor-link" href="#Transfer-Matrix-for-Linear-Elements">&#182;</a></h2><p>It is convenient to write the solution of the Hill's equation using matrix form.  Such matrix is named betatron transfer matrix.  The motion in each transverse direction can be described by $2\times 2$ matrix.</p>
 
@@ -12511,23 +13725,20 @@ K_y\left(y,p_y,s\right)&amp;=\frac{p_y^2}{2}-\frac{k(s)y^2}{2}
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Drift-space">Drift space<a class="anchor-link" href="#Drift-space">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The EOM for drift space is simply $x''=0$ and $y''=0$.  Using horizontal direction as instance, if the initial condition at the starting point $s_0$ are $x(s=s_0)=x_0$ and $x'(s=s_0)={x_0'}$.  The solution is:</p>
-<p>\begin{equation}
+\begin{equation}
 x(s=s_0+l)=x_0+x'_0l
-\end{equation}
-Or in matrix form</p>
-<p>\begin{equation}
+\end{equation}<p>Or in matrix form</p>
+\begin{equation}
 \left(\begin{array}{c}
 x\\
 x'
@@ -12538,32 +13749,28 @@ x'
 x\\
 x
 \end{array}\right)_{s=s_0}
-\end{equation}</p>
-<p>We write the transfer matrix for drift space as:</p>
-<p>\begin{equation}M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
+\end{equation}<p>We write the transfer matrix for drift space as:</p>
+\begin{equation}M\left(s_0+s,s_0\right)=\left(\begin{array}{cc}
 1 &amp; s\\
 0 &amp; 1
 \end{array}\right)
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Dipole-(main)">Dipole (main)<a class="anchor-link" href="#Dipole-(main)">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For the dipole that bend the beam with the radius $\rho$ in horizontal plane, the $x$ direction follows an EOM as a harmonic oscillator, while in $y$ direction, the motion is just as in a drift space.</p>
 <p>The matrix form in the dipole can be easily get as:</p>
-<p>\begin{equation}
+\begin{equation}
 \left(\begin{array}{c}
 x\\
 x'
@@ -12574,39 +13781,34 @@ x'
 x\\
 x
 \end{array}\right)_{s=s_0}
-\end{equation}</p>
-<p>The transfer matrix for dipole in horizontal space is:</p>
-<p>\begin{equation}
+\end{equation}<p>The transfer matrix for dipole in horizontal space is:</p>
+\begin{equation}
 M\left(s_0+l,s_0\right)=\left(\begin{array}{cc}
 \cos\left(\frac{l}{\rho}\right) &amp; \rho\sin\left(\frac{l}{\rho}\right)\\
 -\frac{1}{\rho}\sin\left(\frac{l}{\rho}\right) &amp; \cos\left(\frac{l}{\rho}\right)
 \end{array}\right)
-\end{equation}</p>
-<p>In a small angle approximation $l/\rho \ll1$, we can expand the matrix up to first order of $l/\rho$.  The matrix reduce to a drift space:</p>
-<p>\begin{equation}
+\end{equation}<p>In a small angle approximation $l/\rho \ll1$, we can expand the matrix up to first order of $l/\rho$.  The matrix reduce to a drift space:</p>
+\begin{equation}
 M\left(s_0+l,s_0\right)=\left(\begin{array}{cc}
 1 &amp; l\\
 0 &amp; 1
 \end{array}\right)
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Quadrupole-(Normal)">Quadrupole (Normal)<a class="anchor-link" href="#Quadrupole-(Normal)">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the example before, we already derived the solution for particle in the quadrupole.  It can be rewritten in the matrix form as</p>
-<p>\begin{equation}
+\begin{equation}
 M\left(s_0+s,s_0\right)=
 \begin{cases}
 \left(\begin{array}{cc}
@@ -12619,21 +13821,18 @@ M\left(s_0+s,s_0\right)=
 \sqrt{k}\sinh\left(\sqrt{k}s\right) &amp; \cosh\left(\sqrt{k}s\right)
 \end{array}\right)&amp;k&lt;0, \text{Defocusing Quad}\\
 \end{cases}
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Usually, the quadrupole has short length and strong field gradient. We may model such short quad as a 'lens with zero length', and define the focal length $f$ as:</p>
-<p>\begin{equation}
+\begin{equation}
 f=\lim_{l\to 0}\frac{1}{|k|l}
-\end{equation}</p>
-<p>In such limit the transfer map for a thin-length quad is</p>
-<p>\begin{equation}
+\end{equation}<p>In such limit the transfer map for a thin-length quad is</p>
+\begin{equation}
 M_{\text{quad}}=
 \begin{cases}
 \left(\begin{array}{cc}
@@ -12646,87 +13845,74 @@ M_{\text{quad}}=
 1/f &amp; 1
 \end{array}\right)&amp; \text{Defocusing Quad}\\
 \end{cases}
-\end{equation}</p>
-
+\end{equation}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Chain-of-linear-elements">Chain of linear elements<a class="anchor-link" href="#Chain-of-linear-elements">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=chain_of_elements.png width=400>
 In accelerators, we have chain of magnets, as illustrated above.  Each magnet has a transfer matrix, the transfer matrix for the chain can be found by matrix multiplications:</p>
-<p>\begin{equation}
+\begin{equation}
 M\left(s_n,s_0\right)=M\left(s_n,s_{n-1}\right)\cdots M\left(s_2,s_1\right)M\left(s_1,s_0\right)
-\end{equation}</p>
-<p>Note that the order of the multiplication is the reverse order of the placement of the magnet.</p>
+\end{equation}<p>Note that the order of the multiplication is the reverse order of the placement of the magnet.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Properties-of-the-betatron-transfer-matrix">Properties of the betatron transfer matrix<a class="anchor-link" href="#Properties-of-the-betatron-transfer-matrix">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Symplectic-condition">Symplectic condition<a class="anchor-link" href="#Symplectic-condition">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's return to the most general form of the matrix $M$:</p>
-<p>\begin{equation}
+\begin{equation}
 M(s)=\left(\begin{array}{cc}
 a(s) &amp; b(s)\\
 c(s) &amp; d(s)
 \end{array}\right)
-\end{equation}</p>
-<p>The matrix represent the solution:</p>
-<p>\begin{align}
+\end{equation}<p>The matrix represent the solution:</p>
+\begin{align}
 x(s)&amp;=x_0a(s)+x'_0b(s)\\
 x'(s)&amp;=x_0c(s)+x'_0d(s)
-\end{align}</p>
-<p>that satisfy the Hill's equation with general focusing term $K(s)$:</p>
-<p>\begin{equation}
+\end{align}<p>that satisfy the Hill's equation with general focusing term $K(s)$:</p>
+\begin{equation}
 x''+K(s)x=0
-\end{equation}</p>
-<p>It can be constructed from the Hamiltonian, which reads:</p>
-<p>\begin{equation}
+\end{equation}<p>It can be constructed from the Hamiltonian, which reads:</p>
+\begin{equation}
 H(x,x')=x'^2+K(s)x^2
-\end{equation}</p>
-<p>The implicit requirement raised from fact that the system is described by a Hamiltonian is called <strong><em>symplecticity</em></strong>.  The symplectic property for a 1-D system is the simplest case.
+\end{equation}<p>The implicit requirement raised from fact that the system is described by a Hamiltonian is called <strong><em>symplecticity</em></strong>.  The symplectic property for a 1-D system is the simplest case.
 To review this property, we use the concept of Wronskian of differential equation.  For 1-D second order ODE, there aways exist 2 independent solution.  We name it $x_1(s)$ and $x_2(s)$. 
 Wronskian is defined as:</p>
-<p>\begin{equation}
+\begin{equation}
 W\equiv x_1x'_2-x_2x'_1
-\end{equation}
-And</p>
-<p>\begin{align}
+\end{equation}<p>And</p>
+\begin{align}
 \frac{dW}{ds}&amp;=x'_1x'_2+x_1x''_2-x'_2x'_1-x_2x''_1  \nonumber\\
 &amp;=-K(s)x_1x_2+K(s)x_2x_1 \nonumber\\
 &amp;=0
-\end{align}</p>
-<p>Therefore Wronskian is the constant of motion and not zero(the two solution are indepedent).  Then from the map:</p>
-<p>\begin{equation}
+\end{align}<p>Therefore Wronskian is the constant of motion and not zero(the two solution are indepedent).  Then from the map:</p>
+\begin{equation}
 \left(\begin{array}{cc}
 x_{1} &amp; x_{2}\\
 x'_{1} &amp; x'_{2}
@@ -12737,8 +13923,7 @@ c(s) &amp; d(s)
 x_{1} &amp; x_{2}\\
 x'_{1} &amp; x'_{2}
 \end{array}\right)_{s=s_{0}}
-\end{equation}</p>
-<p>Take the determinant on both sides, we have 
+\end{equation}<p>Take the determinant on both sides, we have 
 $$W(s_0+s)=det(M(s_0+s,s_0))W(s)$$</p>
 <p>Since $W(s)$ is constant of motion, therefore <strong><em>the determinant of transfer matrix is always 1</em></strong>.  This is a sufficient and necessary condition of symplecticity for 1-D system.  We will learn later, in multi-dimension problem, this is still a necessary condition but not sufficient anymore.</p>
 
@@ -12746,61 +13931,53 @@ $$W(s_0+s)=det(M(s_0+s,s_0))W(s)$$</p>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Long-term-stability-condition">Long-term stability condition<a class="anchor-link" href="#Long-term-stability-condition">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The symplecticity ensures the area phase space is constant.  However, in most times, we have stronger requirements for a repeating chain of elements.</p>
 <p>In accelerator, the beam usually will pass through a chain of elements (called cell) many times.  A long lattice usually consist of repeating cells.  In a ring accelerator, the particle will travels through the lattice billions of turns.  If the transfer matrix for one cell is $M$, we are interested in the behavior of repeating $k$ cells
 $$M_{total}=M\cdot M\cdots M\cdot M=M^k$$
 where k is a very large integer or infinity.</p>
 <p>To avoid the either $x$ or $x'$ to be very large (or infinity) after k cells. We required that the absolute value of the eigenvalues of $M$ is no larger than 1.  The eigenvalue is found by:</p>
-<p>\begin{equation}
+\begin{equation}
 \left|\begin{array}{cc}
 \lambda-a &amp; -b\\
 -c &amp; \lambda-d
 \end{array}\right|=0
-\end{equation}</p>
-<p>or</p>
-<p>\begin{equation}
+\end{equation}<p>or</p>
+\begin{equation}
 \lambda^2-(a+d)\lambda+1=0
-\end{equation}</p>
-<p>To satisfy $|\lambda|\le 1$, we require</p>
-<p>\begin{equation}
+\end{equation}<p>To satisfy $|\lambda|\le 1$, we require</p>
+\begin{equation}
 \left|Tr(M)\right|=\left|a+d\right|\le 2
-\end{equation}
-This is the stable condition for one cell in periodical structure.</p>
+\end{equation}<p>This is the stable condition for one cell in periodical structure.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Revisit,-the-'weak-focusing'">Revisit, the 'weak focusing'<a class="anchor-link" href="#Revisit,-the-'weak-focusing'">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's write the matrix term for the weak focusing.  The weak focusing satisfy:</p>
-<p>\begin{align}
+\begin{align}
 x''+k_x(s)x&amp;=0 \\
 y''+k_y(s)y&amp;=0
-\end{align}</p>
-<p>Here, $k_x(s)$ and $k_y(s)$ are piece wise constant and always positive, and $k_x(s)+k_y(s)=1/\rho ^2$.</p>
+\end{align}<p>Here, $k_x(s)$ and $k_y(s)$ are piece wise constant and always positive, and $k_x(s)+k_y(s)=1/\rho ^2$.</p>
 <p>Each constant focusing piece, we have:</p>
-<p>\begin{align}
+\begin{align}
 M_x\left(s_0+s,s_0\right)
 &amp;=\left(\begin{array}{cc}
 \cos\left(\sqrt{k_x}s\right) &amp; \sin\left(\sqrt{k_x}s\right)/\sqrt{k_x}\\
@@ -12811,19 +13988,17 @@ M_y\left(s_0+s,s_0\right)
 \cos\left(\sqrt{k_y}s\right) &amp; \sin\left(\sqrt{k_y}s\right)/\sqrt{k_y}\\
 -\sqrt{k_y}\sin\left(\sqrt{k_y}s\right) &amp; \cos\left(\sqrt{k_y}s\right)
 \end{array}\right)
-\end{align}</p>
-<p>The matrix indicates that except a scaling factor, the transfer matrix is just a rotation of the phase space.  If we define $P_x=x'/\sqrt{k_x}$ and $P_y=y'/\sqrt{k_y}$, the transfer matrix for $(x,P_x)$, $(y,P_y)$ are just rotation matrix with angle $\sqrt{k_{x/y}}s$ respectively.  Then we call the angle <strong>betatron phase advance</strong>.</p>
+\end{align}<p>The matrix indicates that except a scaling factor, the transfer matrix is just a rotation of the phase space.  If we define $P_x=x'/\sqrt{k_x}$ and $P_y=y'/\sqrt{k_y}$, the transfer matrix for $(x,P_x)$, $(y,P_y)$ are just rotation matrix with angle $\sqrt{k_{x/y}}s$ respectively.  Then we call the angle <strong>betatron phase advance</strong>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=weak_focusing.png width=200>
 If we have an entire ring, made of weak focusing structure as shown above, the matrix for entire ring gives:</p>
-<p>\begin{align}
+\begin{align}
 M_x\left(s_0+C,s_0\right)
 &amp;=\left(\begin{array}{cc}
 \cos\left(\sqrt{k_x}2\pi\rho\right) &amp; \sin\left(\sqrt{k_x}2\pi\rho\right)/\sqrt{k_x}\\
@@ -12834,27 +14009,23 @@ M_y\left(s_0+C,s_0\right)
 \cos\left(\sqrt{k_y}2\pi\rho\right) &amp; \sin\left(\sqrt{k_y}2\pi\rho\right)/\sqrt{k_y}\\
 -\sqrt{k_y}\sin\left(\sqrt{k_y}2\pi\rho\right) &amp; \cos\left(\sqrt{k_y}2\pi\rho\right)
 \end{array}\right)
-\end{align}</p>
-<p>It means, after one turn the phase advance of the two transverse plane is just $2\pi\sqrt{k_{x/y}}\rho$.  We define the transverse tune $\nu_{x/y}$ is the one turn phase advance in unit of $2\pi$.  Therefore:</p>
-<p>\begin{align}
+\end{align}<p>It means, after one turn the phase advance of the two transverse plane is just $2\pi\sqrt{k_{x/y}}\rho$.  We define the transverse tune $\nu_{x/y}$ is the one turn phase advance in unit of $2\pi$.  Therefore:</p>
+\begin{align}
 \nu_x&amp;=\sqrt{k_{x}}\rho=\sqrt{1+\rho^2 k}\\
 \nu_y&amp;=\sqrt{k_{y}}\rho=\sqrt{-k}\rho
-\end{align}</p>
-<p>Therefore for continuous weak-focusing ring, we always have:</p>
-<p>\begin{align}
+\end{align}<p>Therefore for continuous weak-focusing ring, we always have:</p>
+\begin{align}
 \nu_x^2+\nu_y^2=1
-\end{align}</p>
-
+\end{align}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src=weak_focusing_drift.png width=200>
 We may also look at the weak focusing ring is made of several sections with small drift space $L$ in between.  The segment matrix is represented as:</p>
-<p>\begin{align}
+\begin{align}
 M_{x,seg}
 &amp;=\left(\begin{array}{cc}
 1 &amp; L/2\\
@@ -12868,8 +14039,7 @@ M_{x,seg}
 1 &amp; L/2\\
 0 &amp; 1
 \end{array}\right)\\
-\end{align}</p>
-
+\end{align}
 </div>
 </div>
 </div>
@@ -12882,7 +14052,7 @@ M_{x,seg}
 <span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12903,7 +14073,7 @@ M_{x,seg}
 <span class="n">mat_seg</span>
 </pre></div>
 
-</div>
+    </div>
 </div>
 </div>
 
@@ -12913,7 +14083,7 @@ M_{x,seg}
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[2]:</div>
 
 
 
@@ -12929,29 +14099,25 @@ $$\left[\begin{matrix}- \frac{L \sqrt{k_x}}{2} \sin{\left (\sqrt{k_x} s \right )
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>When $L\sqrt{k_x}\ll1$, the diagnal terms can be written as:</p>
-<p>\begin{align}
+\begin{align}
 M_{11}=M_{22}
 &amp;=\cos\left(\sqrt{k_x}s + \Delta\phi\right)\nonumber\\
 &amp;\approx\cos\left(\sqrt{k_x}\rho\theta +L\sqrt{k_x}/2\right)
-\end{align}</p>
-<p>where $\Delta \phi=\arcsin(L\sqrt{k_x}/2)$.  Here we ignore any terms beyond $L^2 k(x)$.  And we know that $L^2 k(x) \le L^2/\rho^2$</p>
+\end{align}<p>where $\Delta \phi=\arcsin(L\sqrt{k_x}/2)$.  Here we ignore any terms beyond $L^2 k(x)$.  And we know that $L^2 k(x) \le L^2/\rho^2$</p>
 <p>Therefore for one turn, which has $N$ such segments, the phase advance is :</p>
-<p>\begin{align}
+\begin{align}
 \phi(L)&amp;=N\left(\sqrt{k_x}\rho \frac{2\pi}{N} +L\sqrt{k_x}/2\right)\nonumber\\
 &amp;\approx 2\pi\rho\sqrt{k_x}\left(1+\frac{NL}{4\pi\rho}\right)\nonumber\\
 &amp;=\phi(L=0)\left(1+\frac{NL}{4\pi\rho}\right)
-\end{align}</p>
-
+\end{align}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>And the scaling factor for change the $(x,x')$ to $(x,P_x)$ also  changes by an extra factor $\left(1+\frac{NL}{4\pi\rho}\right)$.</p>
 
@@ -12959,13 +14125,25 @@ M_{11}=M_{22}
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
+</div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The weak-focusing scheme has large limitation since the bending gradient has to be continuous.  Later on the theory of strong focusing enables smaller beam size.</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
