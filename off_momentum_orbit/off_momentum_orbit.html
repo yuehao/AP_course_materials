@@ -13807,6 +13807,82 @@ C&amp;=\oint\left(1+\frac{x}{\rho}\right) ds \nonumber\\
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dispersion-Measurement-in-Ring">Dispersion Measurement in Ring<a class="anchor-link" href="#Dispersion-Measurement-in-Ring">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In a ring, changing the RF cavity produce more complicate behavior than in a linac.  We will introduce that in the longitudinal dynamics section.  However, the change of the beam energy is linked with the time-of-flight and the revolution frequency by phase-slip factor.</p>
+\begin{equation}
+\frac{\Delta f}{f_0}=-\frac{\Delta T}{T_0}=-\eta \delta
+\end{equation}<p>Therefore, the dispersion can be found from the slope of the closed orbit as function of the revolution frequency:</p>
+\begin{equation}
+D=\frac{\Delta x_{co}}{\delta}=-\eta f_0\frac{\Delta x_{co}}{\Delta f} 
+\end{equation}<p>The following example (from "Accelerator Physics" by Prof. S.Y.Lee) shows the measurement data of IUCF cooler ring.  The top figure is the closed orbit as function of the revolution frequency at one BPM.  The bottom figure is the dispersion function at BPMs using the slope of the top figure of each BPM.
+<img src="dispersion_measurement.png" alt="Dispersion measurement in ring"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Transition-Energy-Crossing">Transition Energy Crossing<a class="anchor-link" href="#Transition-Energy-Crossing">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In a medium energy synchrotron, there are many harmful beam dynamics problems when crossing the transition energy ($\gamma=\gamma_T$),viz the machine becomes isochronous.  In this section, we briefly introduce the scheme to avoid the harmful effect.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="$\gamma_T$-jump">$\gamma_T$ jump<a class="anchor-link" href="#$\gamma_T$-jump">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One idea of avoiding the harmful effect of crossing transition energy is to cross the transition energy fast, using a set of pulsed power quadrupoles (named $\gamma_T$ quad). These quads, after turned on, can change the momentum compaction factor quick enough the decrease the $\gamma_T$ almost 'suddenly'.</p>
+<p>These quads has to be placed in dispersive area, where the kick to the off-momentum particle by the ith quad is</p>
+\begin{equation}
+\Delta \theta_i= K_i \tilde{D}_i\delta
+\end{equation}<p>The quad will change the dispersion function over the ring and disturb the dispersion at the location from $D_i$ to $\tilde{D}_i$</p>
+<p>Then the momentum compaction change will be:</p>
+\begin{equation}
+\Delta \alpha_c= \frac{\sum_i D_i \Delta \theta_i }{C_0\delta}
+=\frac{1}{C_0}\sum_i K_i \tilde{D}_i D_i
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Flexible-momentum-compaction-(FMC)-lattice">Flexible momentum compaction (FMC) lattice<a class="anchor-link" href="#Flexible-momentum-compaction-(FMC)-lattice">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another choice is to have zero or even negative momentum compaction factor $\alpha_c$. From the definition of $\alpha_c$, we have to design a lattice with negative dispersion at dipoles.  That is turned out to be possible.  One example is shown below, which is a cell for an ERL recently. The dispersion is design to have positive and negative numbers and the integrals in the</p>
+<p><img src="fmc_lattice.png" alt="FMC lattice"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="6-D-phase-space">6-D phase space<a class="anchor-link" href="#6-D-phase-space">&#182;</a></h2>
 </div>
 </div>
@@ -13879,82 +13955,6 @@ R_{33} &amp; R_{34}\\
 R_{43} &amp; R_{44}
 \end{array}\right)
 \end{align}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Dispersion-Measurement-in-Ring">Dispersion Measurement in Ring<a class="anchor-link" href="#Dispersion-Measurement-in-Ring">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In a ring, changing the RF cavity produce more complicate behavior than in a linac.  We will introduce that in the longitudinal dynamics section.  However, the change of the beam energy is linked with the time-of-flight and the revolution frequency by phase-slip factor.</p>
-\begin{equation}
-\frac{\Delta f}{f_0}=-\frac{\Delta T}{T_0}=-\eta \delta
-\end{equation}<p>Therefore, the dispersion can be found from the slope of the closed orbit as function of the revolution frequency:</p>
-\begin{equation}
-D=\frac{\Delta x_{co}}{\delta}=-\eta f_0\frac{\Delta x_{co}}{\Delta f} 
-\end{equation}<p>The following example (from "Accelerator Physics" by Prof. S.Y.Lee) shows the measurement data of IUCF cooler ring.  The top figure is the closed orbit as function of the revolution frequency at one BPM.  The bottom figure is the dispersion function at BPMs using the slope of the top figure of each BPM.
-<img src="dispersion_measurement.png" alt="Dispersion measurement in ring"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Transition-Energy-Crossing">Transition Energy Crossing<a class="anchor-link" href="#Transition-Energy-Crossing">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In a medium energy synchrotron, there are many harmful beam dynamics problems when crossing the transition energy ($\gamma=\gamma_T$),viz the machine becomes isochronous.  In this section, we briefly introduce the scheme to avoid the harmful effect.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="$\gamma_T$-jump">$\gamma_T$ jump<a class="anchor-link" href="#$\gamma_T$-jump">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>One idea of avoiding the harmful effect of crossing transition energy is to cross the transition energy fast, using a set of pulsed power quadrupoles (named $\gamma_T$ quad). These quads, after turned on, can change the momentum compaction factor quick enough the decrease the $\gamma_T$ almost 'suddenly'.</p>
-<p>These quads has to be placed in dispersive area, where the kick to the off-momentum particle by the ith quad is</p>
-\begin{equation}
-\Delta \theta_i= K_i \tilde{D}_i\delta
-\end{equation}<p>The quad will change the dispersion function over the ring and disturb the dispersion at the location from $D_i$ to $\tilde{D}_i$</p>
-<p>Then the momentum compaction change will be:</p>
-\begin{equation}
-\Delta \alpha_c= \frac{\sum_i D_i \Delta \theta_i }{C_0\delta}
-=\frac{1}{C_0}\sum_i K_i \tilde{D}_i D_i
-\end{equation}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Flexible-momentum-compaction-(FMC)-lattice">Flexible momentum compaction (FMC) lattice<a class="anchor-link" href="#Flexible-momentum-compaction-(FMC)-lattice">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Another choice is to have zero or even negative momentum compaction factor $\alpha_c$. From the definition of $\alpha_c$, we have to design a lattice with negative dispersion at dipoles.  That is turned out to be possible.  One example is shown below, which is a cell for an ERL recently. The dispersion is design to have positive and negative numbers and the integrals in the</p>
-<p><img src="fmc_lattice.png" alt="FMC lattice"></p>
-
 </div>
 </div>
 </div>

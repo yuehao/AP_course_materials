@@ -13157,7 +13157,7 @@ $( document ).ready(function(){
 
   
         // toc2
-        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": "block", "toc_window_display": false};
+        var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": false, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "653.333px", "left": "1413px", "top": "88.3229px", "width": "364.26px"}, "toc_section_display": true, "toc_window_display": true};
         // fire the main function with these parameters
         require(['nbextensions/toc2/toc2'], function (toc2) {
             toc2.table_of_contents(cfg);
@@ -13769,8 +13769,8 @@ $$</p>
 \phi_{n+1}&amp;=\phi_{n} + 2\pi h \eta  \delta_{n+1}
 \end{align}<p>We convert them to differential equations as:</p>
 \begin{align}
-\dot\delta&amp;=\frac{eV\omega_0}{2\pi\beta^2E_0}\left(\sin\phi-\sin\phi_s\right)\\
-\dot\phi&amp;=h\omega_0\eta\delta
+\dot\delta&amp;=\frac{eV\omega_0}{2\pi\beta^2E_0}\left(\sin\phi-\sin\phi_s\right) \label{eq:longi_H_eq_1} \\
+\dot\phi&amp;=h\omega_0\eta\delta  \label{eq:longi_H_eq_2}
 \end{align}<p>where $\omega_0$ is the revolution frequency.  Combine the two equations, we get the second order differential equation:</p>
 \begin{align}
 \ddot\phi=\frac{eVh\eta\omega_0^2}{2\pi\beta^2E_0}\left(\sin\phi-\sin\phi_s\right)
@@ -14164,7 +14164,7 @@ T&amp;=\frac{2\pi}{\omega}=2\pi\left(\frac{dJ}{dH_0}\right) \\
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%HTML</span>
@@ -14209,6 +14209,106 @@ T&amp;=\frac{2\pi}{\omega}=2\pi\left(\frac{dJ}{dH_0}\right) \\
 <video width="320" height="240" controls>
   <source src="slim_small.mp4" type="video/mp4">
 </video>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Near-Transition-Energy">Near Transition Energy<a class="anchor-link" href="#Near-Transition-Energy">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If the transition energy is reached during the acceleration process of synchrotron, the dynamics at the vicinity of transition energy can be detailed.  Suppose the acceleration rate is $\dot{\gamma}$ and passing the transition energy $\gamma_T$ at $t=0$, so that $\gamma(t)=\gamma_T+\dot{\gamma}t$.  So the phase slip factor is</p>
+\begin{align}
+\eta(t)&amp;=\alpha_c-\frac{1}{\gamma^2(t)}\\
+&amp;=\alpha_c-\frac{1}{\gamma_T^2}\left(1-\frac{2\dot\gamma t}{\gamma_T}+\mathcal{O}\left(\left(\frac{\dot\gamma t}{\gamma_T}\right)^2\right)\right)\\
+&amp;\approx \frac{2\dot\gamma t}{\gamma_T^3}
+\end{align}<p>Here the time range is required to have $t \ll \gamma_T/\dot{\dot{\gamma}}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Recall that the synchrotron tune for small amplitude oscillation is:</p>
+\begin{equation}
+Q_s=\frac{\omega_s}{\omega_0}=\sqrt{\frac{-eVh\eta\cos\phi_s}{2\pi\beta^2E_0}}
+\end{equation}<p>Near transision, the relation beomes:</p>
+\begin{equation}\label{eq:transition_freq}
+Q_s^2=\frac{\omega_s^2}{\omega_0^2}=\frac{-eVh \dot\gamma t \cos\phi_s}{\pi\gamma_T^4\beta^2 m c^2}\equiv \frac{1}{\omega_0^2 \tau_{ad}^3} t
+\end{equation}<p>where $\tau_{ad}$ is parameter defined to charecterize the time that the tune change due to acceleration.  We can check if the synchrotron tune $Q_s$ or frequency $\omega_s$ is change adiabatically, i.e. $\frac{1}{2\pi}\left|dT_s/dt\right| \ll 1$ where $T_s=2\pi/\omega_s$.  Therefore the adabatic condition reads:
+$$
+\frac{1}{\omega_s^2}\left|\frac{d\omega_s}{dt}\right| \ll 1
+$$</p>
+<p>with Eq.$\ref{eq:transition_freq}$, it becomes</p>
+$$
+4 \frac{\left|t\right|^3}{\tau_{ad}^3} \gg 1
+$$<p>or
+$$
+\left|t\right| \gg 0.25^{1/3}\tau_{ad}
+$$
+we can consider the system is adiabatic. The typical $\tau_{ad}$ value is milliseconds.</p>
+<p>Under the small angle approximation, The Hamiltonian equation $\ref{eq:longi_H_eq_1}$ and $\ref{eq:longi_H_eq_2}$ near transition energy become:</p>
+\begin{align}
+\dot\delta&amp;=\frac{eV\omega_0}{2\pi\beta^2E_0}\cos\phi_s \Delta \phi \label{eq:longi_H_eq_tran_eng_1} \\
+\dot{\Delta\phi}&amp;=\frac{2h\omega_0\dot\gamma t}{\gamma_T^3}\delta  \label{eq:longi_H_eq_tran_eng_2}
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then, the second order ODE for $\delta$ and $\Delta\phi$ can be written as:</p>
+\begin{align}
+&amp;\ddot\delta+\frac{t}{\tau_{ad}^3}\delta =0\\
+&amp;\frac{d}{dt}\left(\frac{\tau_{ad}^3}{t}\frac{d\Delta\phi}{dt}\right)+\Delta\phi=0
+\end{align}<p>The solution of equation for $\delta$ is Airy functions, while the solution of $\Delta\phi$ is Bessel function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sym</span>
+<span class="n">sym</span><span class="o">.</span><span class="n">init_printing</span><span class="p">()</span>
+<span class="n">tau</span><span class="o">=</span><span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\tau&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">delta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\delta \phi&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">sym</span><span class="o">.</span><span class="n">Function</span><span class="p">)</span>
+<span class="n">sym</span><span class="o">.</span><span class="n">dsolve</span><span class="p">(</span><span class="n">delta</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">t</span><span class="o">*</span><span class="n">delta</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">tau</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">delta</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle \delta{\left(t \right)} = C_{1} Ai\left(t \sqrt[3]{- \frac{1}{\tau^{3}}}\right) + C_{2} Bi\left(t \sqrt[3]{- \frac{1}{\tau^{3}}}\right)$
 </div>
 
 </div>
@@ -14219,13 +14319,33 @@ T&amp;=\frac{2\pi}{\omega}=2\pi\left(\frac{dJ}{dH_0}\right) \\
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sym</span><span class="o">.</span><span class="n">dsolve</span><span class="p">((</span><span class="n">tau</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">phi</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">phi</span><span class="p">(</span><span class="n">t</span><span class="p">),</span><span class="n">phi</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[21]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle \phi{\left(t \right)} = t \left(C_{1} J_{\frac{2}{3}}\left(\frac{2 t^{\frac{3}{2}}}{3 \tau^{\frac{3}{2}}}\right) + C_{2} Y_{\frac{2}{3}}\left(\frac{2 t^{\frac{3}{2}}}{3 \tau^{\frac{3}{2}}}\right)\right)$
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -14233,7 +14353,7 @@ T&amp;=\frac{2\pi}{\omega}=2\pi\left(\frac{dJ}{dH_0}\right) \\
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Dynamics-in-a-Linac-Accelerator">Dynamics in a Linac Accelerator<a class="anchor-link" href="#Dynamics-in-a-Linac-Accelerator">&#182;</a></h2>
+<h3 id="Connection-to-Linac-Accelerator">Connection to Linac Accelerator<a class="anchor-link" href="#Connection-to-Linac-Accelerator">&#182;</a></h3>
 </div>
 </div>
 </div>
