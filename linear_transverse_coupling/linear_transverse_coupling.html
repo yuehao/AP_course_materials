@@ -13183,6 +13183,13 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Elements-that-induce-coupling">Elements that induce coupling<a class="anchor-link" href="#Elements-that-induce-coupling">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Both Skew quadrupole and solenoid bring linear coupling to the two transverse plane. Solenoid is wildly used in low energy injector while skew quadrupole is used for high energy applications.</p>
 
 </div>
@@ -13191,7 +13198,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hamiltonian-with-skew-quadrupole-error">Hamiltonian with skew quadrupole error<a class="anchor-link" href="#Hamiltonian-with-skew-quadrupole-error">&#182;</a></h2>
+<h3 id="Skew-quadrupole-error">Skew quadrupole error<a class="anchor-link" href="#Skew-quadrupole-error">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13207,7 +13214,7 @@ $( document ).ready(function(){
 \end{align}<p>The corresponding Hamiltonian becomes:</p>
 \begin{align}
 H=\frac{p_x^2}{2}+\frac{p_y^2}{2}+\left(\frac{1}{2\rho^2}+\frac{k(s)}{2} \right) x^2-\frac{k(s)}{2}y^2 - \frac{B_0 a_1}{B\rho} xy
-\end{align}<p>For positive charge particles, the Hills equation becomes:</p>
+\end{align}<p>The Hills equation becomes:</p>
 \begin{align}\label{eq:HillEqSQ}
 x''+\left(\frac{1}{\rho^2}+k(s)\right)x&amp;= \frac{B_0 \Delta a_1}{B\rho} y \equiv k_s y\\
 y''-k(s)y&amp;=\frac{B_0 \Delta a_1}{B\rho}x \equiv k_s x
@@ -13221,6 +13228,9 @@ y''-k(s)y&amp;=\frac{B_0 \Delta a_1}{B\rho}x \equiv k_s x
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Inside the skew quad, where the normal quad and dipole terms vanish, the diffential equation becomes:</p>
 \begin{align}
+x''&amp;=k_s y\\
+y''&amp;=k_s x
+\end{align}\begin{align}
 u''&amp;=x''+y''=k_s(x+y)=k_su\\
 v''&amp;=x''-y''=k_s(y-x)=-k_sv
 \end{align}<p>In a thin length approximation $$f_s=\lim_{l\to 0}\frac{1}{k_s l}$$
@@ -13236,17 +13246,68 @@ M_{sq}=\left[\begin{array}{cccc}
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.quantum</span> <span class="kn">import</span> <span class="n">TensorProduct</span>
+<span class="n">fs</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;f_s&quot;</span><span class="p">)</span>
+<span class="n">Msq</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Msq</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">;</span> <span class="n">Msq</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">fs</span>
+
+<span class="n">rotang</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\theta&quot;</span><span class="p">)</span>
+<span class="n">rot2d</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rotang</span><span class="p">),</span> <span class="o">-</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rotang</span><span class="p">)],[</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rotang</span><span class="p">),</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rotang</span><span class="p">)]])</span>
+<span class="n">rot4d</span><span class="o">=</span><span class="n">TensorProduct</span><span class="p">(</span><span class="n">rot2d</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rotMsq</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">rot4d</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rotang</span><span class="p">,</span> <span class="o">-</span><span class="n">rotang</span><span class="p">)</span><span class="o">*</span><span class="n">Msq</span><span class="o">*</span><span class="n">rot4d</span><span class="p">)</span>
+<span class="n">rotMsq</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rotang</span><span class="p">,</span> <span class="o">-</span><span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[57]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle \left[\begin{matrix}1 & 0 & 0 & 0\\- \frac{1}{f_{s}} & 1 & 0 & 0\\0 & 0 & 1 & 0\\0 & 0 & \frac{1}{f_{s}} & 1\end{matrix}\right]$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hamiltonian-with-Solenoid">Hamiltonian with Solenoid<a class="anchor-link" href="#Hamiltonian-with-Solenoid">&#182;</a></h2>
+<h3 id="Solenoid">Solenoid<a class="anchor-link" href="#Solenoid">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For a solenoid error $B_z$ along the z direction, the treatment has to be modified.  For the hard edge model of a solenoid of length $L$, centered at $s_0$:</p>
+<p>For a solenoid error $B_z$ along the z direction, the treatment for transverse fields has to be modified.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For the hard edge model of a solenoid of length $L$, centered at $s_0$:</p>
 \begin{align}
 B_{z}(s)&amp;=\begin{cases}
 B_{0} &amp; \left|s-s_{0}\right|\le L/2\\
@@ -13304,9 +13365,9 @@ w''(s)&amp;= i\tilde{w}(s)e^{i\theta(s)}\theta ''(s)- \tilde{w}(s)e^{i\theta(s)}
 \frac{dw'}{ds}&amp;=-2ig(s)w'-ig'(s)w \\
 &amp;=-2ig(s)\left(i\tilde{w}(s)e^{i\theta(s)}\theta '(s)+\tilde{w}'(s)e^{i\theta(s)}\right)-ig'(s)\tilde{w}(s)e^{i\theta(s)}\label{eq:form_2}
 \end{align}<p>With trying to match Eq. $\ref{eq:form_1}$ and Eq. $\ref{eq:form_2}$, we can propose $\theta(s)=-\int_{-\infty}^s g(s')ds'$ .  Eq. $\ref{eq:form_1}$ and Eq. $\ref{eq:form_2}$ requires:</p>
-\begin{align}
--i\tilde{w}(s)e^{i\theta(s)}g'(s)- \tilde{w}(s)e^{i\theta(s)}g^2(s)-2i \tilde{w}'(s)e^{i\theta(s)}g(s)+\tilde{w}''(s)e^{i\theta(s)} = -2ig(s)\left(-i\tilde{w}(s)e^{i\theta(s)}g(s)+\tilde{w}'(s)e^{i\theta(s)}\right)-ig'(s)\tilde{w}(s)e^{i\theta(s)}
-\end{align}<p>which can be simplified to</p>
+\begin{aligned}
+-i\tilde{w}(s)e^{i\theta(s)}g'(s)- &amp;\tilde{w}(s)e^{i\theta(s)}g^2(s)-2i \tilde{w}'(s)e^{i\theta(s)}g(s)+\tilde{w}''(s)e^{i\theta(s)} = \\&amp;-2ig(s)\left(-i\tilde{w}(s)e^{i\theta(s)}g(s)+\tilde{w}'(s)e^{i\theta(s)}\right)-ig'(s)\tilde{w}(s)e^{i\theta(s)}
+\end{aligned}<p>which can be simplified to</p>
 \begin{align}
 \tilde{w}''(s)+g^2(s)\tilde{w}(s)=0
 \end{align}
@@ -13325,6 +13386,13 @@ w''(s)&amp;= i\tilde{w}(s)e^{i\theta(s)}\theta ''(s)- \tilde{w}(s)e^{i\theta(s)}
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Linear-Coupling-Resonance-In-a-Ring">Linear Coupling Resonance In a Ring<a class="anchor-link" href="#Linear-Coupling-Resonance-In-a-Ring">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Hamiltonian-approach">Hamiltonian approach<a class="anchor-link" href="#Hamiltonian-approach">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13481,10 +13549,10 @@ V_{lc}(\theta)=\sqrt{J_x J_y}\sum_l \left(G_{1,-1,l}e^{-i\left(\phi_x-\phi_y-l\t
 
 
 
-<div id="587d2e3a-d8bd-4840-a957-bdb337550cc8"></div>
+<div id="4f32d0f6-1f8c-4695-a736-a34a90646082"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#587d2e3a-d8bd-4840-a957-bdb337550cc8');
+var element = $('#4f32d0f6-1f8c-4695-a736-a34a90646082');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -14506,10 +14574,10 @@ if (IPython.notebook.kernel !== null) {
 
 
 
-<div id="3f755b4a-e207-4cc8-b41e-90fce95ad4e8"></div>
+<div id="c6207909-0d62-40dd-9e55-50e08266480e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3f755b4a-e207-4cc8-b41e-90fce95ad4e8');
+var element = $('#c6207909-0d62-40dd-9e55-50e08266480e');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -15517,6 +15585,431 @@ if (IPython.notebook.kernel !== null) {
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Matrix-approach,-Edward-Teng-Parametrization">Matrix approach, Edward-Teng Parametrization<a class="anchor-link" href="#Matrix-approach,-Edward-Teng-Parametrization">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All the linear elements, dipole, quads, skew quads and solinoids can be represented by the matrix and the one turn matrix can be found by multiplying them in order.  The final one-turn matrix should have a general $4\times 4$ matrix in the block matrix form:</p>
+\begin{equation}
+M=\left(\begin{array}{cc}
+A &amp; B\\
+C &amp; D
+\end{array}\right)
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The symplectic matrix M has 10 free parameters since the symplectic condition provides 6 constrains which can be written as:</p>
+\begin{align}
+\det A  = \det D &amp;\equiv a  \label{symplectic4_det1}\\
+\det B = \det C &amp;\equiv b   \label{symplectic4_det2}\\
+a+b&amp;=1   \label{symplectic4_det3}
+\end{align}<p>and</p>
+\begin{align}
+\bar{A}B+\bar{C}D=0 \label{symplectic4_cross1}\\
+A\bar{C}+B\bar{D}=0 \label{symplectic4_cross2}
+\end{align}<p>Here the notation $\bar{A}$ of matrix $A$ is the symplectic conjugate $-SAS$.</p>
+<p>There are multiple ways to analyze the one-turn matrix. Among them, the Edward-Teng parametrization provides a clear physical interpretation. In this approach, a similarity transformation found from couple Matrix $M$ to an uncoupled matrix:</p>
+\begin{equation}
+U\left(\begin{array}{cc}
+A &amp; B\\
+C &amp; D
+\end{array}\right)U^{-1}=
+\left(\begin{array}{cc}
+M_x &amp; 0\\
+0 &amp; M_y
+\end{array}\right) \label{similarity_transformation}
+\end{equation}<p>where $U$ is a symplectic matrix.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Out of the 10 free parameter in coupled matrix $M$, the decoupled matrix $M_x$ and $M_y$ contributes 6 free parameter, therefore the simplest form of transformation $U$ need to have 4 free parameters.  Let $U$ have the following form:</p>
+\begin{equation}
+U=\left(\begin{array}{cc}
+\alpha I &amp; -\bar{R}\\
+R &amp; \alpha I
+\end{array}\right)
+\end{equation}<p>where a real positive parameter $\alpha$ and a matrix $R$ is to be determined. This form satisfies the relation $\ref{symplectic4_det1}$, $\ref{symplectic4_det2}$, $\ref{symplectic4_cross1}$ and $\ref{symplectic4_cross2}$  automatically. The constrain $\ref{symplectic4_det3}$ requires</p>
+\begin{equation}
+\alpha^2+\det R=1 \label{r_determinant_1}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Therefore, the relation \ref{similarity_transformation} yields:</p>
+\begin{equation}
+\left(\begin{matrix}\alpha^{2} M_{x} + \bar{R} M_{y} R &amp; - \alpha M_{x} \bar{R} + \alpha \bar{R} M_{y}\\- \alpha R M_{x} + \alpha M_{y} R &amp; \alpha^{2} M_{y} + R M_{x} \bar{R}\end{matrix}\right) =\left(\begin{array}{cc}
+A &amp; B\\
+C &amp; D
+\end{array}\right)
+\end{equation}<p>From the relation for $B$ and $C$, we reach:</p>
+\begin{equation}
+BR=\bar{R}C \label{EDTeng1}
+\end{equation}<p>On the other hand, the uncoupled matrix $M_x$ can be calculated from the relation of $A$ and $C$, while $M_y$ can be calculated from the relation of $B$ and $D$:</p>
+\begin{align}
+M_x&amp;=A-\frac{1}{\alpha}\bar{R}C=A-\frac{1}{\alpha}BR \\
+M_y&amp;=D+\frac{1}{\alpha}RB
+\end{align}<p>Then back to the relation of $A$ and $D$ and using $BR=\bar{R}C$, we have</p>
+\begin{equation}
+\alpha\left(RA-DR\right) = \left(1-2\alpha^2\right)C \label{EDTeng2}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> 
+<span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">alpha</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\alpha&quot;</span><span class="p">)</span>
+<span class="n">a</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mx</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;M_x&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">my</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;M_y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">r</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">rc</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\bar</span><span class="si">{R}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">s_2</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;S_2&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">zero</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">ZeroMatrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">identity</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Mcouple</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">BlockMatrix</span><span class="p">([[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]])</span>
+<span class="n">Mdecouple</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">BlockMatrix</span><span class="p">([[</span><span class="n">mx</span><span class="p">,</span><span class="n">zero</span><span class="p">],[</span><span class="n">zero</span><span class="p">,</span><span class="n">my</span><span class="p">]])</span>
+<span class="c1">#sympy.block_collapse(M*ss*M.T)</span>
+<span class="n">U</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">BlockMatrix</span><span class="p">([[</span><span class="n">alpha</span><span class="o">*</span><span class="n">identity</span><span class="p">,</span><span class="o">-</span><span class="n">rc</span><span class="p">],[</span><span class="n">r</span><span class="p">,</span><span class="n">alpha</span><span class="o">*</span><span class="n">identity</span><span class="p">]])</span>
+<span class="n">Uinv</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">BlockMatrix</span><span class="p">([[</span><span class="n">alpha</span><span class="o">*</span><span class="n">identity</span><span class="p">,</span><span class="n">rc</span><span class="p">],[</span><span class="o">-</span><span class="n">r</span><span class="p">,</span><span class="n">alpha</span><span class="o">*</span><span class="n">identity</span><span class="p">]])</span>
+<span class="n">sympy</span><span class="o">.</span><span class="n">block_collapse</span><span class="p">(</span><span class="n">Uinv</span><span class="o">*</span><span class="n">Mdecouple</span><span class="o">*</span><span class="n">U</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[14]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle \left[\begin{matrix}\alpha^{2} M_{x} + \bar{R} M_{y} R & - \alpha M_{x} \bar{R} + \alpha \bar{R} M_{y}\\- \alpha R M_{x} + \alpha M_{y} R & \alpha^{2} M_{y} + R M_{x} \bar{R}\end{matrix}\right]$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we have to guess the form of $R$.  Using the relation of the equal determinant of $B$ and $C$, a smart solution of $R$ can be:</p>
+\begin{equation}
+R=\kappa \left(\bar{B}+C\right) \label{solution_r}
+\end{equation}<p>where $\kappa$ is a real parameter to be determined. Here we have assumed $\bar{B}+C\ne0$, otherwise, $R$ becomes zero, which is not the desired solution when $B$ and $C$ are non zero.</p>
+<p>The relation $\ref{r_determinant_1}$ becomes:</p>
+\begin{equation}
+\alpha^2+\kappa^2\left(2\det B+\DeclareMathOperator{\Tr}{Tr} \Tr(BC)\right)=1 \label{alphakappa1}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The uncoupled matrix $M_x$ can be written as:</p>
+\begin{align}
+M_x&amp;= A-\frac{\kappa}{\alpha}\left(\left(\det B\right)I +BC\right)\\
+M_y&amp;= D+\frac{\kappa}{\alpha}\left(\left(\det B\right)I +CB\right)
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using the solution of $R$ (Eq. \ref{solution_r}), the equation Eq. \ref{EDTeng2} becomes:</p>
+\begin{equation}
+\alpha\kappa(\DeclareMathOperator{\Tr}{Tr} \Tr A-\Tr D)=1-2\alpha^2 \label{alphakappa2}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Combining Eq \ref{alphakappa1} and \ref{alphakappa2}, we can get the equation for the ratio $\kappa/\alpha$.  After defining two new parameters:</p>
+\begin{aligned}
+\lambda &amp;\equiv \DeclareMathOperator{\Tr}{Tr} (\Tr A-\Tr D)/2\\
+\xi&amp;\equiv 2\det B+\DeclareMathOperator{\Tr}{Tr} \Tr(BC)
+\end{aligned}<p>We can solve  $\kappa/\alpha$ from:</p>
+\begin{equation}
+\xi \left(\frac{\kappa}{\alpha}\right)^2 -2 \lambda\left(\frac{\kappa}{\alpha}\right)-1=0
+\end{equation}<p>To have a real solution, we demand $\Delta\equiv\lambda^2+\xi \ge 0$ and get the solution:</p>
+\begin{equation}
+\frac{\kappa}{\alpha}=\frac{\lambda\pm\sqrt{\Delta}}{\xi}
+\end{equation}<p>Both solutions are valid.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To ensure the coupled one-turn map is stable, we are interested in the trace of $M_x$ and $M_y$.</p>
+\begin{align}
+\DeclareMathOperator{\Tr}{Tr}
+\Tr M_x&amp;= (\Tr A + \Tr D)/2 \mp \sqrt{\Delta}\\
+\Tr M_y&amp;= (\Tr A + \Tr D)/2 \pm \sqrt{\Delta}
+\end{align}<p>Therefore we also get the stablity of 4D matrix in block form:</p>
+\begin{align}
+\left|\frac{\Tr A + \Tr D}{2} \pm \sqrt{\Delta}\right| \lt 2
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is a example using FODO cell, with one quad rotating clockwise while the other quad rotate counterclockwise by same angle.  Will the FODO lattice remain stable?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.quantum</span> <span class="kn">import</span> <span class="n">TensorProduct</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">smat</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">s2</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="n">dim</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">s2</span>
+    <span class="k">return</span> <span class="n">TensorProduct</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">dim</span><span class="o">//</span><span class="mi">2</span><span class="p">),</span> <span class="n">s2</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">quad4d</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">rotang</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">Mq</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+    <span class="n">Mq</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">f</span><span class="p">;</span> <span class="n">Mq</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mi">1</span><span class="o">/</span><span class="n">f</span>
+    <span class="n">Mq</span><span class="o">=</span><span class="n">Mq</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">fx</span><span class="p">)</span>
+    <span class="n">rang</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\theta&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rotang</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rot2d</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rang</span><span class="p">),</span> <span class="o">-</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rang</span><span class="p">)],[</span><span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rang</span><span class="p">),</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rang</span><span class="p">)]])</span>
+        <span class="n">rot4d</span><span class="o">=</span><span class="n">TensorProduct</span><span class="p">(</span><span class="n">rot2d</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">rot4d</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rang</span><span class="p">,</span> <span class="o">-</span><span class="n">rotang</span><span class="p">)</span><span class="o">*</span><span class="n">Mq</span><span class="o">*</span><span class="n">rot4d</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rang</span><span class="p">,</span> <span class="n">rotang</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">Mq</span>
+
+<span class="k">def</span> <span class="nf">drift4d</span><span class="p">(</span><span class="n">l_drift</span><span class="p">):</span>
+    <span class="n">Md</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>
+    <span class="n">Md</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">l</span><span class="p">;</span> <span class="n">Md</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="n">l</span>
+    <span class="k">return</span> <span class="n">Md</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">l_drift</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">symp_conj_2by2</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+                     <span class="p">])</span>
+<span class="k">def</span> <span class="nf">np_symp_conj_2by2</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+                     <span class="p">])</span>
+
+<span class="n">f</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+<span class="n">l</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">l</span>
+<span class="n">rotang</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">symbols</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\theta&quot;</span><span class="p">)</span>
+<span class="n">s4</span><span class="o">=</span><span class="n">smat</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">FODO_rot</span><span class="o">=</span><span class="p">(</span><span class="n">quad4d</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="o">+</span><span class="n">rotang</span><span class="p">)</span><span class="o">*</span><span class="n">drift4d</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">quad4d</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="o">-</span><span class="n">rotang</span><span class="p">)</span><span class="o">*</span><span class="n">drift4d</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">quad4d</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="o">+</span><span class="n">rotang</span><span class="p">))</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">FODO_rot</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rotang</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[18]:</div>
+
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$\displaystyle \left[\begin{matrix}\frac{7}{8} & 2 l & 0 & - \frac{l}{2}\\- \frac{1}{8 l} & \frac{7}{8} & - \frac{1}{32 l} & 0\\0 & - \frac{l}{2} & \frac{7}{8} & 2 l\\- \frac{1}{32 l} & 0 & - \frac{1}{8 l} & \frac{7}{8}\end{matrix}\right]$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="n">FODO_rot</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">C</span><span class="o">=</span><span class="n">FODO_rot</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">B</span><span class="o">=</span><span class="n">FODO_rot</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">:]</span>
+<span class="n">D</span><span class="o">=</span><span class="n">FODO_rot</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span><span class="mi">2</span><span class="p">:]</span>
+
+
+<span class="n">bbarc</span><span class="o">=</span><span class="n">symp_conj_2by2</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="o">+</span><span class="n">C</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">bbarc</span><span class="p">))</span>
+
+<span class="n">xi</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">B</span><span class="o">.</span><span class="n">det</span><span class="p">()</span><span class="o">+</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">B</span><span class="o">*</span><span class="n">C</span><span class="p">))</span>
+<span class="n">lbd</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">((</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">-</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">D</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">delta</span><span class="o">=</span><span class="p">(</span><span class="n">lbd</span><span class="o">*</span><span class="n">lbd</span><span class="o">+</span><span class="n">xi</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
+
+<span class="n">k_ov_alpha</span><span class="o">=</span><span class="p">(</span><span class="n">lbd</span><span class="o">-</span><span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span><span class="o">/</span><span class="n">xi</span>
+<span class="n">M_x</span><span class="o">=</span><span class="n">A</span><span class="o">-</span><span class="n">k_ov_alpha</span><span class="o">*</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">det</span><span class="p">()</span><span class="o">*</span><span class="n">sp</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">B</span><span class="o">*</span><span class="n">C</span><span class="p">)</span>
+
+
+<span class="c1">#FODOmap=np.array(FODO_rot.subs(rotang, -np.pi/50).subs(l,1).evalf(),dtype=np.float64)</span>
+<span class="c1">#A=FODOmap[0:2,0:2]</span>
+<span class="c1">#C=FODOmap[2:,0:2]</span>
+<span class="c1">#B=FODOmap[0:2,2:]</span>
+<span class="c1">#D=FODOmap[2:,2:]</span>
+<span class="n">trm1</span><span class="o">=</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">+</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">D</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="n">trm2</span><span class="o">=</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">+</span><span class="n">sp</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">D</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_latex output_subarea ">
+$\displaystyle \left[\begin{matrix}- \frac{\sin{\left(4 \theta \right)}}{4} & 0\\0 & \frac{\sin{\left(4 \theta \right)}}{4}\end{matrix}\right]$
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_latex output_subarea ">
+$\displaystyle \frac{\left(16 - \cos^{2}{\left(2 \theta \right)}\right) \sin^{2}{\left(2 \theta \right)}}{4}$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">ftrm1</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">lambdify</span><span class="p">(</span><span class="n">rotang</span><span class="p">,</span> <span class="n">trm1</span><span class="p">)</span>
+<span class="n">ftrm2</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">lambdify</span><span class="p">(</span><span class="n">rotang</span><span class="p">,</span> <span class="n">trm2</span><span class="p">)</span>
+
+<span class="n">ang</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">tracex</span><span class="o">=</span><span class="n">ftrm1</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span>
+<span class="n">tracey</span><span class="o">=</span><span class="n">ftrm2</span><span class="p">(</span><span class="n">ang</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ang</span><span class="p">,</span> <span class="n">tracex</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ang</span><span class="p">,</span> <span class="n">tracey</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.lines.Line2D at 0x7f9ee1729110&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">

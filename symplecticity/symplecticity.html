@@ -13190,6 +13190,13 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Hamiltonian-equation-in-matrix-form">Hamiltonian equation in matrix form<a class="anchor-link" href="#Hamiltonian-equation-in-matrix-form">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>For a N-dimensional Hamiltonian system ($\mathbf{x}^N, \mathbf{p}^N$), the N sets of Hamiltonian equation reads:</p>
 \begin{align}
 \frac{dx_i}{dt}&amp;=\frac{\partial H}{\partial p_i}\\
@@ -13211,17 +13218,55 @@ S_{1} &amp; 0 &amp; \cdots &amp; 0\\
 0 &amp; 1\\
 -1 &amp; 0
 \end{array}\right)
-\end{align}<p>Later on lets ignore the subscript.  We found that the following facts about S</p>
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Properties-of-S-matrix">Properties of S matrix<a class="anchor-link" href="#Properties-of-S-matrix">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We found that the following facts about $S$ matrix</p>
 <ul>
-<li>Determinant of S: </li>
+<li>Determinant of $S$: </li>
 </ul>
 \begin{equation}\left|S\right|=1\end{equation}<ul>
 <li>Inverse of $S$: 
-\begin{equation} S^{-1}=1 \text{ or } S^2 = -I\end{equation}</li>
+\begin{equation} S^{-1}=-S \text{ or } S^2 = -I\end{equation}</li>
 <li>The transpose of $S$: 
 \begin{equation}S^T=-S\end{equation}</li>
 </ul>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For arbitrary 2 by 2 matrix $A$ we may prove that:</p>
+\begin{equation}
+A^TS_1A=AS_1A^T=
+\left(\begin{array}{cc}
+0 &amp; \det A\\
+-\det A &amp; 0
+\end{array}\right)=S_1\det A
+\end{equation}<p>Or we may define a new matrix $\bar{A}=-S_1A^{T}S_1$ and yield:</p>
+\begin{equation}
+\bar{A}A=A\bar{A} = \det{A}
+\end{equation}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Symplectic-condition">Symplectic condition<a class="anchor-link" href="#Symplectic-condition">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13261,7 +13306,7 @@ M^TSM=S \label{eq:symplectic_form}
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Properties-of-symplectic-map">Properties of symplectic map<a class="anchor-link" href="#Properties-of-symplectic-map">&#182;</a></h3>
+<h4 id="Properties-of-symplectic-map">Properties of symplectic map<a class="anchor-link" href="#Properties-of-symplectic-map">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13272,7 +13317,6 @@ M^TSM=S \label{eq:symplectic_form}
 <ul>
 <li>If $M$ is symplectic, so does $M^T$ and $M^{-1}$.</li>
 <li>If $M$ and $N$ are symplectic, so does $MN$.</li>
-<li>If $\lambda$ is an eigenvalue of a symplectic matrix $M$, so does $1/\lambda$.</li>
 <li>The determinant of symplectic map is 1.</li>
 </ul>
 
@@ -13282,7 +13326,26 @@ M^TSM=S \label{eq:symplectic_form}
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Block-matrix-for-2-D-system">Block matrix for 2-D system<a class="anchor-link" href="#Block-matrix-for-2-D-system">&#182;</a></h3>
+<h3 id="Properties-of-symplectic-matrix">Properties of symplectic matrix<a class="anchor-link" href="#Properties-of-symplectic-matrix">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The symplectic matrix has the following properties from the symplectic condition:</p>
+<ul>
+<li>If $\lambda$ is an eigenvalue of a symplectic matrix $M$, so does $1/\lambda$.</li>
+<li>Every sympletic matrix has the inverse matrix: $M^{-1}=-SM^{T}S$</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Block-matrix-for-2-D-system">Block matrix for 2-D system<a class="anchor-link" href="#Block-matrix-for-2-D-system">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13291,82 +13354,62 @@ M^TSM=S \label{eq:symplectic_form}
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Consider a 4-D phase space transfer map:</p>
 \begin{equation}
-\left(\begin{array}{c}
-x\\
-p_{x}\\
-z\\
-\delta
-\end{array}\right)_{2}=\left(\begin{array}{cc}
-M_{1} &amp; U\\
-V &amp; M_{2}
-\end{array}\right)\left(\begin{array}{c}
-x\\
-p_{x}\\
-z\\
-\delta
-\end{array}\right)_{1}
-\end{equation}<p>The transfer map has to satisfy the symplectic condition, both $M^TSM=S$ and $MSM^T=S$:</p>
+\left(\begin{array}{cc}
+A &amp; B\\
+C &amp; D
+\end{array}\right)
+\end{equation}<p>The transfer map has to satisfy the symplectic condition, both $M^TSM=S$ and $MSM^T=S$.  For the first condition:</p>
 \begin{align}
 \left(\begin{array}{cc}
-M_{1} &amp; U\\
-V &amp; M_{2}
-\end{array}\right)^T
+A^T &amp; C^T\\
+B^T &amp; D^T
+\end{array}\right)
 \left(\begin{array}{cc}
 S_2 &amp; 0\\
 0 &amp; S_2
 \end{array}\right)
 \left(\begin{array}{cc}
-M_{1} &amp; U\\
-V &amp; M_{2}
+A &amp; B\\
+C &amp; D
 \end{array}\right)&amp;=
 \left(\begin{array}{cc}
 S_2 &amp; 0\\
 0 &amp; S_2
 \end{array}\right) \\
-\left(\begin{array}{cc}
-M_1^TS_2M_1+V^T S_2 V &amp; M_1^T S_2 U+V^T S_2 M_2\\
-U^T S_2 M_1 + M_2^T S_2 V &amp; M_2^TS_2M_2+U^TS_2 U
-\end{array}\right)&amp;=
+\left(\begin{matrix}A^{T} S_{2} A + C^{T} S_{2} C &amp; A^{T} S_{2} B + C^{T} S_{2} D\\
+B^{T} S_{2} A + D^{T} S_{2} C &amp; B^{T} S_{2} B + D^{T} S_{2} D\end{matrix}\right)&amp;=
 \left(\begin{array}{cc}
 S_2 &amp; 0\\
 0 &amp; S_2
 \end{array}\right)
 \end{align}<p>Therefore the following relation satisfy:</p>
 \begin{align}
-M_1^TS_2M_1+V^T S_2 V&amp;=M_2^TS_2M_2+U^TS_2 U=S_2\\
-M_1^T S_2 U+V^T S_2 M_2&amp;=U^T S_2 M_1 + M_2^T S_2 V=0 
+A^{T} S_{2} A + C^{T} S_{2} C&amp;=B^{T} S_{2} B + D^{T} S_{2} D=S_2 \label{Mmatdet}\\
+A^{T} S_{2} B + C^{T} S_{2} D&amp;=B^{T} S_{2} A + D^{T} S_{2} C=0 \label{Mmatzero}
 \end{align}<p>Change $M$ to $M^T$, we have</p>
 \begin{align}
-M_1 S_2 M_1^T+U S_2 U^T&amp;=M_2 S_2 M_2^T+VS_2 V^T=S_2\\
-M_2 S_2 U^T+V S_2 M_1^T&amp;=U S_2 M_2^T + M_1 S_2 V^T=0 
+A S_{2} A^{T} + B S_{2} B^{T}&amp;=C S_{2} C^{T} + D S_{2} D^{T}=S_2 \label{Mtmatdet}\\
+A S_{2} C^{T} + B S_{2} D^{T}&amp;=C S_{2} A^{T} + D S_{2} B^{T}=0 \label{Mtmatzero}
 \end{align}
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> 
 <span class="n">sympy</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">a</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;M_1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">b</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">c</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">d</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;M_2&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">a</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">s_2</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">MatrixSymbol</span><span class="p">(</span><span class="s1">&#39;S_2&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="c1">#s_2=sympy.Matrix([[0,1],[-1,0]])</span>
 <span class="n">zero</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">ZeroMatrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">M</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">BlockMatrix</span><span class="p">([[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]])</span>
 <span class="n">ss</span><span class="o">=</span><span class="n">sympy</span><span class="o">.</span><span class="n">BlockMatrix</span><span class="p">([[</span><span class="n">s_2</span><span class="p">,</span><span class="n">zero</span><span class="p">],[</span><span class="n">zero</span><span class="p">,</span><span class="n">s_2</span><span class="p">]])</span>
 <span class="n">sympy</span><span class="o">.</span><span class="n">block_collapse</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">ss</span><span class="o">*</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-
-<span class="c1">#s_2=sympy.Matrix([[0,1],[-1,0]])</span>
-<span class="c1">#a,b,c,d=sympy.symbols(&#39;a b c d&#39;)</span>
-<span class="c1">#u,v,x,y=sympy.symbols(&#39;u v x y&#39;)</span>
-<span class="c1">#ma=sympy.Matrix([[a,b],[c,d]])</span>
-<span class="c1">#mb=sympy.Matrix([[u,v],[x,y]])</span>
-<span class="c1">#mb.T*s_2*ma</span>
 </pre></div>
 
     </div>
@@ -13379,13 +13422,13 @@ M_2 S_2 U^T+V S_2 M_1^T&amp;=U S_2 M_2^T + M_1 S_2 V^T=0
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
 
 <div class="output_latex output_subarea output_execute_result">
-$$\left[\begin{matrix}M_{1} S_{2} M_{1}^T + U S_{2} U^T & M_{1} S_{2} V^T + U S_{2} M_{2}^T\\M_{2} S_{2} U^T + V S_{2} M_{1}^T & M_{2} S_{2} M_{2}^T + V S_{2} V^T\end{matrix}\right]$$
+$\displaystyle \left[\begin{matrix}A S_{2} A^{T} + B S_{2} B^{T} & A S_{2} C^{T} + B S_{2} D^{T}\\C S_{2} A^{T} + D S_{2} B^{T} & C S_{2} C^{T} + D S_{2} D^{T}\end{matrix}\right]$
 </div>
 
 </div>
@@ -13404,15 +13447,42 @@ A^TS_2A=AS_2A^T=
 0 &amp; \det A\\
 -\det A &amp; 0
 \end{array}\right)
-\end{align}<p>We know that:</p>
+\end{align}<p>From \ref{Mmatdet} and \ref{Mtmatdet}, we know that:</p>
 \begin{align}
-\det M_1 + \det V=\det M_2 + \det U &amp;=1\\
-\det M_2 + \det V=\det M_1 + \det U &amp;=1
+\det A + \det C=\det D + \det B &amp;=1\\
+\det D + \det C=\det A + \det B &amp;=1
 \end{align}<p>Therefore, we always have:</p>
 \begin{align}
-\det M_1  = \det M_2 &amp;\equiv a\\
-\det U = \det V &amp;\equiv b\\
+\det A  = \det D &amp;\equiv a\\
+\det B = \det C &amp;\equiv b\\
 a+b&amp;=1
+\end{align}<p>And from \ref{Mmatzero} and \ref{Mtmatzero}, we have</p>
+\begin{align}
+\bar{A}B+\bar{C}D=\bar{B}A+\bar{D}C=0\\
+A\bar{C}+B\bar{D}=C\bar{A} + D\bar{B}=0 
+\end{align}<p>The inverse of a blocked 4-by-4 matrix is simply:</p>
+\begin{align}
+M^{-1}&amp;=
+\left(\begin{array}{cc}
+A &amp; B\\
+C &amp; D
+\end{array}\right)^{-1}=-SM^TS \\
+&amp;=-\left(\begin{array}{cc}
+S_{1} &amp; 0\\
+0 &amp; S_{1}
+\end{array}\right)
+\left(\begin{array}{cc}
+A^T &amp; C^T\\
+B^T &amp; D^T
+\end{array}\right)
+\left(\begin{array}{cc}
+S_{1} &amp; 0\\
+0 &amp; S_{1}
+\end{array}\right)\\
+&amp;=\left(\begin{array}{cc}
+\bar{A} &amp; \bar{C}\\
+\bar{B} &amp; \bar{D}
+\end{array}\right)
 \end{align}
 </div>
 </div>
@@ -13420,9 +13490,9 @@ a+b&amp;=1
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If we are exploring $x$-$z$ or $y$-$z$ phase space, the matrix $U$ usually has the form below for DC magnets:</p>
+<p>Here is a useful example.  If we are exploring $x$-$z$ or $y$-$z$ phase space, the matrix $U$ usually has the form below for DC magnets:</p>
 \begin{align}
-U=
+B=
 \left(\begin{array}{cc}
 \begin{array}{c}
 0\\
@@ -13433,14 +13503,14 @@ d_{2}
 \end{array}\right)\end{array}\right)
 \end{align}<p>Then</p>
 \begin{align}
-\det M_1  = \det M_2 &amp;=1\\
-\det U = \det V &amp;=0
+\det A  = \det D &amp;=1\\
+\det B = \det C &amp;=0
 \end{align}<p>And from</p>
 \begin{align}
-M_1^T S_2 U+V^T S_2 M_2=0
+\bar{B}A+\bar{D}C=0
 \end{align}<p>We have</p>
 \begin{align}
-V=M_2 S_2 U^T S_2 M_1
+C=-D\bar{B}A
 \end{align}
 </div>
 </div>
@@ -13448,7 +13518,7 @@ V=M_2 S_2 U^T S_2 M_1
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Block-matrix-for-3-D-system">Block matrix for 3-D system<a class="anchor-link" href="#Block-matrix-for-3-D-system">&#182;</a></h3>
+<h4 id="Block-matrix-for-3-D-system">Block matrix for 3-D system<a class="anchor-link" href="#Block-matrix-for-3-D-system">&#182;</a></h4>
 </div>
 </div>
 </div>
